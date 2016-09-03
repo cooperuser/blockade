@@ -1,0 +1,38 @@
+requirements:
+    HTML (learned in Programming class but expanded in Badges last year)
+    CSS (learned in Programming class but expanded in Badges last year)
+    Javascript (taught myself in Badges last year)
+8-23-16:
+    Project Started
+    Got window operational
+    Made main menu
+8-24-16:
+    Worked on level select screen
+    implemented method of creating levels (WIP)
+8-25-16:
+    Made game playable
+    Play-tested the game with a bunch of classmates
+    Working on implementing the level creator
+    Implemented Level creator
+8-26-16:
+    Further implemented level creator
+    Finished Level Creator; made custom levels playable and re-editable without saving
+8-29-16:
+    Prettied up on looks, cleaned up some code
+8-30-16:
+    Working on finishing level select
+8-31-16:
+    Started remaking everything in a more future-ready way, which is difficult because I have to remake everything in order to do so
+9-1-16:
+    Continued remaking the game
+
+
+
+Ideas:
+    Antony/Cooper:
+        Block that becomes floor
+        Block that becomes immovable wall
+        Plate that opens doors or makes paths
+    Grady:
+        A "light" block that works like other blocks except that it can't hold down the goal plate
+        Different colors of blocks that are able to activate differently colored plates

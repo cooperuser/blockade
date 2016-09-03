@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Blockade - Level Select</title>
+		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<style>
+			td {
+				padding: 5px;
+			}
+			.btn-lg {
+				padding: 18px 19px;
+			}
+		</style>
+	</head>
+	<body style="font-family: Hasklig;">
+		<div class="container" align="center">
+			<br><br><br>
+			<a href="#" id="leftArrow" data-id="0" class="btn btn-info move"><-</a>
+			<a href="#" id="title" class="btn btn-info" style="width: 290px;">Page </a>
+			<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
+			<br><br>
+			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 134px; height: 290px;">
+				<div class="panel-heading">
+					<h3 class="panel-title">Local Score</h3>
+				</div>
+				<div class="panel-body" style="padding-top: 8px;">
+					<span style="float: left;">Level: </span><span class="local level" style="float: right;"></span><br><br>
+					<span style="float: left;">Time: </span><span class="local time" style="float: right;"></span><br><br>
+					<span style="float: left;">Moves: </span><span class="local moves" style="float: right;"></span><br><br>
+					<span style="float: left;">Accuracy: </span><span class="local accuracy" style="float: right;"></span><br><br>
+					<span style="float: left;">Score: </span><span class="local score" style="float: right;"></span><br><br>
+					<span style="float: left;">Rank: </span><span class="local rank" style="float: right;"></span><br><br>
+				</div>
+			</div>
+
+			<table id="table" data-id="1" style="margin-right: 7px;">
+			</table>
+			<br>
+			<a href="menu.html" class="btn btn-default" style="width: 140px;">Back</a>
+			<a href="#" class="btn btn-info" id="play-button" style="width: 140px;" data-id="" disabled>Play</a>
+
+			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 134px; height: 290px;">
+				<div class="panel-heading">
+					<h3 class="panel-title">Global Score</h3>
+				</div>
+				<div class="panel-body" style="padding-top: 8px;">
+					<span style="float: left;">Level: </span><span class="global level" style="float: right;"></span><br><br>
+					<span style="float: left;">Time: </span><span class="global time" style="float: right;"></span><br><br>
+					<span style="float: left;">Moves: </span><span class="global moves" style="float: right;"></span><br><br>
+					<span style="float: left;">Accuracy: </span><span class="global accuracy" style="float: right;"></span><br><br>
+					<span style="float: left;">Score: </span><span class="global score" style="float: right;"></span><br><br>
+					<span style="float: left;">Rank: </span><span class="global rank" style="float: right;"></span><br><br>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script>
+		const fs = require("fs");
+		var width = 4;
+		var height = 4;
+		progress = JSON.parse(fs.readFileSync(`${__dirname}/data/progress.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
+		function load() {
+			page = Number($("#table").data("id"));
+			$("#title").html(`Page ${page}`);
+			for (var y = 0; y < height; y++) {
+				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
+				for (var x = 0; x < width; x++) {
+					level = ((y) * height + x + 1) + (width * height * (page - 1));
+					path = `${__dirname}/data/levels/level${level}.json`;
+					json = (fs.existsSync(`${__dirname}/data/levels/level${String(level)}.json`))?fs.readFileSync(`${__dirname}/data/levels/level${String(level)}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""):"{}";
+					color = (progress.completed.includes(`level${level}`))?"success":"primary";
+					color = (progress.unlocked.includes(`level${level}`))?color:"default";
+					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
+					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button" stye="width: 65px;">${level}</a>`)//play.html?leveldata=${path}
+				}
+			}
+			if (page == 1) {
+				$("#leftArrow").attr("disabled", "disabled");
+			} else {
+				$("#leftArrow").removeAttr("disabled");
+			}
+		}
+		function move(dir) {
+			page = Number($("#table").data("id"));
+			if (dir == 0) {
+				$("#table").data("id", page - 1);
+			} else {
+				$("#table").data("id", page + 1);
+			}
+			$("#table").empty();
+			load();
+		}
+		$(".move").on("click", function() {
+			if ($(this).attr("disabled") != "disabled") {
+				move(Number($(this).data("id")));
+			}
+		});
+		$("#table").on("click", ".level-button", function() {
+			level = $(this).attr("id");
+			path = `${__dirname}/data/levels/level${level}.json`;
+			$(".local.level").html(level);
+			if (fs.existsSync(path)) {
+				$("#play-button").removeAttr("disabled").data("id", level);
+			} else {
+				$("#play-button").attr("disabled", "disabled").data("id", 0);
+			}
+		});
+		$("#play-button").on("click", function() {
+			if (!$(this).attr("disabled")) {
+				window.location = `play.html?leveldata=${$(this).data("id")}&custom=0`
+			}
+		});
+		load();
+	</script>
+</html>

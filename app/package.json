@@ -1,0 +1,7 @@
+{
+  "name": "blockade",
+  "productName": "Blockade",
+  "version": "v0.0.1",
+  "release": "alpha",
+  "main": "main.js"
+}

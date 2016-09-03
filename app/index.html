@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Blockade</title>
+		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	</head>
+	<body style="font-family: Hasklig;">
+		<div class="container" align="center">
+			<br><br><br><br><br><br><br><br><br><br>
+			<h1 id="title" style="font-family: Hasklig; font-size: 80px; opacity: 0.0;">「Blockade」</h1><br><br>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script>
+		setTimeout(function() {}, 500)
+		$("#title").animate({opacity: 1.0}, 1000, function() {console.log("test")})
+		setTimeout(function() {
+			window.location = "menu.html";
+		}, 1750);
+	</script>
+</html>
