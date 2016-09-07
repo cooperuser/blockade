@@ -14,9 +14,8 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 @font-face {
-	font-family: 'Hasklig';
-	src: url('./font/Hasklig-Regular.otf');
-	src: local('Hasklig Regular'), local('Haslkig'), url('./font/Hasklig-Regular.otf') format('truetype');
+	font-family: Hasklig;
+	src: url("../font/Hasklig-Regular.otf") format("opentype");
 }
 html {
 	font-family: sans-serif;
