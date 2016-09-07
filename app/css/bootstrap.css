@@ -18,7 +18,6 @@
 	src: url('./font/Hasklig-Regular.otf');
 	src: local('Hasklig Regular'), local('Haslkig'), url('./font/Hasklig-Regular.otf') format('truetype');
 }
-
 html {
 	font-family: sans-serif;
 	-ms-text-size-adjust: 100%;
