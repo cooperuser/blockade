@@ -25,6 +25,10 @@ requirements:
     Started remaking everything in a more future-ready way, which is difficult because I have to remake everything in order to do so
 9-1-16:
     Continued remaking the game
+...
+9-7-16:
+    Implemented the font to work even if the user doesn't have the font installed
+    Took many bug reports from classmates, they include but are not limited to: pressing 'p' when saving a level, a solution to why the stretch glitch occurs
 
 
 
