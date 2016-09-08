@@ -147,7 +147,7 @@ $("#game").on("click", ".directional-button", function() {
 });
 function move() {
 	moves++;
-	$("#turns").html(moves);
+	$("#moves").html(moves);
 }
 function checkForWin() {
 	pressed = []
