@@ -212,15 +212,17 @@ $("#save").on("click", function() {
 });
 
 $(document).on("keydown", function(event) {
-	if (event.key == "1") {
-		$(`.select-${"blank"}`).trigger("click");
-	} else if (event.key == "2") {
-		$(`.select-${"tile"}`).trigger("click");
-	} else if (event.key == "3") {
-		$(`.select-${"block"}`).trigger("click");
-	} else if (event.key == "4") {
-		$(`.select-${"plate"}`).trigger("click");
-	} else if (event.key == "p") {
-		$("#play").trigger("click");
+	if (!$("#saveModal").hasClass("in")) {
+		if (event.key == "1") {
+			$(`.select-${"blank"}`).trigger("click");
+		} else if (event.key == "2") {
+			$(`.select-${"tile"}`).trigger("click");
+		} else if (event.key == "3") {
+			$(`.select-${"block"}`).trigger("click");
+		} else if (event.key == "4") {
+			$(`.select-${"plate"}`).trigger("click");
+		} else if (event.key == "p") {
+			$("#play").trigger("click");
+		}
 	}
 });
