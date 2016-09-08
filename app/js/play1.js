@@ -32,6 +32,11 @@ if (custom == '0') {
 
 leveldata = JSON.parse(file);
 
+//
+$("#levelNumber").html(level);
+$("#levelName").html(leveldata.data.name);
+$("#levelCreators").html(leveldata.data.creators.join(", "));
+//
 grid = []
 moves = 0
 $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static';

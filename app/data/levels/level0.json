@@ -18,8 +18,8 @@
 	[1, 1]
   ],
   "data": {
-  	"name": "null",
-  	"creators": [],
+  	"name": "Debug",
+  	"creators": ["Cooper Anderson"],
   	"moves": 0
   }
 }
