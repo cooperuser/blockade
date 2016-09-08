@@ -6,13 +6,38 @@
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
-	<body>
-		<a href="menu.html">Back</a>
+	<body style="font-family: Hasklig;">
+		<nav id="menu" class="navbar navbar-default" style="position: absolute; left:0px;">
+			<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="levelselect.html">Level Select</a></li>
+						<li><a href="#" class="modal-button" data-toggle="modal" data-target="#helpModal">Help</a></li>
+						<li><a href="#" id="restart">Restart</a></li>
+						<li><a href="menu.html" id="exit">Exit</a></li>
+						<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	</body>
 	<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="js/blockade.js"></script>
 	<script>
 		init();
+		$("#menu").css({left: `${54 - $("#menu").width()}px`});
+		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
+
+		$("#menu").on("mouseenter", function() {
+			setTimeout(function() {$("#menuArrow").html('«')}, 100)
+			$(this).stop().animate({left: "0px"}, 200);
+		});
+		$("#menu").on("mouseleave", function() {
+			setTimeout(function() {$("#menuArrow").html('»')}, 100)
+			$(this).stop().animate({left: `${54 - $("#menu").width()}px`}, 200);
+		});
+
+		//$("#menu").animate({left: "0px"});
 	</script>
 </html>

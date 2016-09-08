@@ -78,11 +78,11 @@ leveldata.blocks.forEach(function (block, index) {
 
 $("#menu").on("mouseenter", function() {
 	setTimeout(function() {$("#arrow").html('«')}, 100)
-	$(this).animate({left:0}, 200);
+	$(this).stop().animate({left:0}, 200);
 });
 $("#menu").on("mouseleave", function() {
 	setTimeout(function() {$("#arrow").html('»')}, 100)
-	$(this).animate({left:-385}, 200);
+	$(this).stop().animate({left:-385}, 200);
 });
 $("#panel-arrow").on("click", function() {
 	setTimeout(function() {$("#panel-arrow").html(($("#panel-arrow").html() == '»')?'«':'»')}, 100)
