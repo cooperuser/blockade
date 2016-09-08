@@ -35,7 +35,7 @@ leveldata = JSON.parse(file);
 //
 $("#levelNumber").html(level);
 $("#levelName").html(leveldata.data.name);
-$("#levelCreators").html(leveldata.data.creators.join(", "));
+//$("#levelCreators").html(leveldata.data.creators.join(", "));
 //
 grid = []
 moves = 0
