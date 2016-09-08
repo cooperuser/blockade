@@ -61,6 +61,7 @@
 		const fs = require("fs");
 		var width = 4;
 		var height = 4;
+		var level;
 		progress = JSON.parse(fs.readFileSync(`${__dirname}/data/progress.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
 		function load() {
 			page = Number($("#table").data("id"));
@@ -99,13 +100,19 @@
 			}
 		});
 		$("#table").on("click", ".level-button", function() {
-			level = $(this).attr("id");
-			path = `${__dirname}/data/levels/level${level}.json`;
-			$(".local.level").html(level);
-			if (fs.existsSync(path)) {
-				$("#play-button").removeAttr("disabled").data("id", level);
+			if (level != $(this).attr("id")) {
+				level = $(this).attr("id");
+				path = `${__dirname}/data/levels/level${level}.json`;
+				$(".local.level").html(level);
+				if (fs.existsSync(path)) {
+					$("#play-button").removeAttr("disabled").data("id", level);
+				} else {
+					$("#play-button").attr("disabled", "disabled").data("id", 0);
+				}
 			} else {
-				$("#play-button").attr("disabled", "disabled").data("id", 0);
+				if (!$("#play-button").attr("disabled")) {
+					window.location = `play.html?leveldata=${$("#play-button").data("id")}&custom=0`
+				}
 			}
 		});
 		$("#play-button").on("click", function() {
