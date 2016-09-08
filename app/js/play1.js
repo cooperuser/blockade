@@ -100,6 +100,9 @@ $("#restart").on("click", function() {
 	location = location.pathname + location.search;
 });
 $("#game").on("mouseenter", ".block-group", function() {
+	if (level == 1) {
+		$(this).trigger("mouseleave");
+	}
 	id = $(this).data("id");
 	$(this).addClass("mouseover");
 	x = leveldata.blocks[id][0]; y = leveldata.blocks[id][1];
@@ -196,3 +199,6 @@ $(document).on("keydown", function(event) {
 		}
 	}
 });
+if (level == 1) {
+	$(".block-group").trigger("mouseenter");
+}
