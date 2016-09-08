@@ -185,14 +185,14 @@ $("#openButton").on("click", function() {
 	files = fs.readdirSync(`${__dirname}/data/levels/user`);
 	$("#selectBox").empty();
 	for (var i = 0; i < files.length; i++) {
-		$("#selectBox").append(`<option>${files[i]}</option>`)
+		$("#selectBox").append(`<option>${files[i].split('.')[0]}</option>`)
 	}
 });
 
 $("#open").on("click", function() {
 	if ($("select").val().length > 0) {
 		name = $("select").val();
-		location = location.pathname + "?play=2&name="+name;
+		location = location.pathname + "?play=2&name="+name+".json";
 	}
 });
 
