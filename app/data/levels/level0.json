@@ -12,12 +12,14 @@
 	[2, 2]
   ],
   "blocks": [
-	[1, 0]
+	[0, 2]
   ],
   "plates": [
 	[1, 1]
   ],
   "data": {
-	"moves": 4
+  	"name": "null",
+  	"creators": [],
+  	"moves": 0
   }
 }
