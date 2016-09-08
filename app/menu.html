@@ -9,6 +9,9 @@
 			span.label {
 				padding-top: 3.375px;
 			}
+			.label-purple {
+				background-color: #9C27B0;
+			}
 		</style>
 	</head>
 	<body style="font-family: Hasklig;">
@@ -52,7 +55,9 @@
 		});
 		////////
 		data = JSON.parse(fs.readFileSync(`${__dirname}/package.json`,'utf8'))
-		if (data.release == "alpha") {
+		if (data.release == "indev") {
+			$("#version").addClass("label-danger").addClass("label-purple");
+		} else if (data.release == "alpha") {
 			$("#version").addClass("label-danger");
 		} else if (data.release == "beta") {
 			$("#version").addClass("label-warning");
