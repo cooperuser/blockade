@@ -6,12 +6,27 @@ level = location.search.split("?")[1].split("&")[0].split('=')[1];
 custom = location.search.split("?")[1].split("&")[1].split('=')[1];
 if (custom == '0') {
 	file = fs.readFileSync(`${__dirname}/data/levels/level${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
-	cont = "levelselect.html";
+	files = fs.readdirSync(`${__dirname}/data/levels`);
+	offset = 1
+	while (true) {
+		console.log("test");
+		if (files.includes("level"+String(Number(level)+offset)+".json")) {
+			cont = `play.html?leveldata=${Number(level)+offset}&custom=0`
+			break;
+		}
+		if (Number(level)+offset > files.length) {
+			$("#continue").attr("disabled", "disabled");
+			break;
+		}
+		offset++;
+	}
 } else if (custom != '2') {
 	file = fs.readFileSync(`${__dirname}/data/levels/user/${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 } else {
 	file = fs.readFileSync(`${__dirname}/data/levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 	$("#exit").html("Back").attr("href", "editor.html?play=1");
+	$("#levelSelect").remove();
+	$("#continue").html("Back to Editor");
 	cont = "editor.html?play=1";
 }
 
@@ -33,6 +48,10 @@ for (var x = 0; x < leveldata.grid[0]; x++) {
 	for (var y = 0; y < leveldata.grid[1]; y++) {
 		grid[x].push([]);
 	}
+}
+
+function updateProgress() {
+
 }
 
 $("#game").css({"width": `${leveldata.grid[0] * 50}px`})
@@ -65,7 +84,12 @@ $("#panel-arrow").on("click", function() {
 	$("#panel").animate({left:($("#panel").css("left") == "542px")?742:542}, 200);
 });
 $("#continue").on("click", function() {
+	updateProgress();
 	window.location = cont;
+});
+$("#levelSelect").on("click", function() {
+	updateProgress();
+	window.location = "levelselect.html";
 });
 $("#restart").on("click", function() {
 	location = location.pathname + location.search;
