@@ -15,7 +15,7 @@ if (custom == '0') {
 			break;
 		}
 		if (Number(level)+offset > files.length) {
-			$("#continue").attr("disabled", "disabled");
+			cont = "levelselect.html";
 			break;
 		}
 		offset++;
