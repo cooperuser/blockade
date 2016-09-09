@@ -173,12 +173,12 @@ $(".select").on("click", function() {
 
 $("#menu").on("mouseenter", function() {
 	setTimeout(function() {$("#arrow").html("«")}, 100)
-	$(this).animate({left:0}, 200);
+	$(this).stop().animate({left:0}, 200);
 });
 
 $("#menu").on("mouseleave", function() {
 	setTimeout(function() {$("#arrow").html("»")}, 100)
-	$(this).animate({left:-353}, 200);
+	$(this).stop().animate({left:-353}, 200);
 });
 
 $("#openButton").on("click", function() {
