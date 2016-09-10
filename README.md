@@ -45,3 +45,7 @@ The `AND gate` is a `logic gate` that has two `inputs` and one `output`. The `ou
 
 ### XOR Gate `WIP`
 the `XOR gate` is a `logic gate` that has two `inputs` and one `output`. The `output` will be powered if and only if exactly one of the `inputs` are powered. Unlike the [`OR gate`](#or-gate-wip), the `output` of the `XOR gate` will not be powered if both `inputs` are on.
+
+# Contribution
+While making this game, I had lots of help in the forms of ideas, bug reports, suggestions, or just plain feedback.
+There were many different people helping with these contributions, but I would have to say that [@grady404](https://github.com/grady404) contributed the most. I also had suggestions from many other people at my school.
