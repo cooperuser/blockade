@@ -120,10 +120,10 @@ $("#game").on("mouseenter", ".block-group", function() {
 			disable: (grid[x+j] instanceof Array && grid[x+j][y] instanceof Array && grid[x+j][y].includes("tile") && (!grid[x+j][y].includes("block")))?"":"disabled ",
 		}
 	}
-	$(this).append(`<span class="button-group"><a href="#" class="btn btn-${vert[0].type} directional-button directional-button-vertical" ${vert[0].disable}style="left: 0px; top: -20px;" id="up" data-id="${id}"></a>
-<a href="#" class="btn btn-${vert[1].type} directional-button directional-button-vertical" ${vert[1].disable}style="left: 0px; top: 20px;" id="down" data-id="${id}"></a>
-<a href="#" class="btn btn-${horz[0].type} directional-button directional-button-horizontal" ${horz[0].disable}style="left: -20px; top: 0px;" id="left" data-id="${id}"></a>
-<a href="#" class="btn btn-${horz[1].type} directional-button directional-button-horizontal" ${horz[1].disable}style="left: 20px; top: 0px;" id="right" data-id="${id}"></a></span>`)
+	$(this).append(`<span class="button-group"><a href="#" class="btn btn-${vert[0].type} directional-button directional-button-vertical ${vert[0].disable}" ${vert[0].disable}style="left: 0px; top: -20px;" id="up" data-id="${id}"></a>
+<a href="#" class="btn btn-${vert[1].type} directional-button directional-button-vertical ${vert[1].disable}" ${vert[1].disable}style="left: 0px; top: 20px;" id="down" data-id="${id}"></a>
+<a href="#" class="btn btn-${horz[0].type} directional-button directional-button-horizontal ${horz[0].disable}" ${horz[0].disable}style="left: -20px; top: 0px;" id="left" data-id="${id}"></a>
+<a href="#" class="btn btn-${horz[1].type} directional-button directional-button-horizontal ${horz[1].disable}" ${horz[1].disable}style="left: 20px; top: 0px;" id="right" data-id="${id}"></a></span>`)
 	//$(".block-group").animate({left: "200px"})
 });
 $("#game").on("mouseleave", ".block-group", function() {
