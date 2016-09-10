@@ -185,7 +185,12 @@ $("#openButton").on("click", function() {
 	files = fs.readdirSync(`${__dirname}/data/levels/user`);
 	$("#selectBox").empty();
 	for (var i = 0; i < files.length; i++) {
-		$("#selectBox").append(`<option>${files[i].split('.')[0]}</option>`)
+		if (files[i] != ".DS_Store") {
+			levelName = files[i].split('.')
+			levelName.pop();
+			levelName = levelName.join('.');
+			$("#selectBox").append(`<option>${levelName}</option>`)
+		}
 	}
 });
 
