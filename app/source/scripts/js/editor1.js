@@ -108,7 +108,7 @@ for (var g = 0; g < location.search.slice(1).split('&').length; g++) {
 }
 
 if (location.search.split("?")[1].split("&")[0].split('=')[1] == '1') {
-	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/data/levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
+	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
 	leveldata.tiles.forEach(function(item, index) {
 		grid[item[0]][item[1]].push("tile");
 		place["tile"]({x: item[0], y: [item[1]]});
@@ -123,7 +123,7 @@ if (location.search.split("?")[1].split("&")[0].split('=')[1] == '1') {
 	});
 } else if (_GET["play"] == '2') {
 	name = _GET["name"]
-	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/data/levels/user/${name}`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
+	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/${name}`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
 	leveldata.tiles.forEach(function(item, index) {
 		grid[item[0]][item[1]].push("tile");
 		place["tile"]({x: item[0], y: [item[1]]});
@@ -182,7 +182,7 @@ $("#menu").on("mouseleave", function() {
 });
 
 $("#openButton").on("click", function() {
-	files = fs.readdirSync(`${__dirname}/data/levels/user`);
+	files = fs.readdirSync(`${__dirname}/../../save-data/user-levels/`);
 	$("#selectBox").empty();
 	for (var i = 0; i < files.length; i++) {
 		if (files[i] != ".DS_Store") {
@@ -203,7 +203,7 @@ $("#open").on("click", function() {
 
 $("#play").on("click", function() {
 	setGrid();
-	fs.writeFileSync(`${__dirname}/data/levels/temp.json`, JSON.stringify(leveldata), "utf8");
+	fs.writeFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, JSON.stringify(leveldata), "utf8");
 	location = "play.html?leveldata=temp&custom=2";
 })
 
@@ -211,7 +211,7 @@ $("#save").on("click", function() {
 	setGrid();
 	if ($("#name").val() != "") {
 		name = $("#name").val();
-		fs.writeFileSync(`${__dirname}/data/levels/user/${name}.json`, JSON.stringify(leveldata), "utf8");
+		fs.writeFileSync(`${__dirname}/../../save-data/user-levels/${name}.json`, JSON.stringify(leveldata), "utf8");
 	}
 	$("#saveModal").modal("toggle");
 });

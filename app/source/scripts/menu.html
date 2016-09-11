@@ -54,7 +54,7 @@
 			remote.app.quit()
 		});
 		////////
-		data = JSON.parse(fs.readFileSync(`${__dirname}/package.json`,'utf8'))
+		data = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`,'utf8'))
 		if (data.release == "indev") {
 			$("#version").addClass("label-danger").addClass("label-purple");
 		} else if (data.release == "alpha") {
