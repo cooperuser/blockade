@@ -108,7 +108,7 @@ for (var g = 0; g < location.search.slice(1).split('&').length; g++) {
 }
 
 if (location.search.split("?")[1].split("&")[0].split('=')[1] == '1') {
-	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
+	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
 	leveldata.tiles.forEach(function(item, index) {
 		grid[item[0]][item[1]].push("tile");
 		place["tile"]({x: item[0], y: [item[1]]});
@@ -185,7 +185,7 @@ $("#openButton").on("click", function() {
 	files = fs.readdirSync(`${__dirname}/../../save-data/user-levels/`);
 	$("#selectBox").empty();
 	for (var i = 0; i < files.length; i++) {
-		if (files[i] != ".DS_Store") {
+		if (files[i][0] != '.') {
 			levelName = files[i].split('.')
 			levelName.pop();
 			levelName = levelName.join('.');
@@ -203,17 +203,17 @@ $("#open").on("click", function() {
 
 $("#play").on("click", function() {
 	setGrid();
-	fs.writeFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, JSON.stringify(leveldata), "utf8");
-	location = "play.html?leveldata=temp&custom=2";
+	fs.writeFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, JSON.stringify(leveldata), "utf8");
+	location = "play.html?leveldata=.last-opened&custom=2";
 })
 
 $("#save").on("click", function() {
 	setGrid();
-	if ($("#name").val() != "") {
+	if ($("#name").val() != "" && $("#name").val()[0] != '.') {
 		name = $("#name").val();
 		fs.writeFileSync(`${__dirname}/../../save-data/user-levels/${name}.json`, JSON.stringify(leveldata), "utf8");
+		$("#saveModal").modal("toggle");
 	}
-	$("#saveModal").modal("toggle");
 });
 
 $(document).on("keydown", function(event) {

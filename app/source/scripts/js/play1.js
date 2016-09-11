@@ -23,9 +23,9 @@ if (custom == '0') {
 } else if (custom != '2') {
 	file = fs.readFileSync(`${__dirname}/../../save-data/user-levels/${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 } else {
-	file = fs.readFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
+	file = fs.readFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 	$("#exit").html("Back").attr("href", "editor.html?play=1");
-	$("#exit").html("Back").attr("onclick", "//fs.unlinkSync(`${__dirname}/../../save-data/user-levels/temp.json`);");
+	$("#exit").html("Back").attr("onclick", "//fs.unlinkSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`);");
 	$("#levelSelect").remove();
 	$("#continue").html("Back to Editor");
 	cont = "editor.html?play=1";
