@@ -62,7 +62,7 @@
 		var width = 4;
 		var height = 4;
 		var level;
-		progress = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/progress.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
+		progress = JSON.parse(fs.readFileSync(`${__dirname}/../resources/default-levels/unlocked.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
 		function load() {
 			page = Number($("#table").data("id"));
 			$("#title").html(`Page ${page}`);
