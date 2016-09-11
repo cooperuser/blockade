@@ -15,7 +15,7 @@
 
 @font-face {
 	font-family: Hasklig;
-	src: url("../font/Hasklig-Regular.otf") format("opentype");
+	src: url("../../resources/fonts/Hasklig-Regular.otf") format("opentype");
 }
 html {
 	font-family: sans-serif;

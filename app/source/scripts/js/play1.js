@@ -5,8 +5,8 @@ const fs = require("fs");
 level = location.search.split("?")[1].split("&")[0].split('=')[1];
 custom = location.search.split("?")[1].split("&")[1].split('=')[1];
 if (custom == '0') {
-	file = fs.readFileSync(`${__dirname}/data/levels/level${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
-	files = fs.readdirSync(`${__dirname}/data/levels`);
+	file = fs.readFileSync(`${__dirname}/../resources/default-levels/level${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
+	files = fs.readdirSync(`${__dirname}/../resources/default-levels/`);
 	offset = 1
 	while (true) {
 		console.log("test");
@@ -21,9 +21,9 @@ if (custom == '0') {
 		offset++;
 	}
 } else if (custom != '2') {
-	file = fs.readFileSync(`${__dirname}/data/levels/user/${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
+	file = fs.readFileSync(`${__dirname}/../../save-data/user-levels/${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 } else {
-	file = fs.readFileSync(`${__dirname}/data/levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
+	file = fs.readFileSync(`${__dirname}/../../save-data/user-levels/temp.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
 	$("#exit").html("Back").attr("href", "editor.html?play=1");
 	$("#levelSelect").remove();
 	$("#continue").html("Back to Editor");
@@ -179,6 +179,9 @@ function checkForWin() {
 	}
 }
 function win() {
+	if (custom != 0) {
+		fs.unlinkSync(`${__dirname}/../../save-data/user-levels/temp.json`);
+	}
 	clearInterval(clock);
 	setTimeout(function () {
 		$("#winModal").modal("toggle")
