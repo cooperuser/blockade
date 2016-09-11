@@ -49,6 +49,3 @@ the `XOR gate` is a `logic gate` that has two `inputs` and one `output`. The `ou
 # Contribution
 While making this game, I had lots of help in the forms of ideas, bug reports, suggestions, or just plain feedback.
 There were many different people helping with these contributions, but I would have to say that [@grady404](https://github.com/grady404) contributed the most. I also had suggestions from many other people at my school.
-
-* [ ] test
-- [ ] test
