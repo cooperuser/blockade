@@ -41,6 +41,7 @@
 	],
 	"data": {
 		"name": "Underground Heist",
-		"creators": ["Grady Shoemaker"]
+		"creators": ["Grady Shoemaker"],
+		"moves": 17
 	}
 }
