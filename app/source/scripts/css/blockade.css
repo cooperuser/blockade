@@ -1,0 +1,69 @@
+.tile {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.tile>div {
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	width: 48px;
+	height: 48px;
+}
+
+.plate {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.plate>div {
+	position: absolute;
+	left: 17px;
+	top: 17px;
+	width: 16px;
+	height: 16px;
+}
+
+.block {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.block-center {
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 46px;
+	height: 46px;
+}
+.block-corner-topLeft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	left: 2px;
+	top: 2px;
+}
+.block-corner-topRight {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	right: 2px;
+	top: 2px;
+	transform: rotate(90deg);
+}
+.block-corner-bottomLeft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	left: 2px;
+	bottom: 2px;
+	transform: rotate(270deg);
+}
+.block-corner-bottomRight {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	right: 2px;
+	bottom: 2px;
+	transform: rotate(180deg);
+}

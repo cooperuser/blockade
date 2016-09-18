@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<title>Testing</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
+		<link rel="stylesheet" href="../resources/themes/default.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
 	<body style="font-family: Hasklig;">
@@ -20,6 +22,52 @@
 				</div>
 			</div>
 		</nav>
+		<div id="game">
+			<div id="tiles">
+
+			</div>
+			<div id="plates">
+
+			</div>
+			<div id="blocks">
+
+			</div>
+			<span class="block Standard" id="test" style="left: 525px; top: 350px;">
+				<div class="block-center color-1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/center.svg);"></div>
+				<div class="block-corner block-corner-topLeft color-1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-topRight color-1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomLeft color-1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomRight color-1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+			</span>
+			<span class="block Standard" style="left: 500px; top: 400px;">
+				<div class="block-center color0" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/center.svg);"></div>
+				<div class="block-corner block-corner-topLeft color0" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-topRight color0" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomLeft color0" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomRight color0" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+			</span>
+			<span class="block Standard" style="left: 550px; top: 400px;">
+				<div class="block-center color1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/center.svg);"></div>
+				<div class="block-corner block-corner-topLeft color1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-topRight color1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomLeft color1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomRight color1" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+			</span>
+			<span class="block Standard" style="left: 500px; top: 450px;">
+				<div class="block-center color2" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/center.svg);"></div>
+				<div class="block-corner block-corner-topLeft color2" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-topRight color2" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomLeft color2" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomRight color2" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+			</span>
+			<span class="block Standard" style="left: 550px; top: 450px;">
+				<div class="block-center color3" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/center.svg);"></div>
+				<div class="block-corner block-corner-topLeft color3" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-topRight color3" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomLeft color3" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+				<div class="block-corner block-corner-bottomRight color3" style="-webkit-mask-image: url(../resources/textures/blocks/Standard/outer.svg);"></div>
+			</span>
+		</div>
 	</body>
 	<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
@@ -37,7 +85,5 @@
 			setTimeout(function() {$("#menuArrow").html('»')}, 100)
 			$(this).stop().animate({left: `${54 - $("#menu").width()}px`}, 200);
 		});
-
-		//$("#menu").animate({left: "0px"});
 	</script>
 </html>

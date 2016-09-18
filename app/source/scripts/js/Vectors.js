@@ -7,6 +7,12 @@ class Vector2 {
 		this.x = x;
 		this.y = y;
 	}
+	static FromList(list) {
+		return new Vector2(list[0], list[1]);
+	}
+	static ToString(vector) {
+		return `(${vector.x}, ${vector.y})`
+	}
 }
 
 class Vector3 {
@@ -14,6 +20,12 @@ class Vector3 {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	static FromList(list) {
+		return new Vector3(list[0], list[1], list[2]);
+	}
+	static ToString(vector) {
+		return `(${vector.x}, ${vector.y}, ${vector.z})`
 	}
 }
 

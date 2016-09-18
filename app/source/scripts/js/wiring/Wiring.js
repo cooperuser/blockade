@@ -2,6 +2,8 @@
  * Created by Cooper Anderson on 9/9/16 AD.
  */
 
+const {Vector2} = require(`${__dirname}/../Vectors`);
+
 class Wire {
 	constructor(position=new Vector2(), color="white") {
 		this.position = position;
@@ -16,3 +18,5 @@ class Gate {
 		this.passable = true;
 	}
 }
+
+module.exports = {Wire, Gate};

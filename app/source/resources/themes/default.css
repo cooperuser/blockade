@@ -1,0 +1,35 @@
+.tile>.color-1 {
+	background-color: #333333;
+}
+
+.block>.color-1 {
+	background-color: #d4d4d4;
+}
+.block>.color0 {
+	background-color: #3498db;
+}
+.block>.color1 {
+	background-color: #e74c3c;
+}
+.block>.color2 {
+	background-color: #f39c12;
+}
+.block>.color3 {
+	background-color: #00bc8c;
+}
+
+.plate>.color-1 {
+	background-color: #d4d4d4;
+}
+.plate>.color0 {
+	background-color: #3498db;
+}
+.plate>.color1 {
+	background-color: #e74c3c;
+}
+.plate>.color2 {
+	background-color: #f39c12;
+}
+.plate>.color3 {
+	background-color: #00bc8c;
+}
