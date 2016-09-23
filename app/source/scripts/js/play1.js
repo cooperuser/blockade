@@ -5,8 +5,8 @@ const fs = require("fs");
 level = location.search.split("?")[1].split("&")[0].split('=')[1];
 custom = location.search.split("?")[1].split("&")[1].split('=')[1];
 if (custom == '0') {
-	file = fs.readFileSync(`${__dirname}/../resources/default-levels/level${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
-	files = fs.readdirSync(`${__dirname}/../resources/default-levels/`);
+	file = fs.readFileSync(`${__dirname}/../default-levels/level${level}.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", "");
+	files = fs.readdirSync(`${__dirname}/../default-levels/`);
 	offset = 1
 	while (true) {
 		console.log("test");

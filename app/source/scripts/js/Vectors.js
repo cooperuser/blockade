@@ -11,7 +11,8 @@ class Vector2 {
 		return new Vector2(list[0], list[1]);
 	}
 	static ToString(vector) {
-		return `(${vector.x}, ${vector.y})`
+		return `${vector.x}-${vector.y}`;
+		//return `(${vector.x}, ${vector.y})`
 	}
 }
 

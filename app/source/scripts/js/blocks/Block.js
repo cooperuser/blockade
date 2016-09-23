@@ -26,6 +26,7 @@ class Block {
 		var pos = this.position;
 		var dir = this.velocity;
 		var dest = new Vector2(pos.x + dir.x, pos.y + dir.y);
+		var movement = [[pos]];
 		if (!(dir.x == 0 && dir.y == 0) && typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
 			grid[pos.x][pos.y].tile.Depart(grid);
 		}
@@ -42,10 +43,16 @@ class Block {
 			this.position = pos;
 			dest = new Vector2(pos.x + dir.x, pos.y + dir.y);
 		}
+		movement[0][1] = pos;
+		this.Animate(movement);
 		return grid;
 	}
+	Animate(movement) {
+		$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).animate({left: `${100 + movement[0][1].x*50}px`, top: `${100 + movement[0][1].y*50}px`})
+		$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).attr("id", `#Block-Standard-${Vector2.ToString(movement[0][1])}`)
+	}
 	GetVisuals(grid) {
-		$("#game>#blocks").append(`<span class="block Standard Object" id="Block.Standard-${Vector2.ToString(this.position)}" style="left: ${100 + this.position.x*50}px; top: ${100 + this.position.y*50}px;">
+		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${Vector2.ToString(this.position)}" style="left: ${100 + this.position.x*50}px; top: ${100 + this.position.y*50}px;">
 				<div class="block-center color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/center.svg"});"></div>
 				<div class="block-corner-topLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 				<div class="block-corner-topRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>

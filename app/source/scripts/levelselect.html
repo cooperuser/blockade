@@ -62,7 +62,7 @@
 		var width = 4;
 		var height = 4;
 		var level;
-		progress = JSON.parse(fs.readFileSync(`${__dirname}/../resources/default-levels/unlocked.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
+		progress = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/unlocked.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
 		function load() {
 			page = Number($("#table").data("id"));
 			$("#title").html(`Page ${page}`);
@@ -70,7 +70,7 @@
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
 				for (var x = 0; x < width; x++) {
 					level = ((y) * height + x + 1) + (width * height * (page - 1));
-					var pathToFile = `${__dirname}/../resources/default-levels/level${level}.json`;
+					var pathToFile = `${__dirname}/../default-levels/level${level}.json`;
 					var json = (fs.existsSync(pathToFile))?fs.readFileSync(pathToFile, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""):"{}";
 					var color = (progress.completed.includes(`level${level}`))?"success":"primary";
 					var color = (progress.unlocked.includes(`level${level}`))?color:"default";
@@ -102,7 +102,7 @@
 		$("#table").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
 				level = $(this).attr("id");
-				var pathToFile = `${__dirname}/../resources/default-levels/level${level}.json`;
+				var pathToFile = `${__dirname}/../default-levels/level${level}.json`;
 				$(".local.level").html(level);
 				if (fs.existsSync(pathToFile)) {
 					$("#play-button").removeAttr("disabled").data("id", level);

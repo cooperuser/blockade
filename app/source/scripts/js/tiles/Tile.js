@@ -6,7 +6,6 @@ const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Tile {
 	constructor(attributes={}) {
-		console.log(this);
 		var _attributes = {position: new Vector2(), color: -1, passable: true}
 		attributes = $.extend(_attributes, attributes);
 		for (var key in attributes) {
