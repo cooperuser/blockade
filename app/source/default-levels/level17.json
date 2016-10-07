@@ -48,6 +48,7 @@
 	],
 	"data": {
 		"name": "Crown",
-		"creators": ["Grady Shoemaker"]
+		"creators": ["Grady Shoemaker"],
+		"moves": 13
 	}
 }
