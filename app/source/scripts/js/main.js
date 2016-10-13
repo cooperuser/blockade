@@ -11,9 +11,8 @@ let win;
 function createWindow() {
 	// Create the browser window.
 	win = new BrowserWindow({width: 800, height: 600, resizable: false, backgroundColor: "#191919"});
-
-	if (__dirname == "/Users/cooperanderson/Google Drive/Other/Programming/JetBrains/WebStorm/Blockade/app"){
-		BrowserWindow.addDevToolsExtension("/Users/cooperanderson/Library/Application\ Support/Google/Chrome\ Canary/Default/Extensions/bomhdjeadceaggdgfoefmpeafkjhegbo/2.1.7_0");
+	if (__dirname == "/Users/cooperanderson/Google Drive/Other/Programming/JetBrains/WebStorm/Blockade/app/source/scripts/js"){
+		BrowserWindow.addDevToolsExtension("/Users/cooperanderson/Library/Application\ Support/Google/Chrome\ Canary/Default/Extensions/bomhdjeadceaggdgfoefmpeafkjhegbo/2.1.9_0");
 	}
 
 	// and load the index.html of the app.

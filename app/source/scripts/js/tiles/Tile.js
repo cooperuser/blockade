@@ -6,26 +6,32 @@ const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Tile {
 	constructor(attributes={}) {
-		var _attributes = {position: new Vector2(), color: -1, passable: true}
+		var _attributes = {position: new Vector2(), color: -1, passable: true, id: -1}
 		attributes = $.extend(_attributes, attributes);
 		for (var key in attributes) {
-			eval(`this.${key} = attributes[key];`);
+			this[key] = attributes[key];
 		}
 	}
 	GetVisuals() {
-		$("#game>#tiles").append(`<span class="tile Standard Object" id="Tile.Standard-${Vector2.ToString(this.position)}" style="left: ${100 + this.position.x*50}px; top: ${100 + this.position.y*50}px">
+		$("#game>#tiles").append(`<span class="tile Standard Object" id="Tile-Standard-${this.id}" style="left: ${this.position.x*50}px; top: ${this.position.y*50}px">
 				<div class="color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/tiles/Standard/tile.svg"});"></div>
 			</span>`);
+		$(`#Tile-Standard-${this.id}`).data({position: this.position, class:"Tile", subclass:"Standard", id: this.id});
 	}
-	Arrive(grid) {
-		console.log(`Arrive ${Vector2.ToString(this.position)}`);
+	Arrive(grid, block=null) {
+		if (typeof grid[this.position.x][this.position.y].plate != "undefined") {
+			grid[this.position.x][this.position.y].plate.Press(block);
+		}
 	}
-	Slide(grid) {
-		console.log(`Slide ${Vector2.ToString(this.position)}`);
+	Slide(grid, block=null) {
+
 	};
-	Depart(grid) {
-		console.log(`Depart ${Vector2.ToString(this.position)}`);
+	Depart(grid, block=null) {
+		if (typeof grid[this.position.x][this.position.y].plate != "undefined") {
+			grid[this.position.x][this.position.y].plate.Unpress(block);
+		}
 	};
 }
+Tile.flags = [];
 
 module.exports = {Tile};

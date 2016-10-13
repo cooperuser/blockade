@@ -109,7 +109,7 @@ function printGrid() {
 function temp(position=new Vector2(0, 2)) {
 	printGrid();
 	data.grid[position.x][position.y].block.velocity.x = 1;
-	data.grid = data.grid[position.x][position.y].block.Move(data.grid)
+	data.grid[position.x][position.y].block.Move(data.grid)
 	printGrid();
 }
 

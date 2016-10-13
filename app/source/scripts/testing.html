@@ -7,6 +7,29 @@
 		<link rel="stylesheet" href="css/blockade.css">
 		<link rel="stylesheet" href="../resources/themes/default.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<style>
+			.directional-button-vertical {
+				margin: 17px 13px;
+				padding: 5px;
+				width: 24px;
+				height: 16px;
+				position: absolute;
+			}
+			.directional-button-horizontal {
+				margin: 13px 17px;
+				padding: 5px;
+				width: 16px;
+				height: 24px;
+				position: absolute;
+			}
+
+			.directional-button.disabled {
+				cursor: default;
+			}
+			.block-group {
+				position: absolute;
+			}
+		</style>
 	</head>
 	<body style="font-family: Hasklig;">
 		<nav id="menu" class="navbar navbar-default" style="position: absolute; left:0px;">
@@ -17,6 +40,7 @@
 						<li><a href="#" class="modal-button" data-toggle="modal" data-target="#helpModal">Help</a></li>
 						<li><a href="#" id="restart">Restart</a></li>
 						<li><a href="menu.html" id="exit">Exit</a></li>
+						<li><a href="playNew.html">Play</a></li>
 						<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
 					</ul>
 				</div>

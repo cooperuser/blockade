@@ -6,16 +6,41 @@ const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Block {
 	constructor(attributes={}) {
-		var _attributes = {position: new Vector2(), color: 0, passable: false, moveable: true, velocity: new Vector2()}
+		var _attributes = {position: new Vector2(), color: 0, passable: false, moveable: true, pressable: true, velocity: new Vector2(), id: -1, superclass: "Block", subclass: "Standard"}
 		attributes = $.extend(_attributes, attributes);
 		for (var key in attributes) {
-			eval(`this.${key} = attributes[key];`);
+			this[key] = attributes[key];
 		}
 	}
-	static CheckMove(block, grid) {
-
+	CheckMove(grid) {
+		var isPassable = function(gridSpace) {
+			var passable = [];
+			for (var key in gridSpace) {
+				passable.push(gridSpace[key].passable);
+			}
+			return !passable.includes(false);
+		};
+		var result = {up: false, down: false, left: false, right: false};
+		var dest = Vector2.Add(this.position, new Vector2(0, -1));
+		if (typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
+			result.up = true;
+		}
+		dest = Vector2.Add(this.position, new Vector2(0, 1));
+		if (typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
+			result.down = true;
+		}
+		dest = Vector2.Add(this.position, new Vector2(-1, 0));
+		if (typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
+			result.left = true;
+		}
+		dest = Vector2.Add(this.position, new Vector2(1, 0));
+		if (typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
+			result.right = true;
+		}
+		return result;
 	}
-	Move(grid) {
+	Move() {
+		var grid = data.grid;
 		var isPassable = function(gridSpace) {
 			var passable = [];
 			for (var key in gridSpace) {
@@ -28,15 +53,15 @@ class Block {
 		var dest = new Vector2(pos.x + dir.x, pos.y + dir.y);
 		var movement = [[pos]];
 		if (!(dir.x == 0 && dir.y == 0) && typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
-			grid[pos.x][pos.y].tile.Depart(grid);
+			grid[pos.x][pos.y].tile.Depart(grid, this);
 		}
 		while (true) {
 			if (!(dir.x == 0 && dir.y == 0) && typeof grid[dest.x] != "undefined" && typeof grid[dest.x][dest.y] != "undefined" && isPassable(grid[dest.x][dest.y]) && typeof grid[dest.x][dest.y].tile != "undefined" && this.moveable) {
-				grid[dest.x][dest.y].tile.Slide(grid);
+				grid[dest.x][dest.y].tile.Slide(grid, this);
 				delete grid[pos.x][pos.y].block;
 				grid[dest.x][dest.y].block = this;
 			} else {
-				grid[pos.x][pos.y].tile.Arrive(grid);
+				grid[pos.x][pos.y].tile.Arrive(grid, this);
 				break;
 			}
 			pos = dest;
@@ -45,21 +70,26 @@ class Block {
 		}
 		movement[0][1] = pos;
 		this.Animate(movement);
-		return grid;
+		data.grid = grid;
 	}
 	Animate(movement) {
-		$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).animate({left: `${100 + movement[0][1].x*50}px`, top: `${100 + movement[0][1].y*50}px`})
-		$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).attr("id", `#Block-Standard-${Vector2.ToString(movement[0][1])}`)
+		$(`#Block-Standard-${this.id}`).addClass("moving");
+		$(`#Block-Standard-${this.id}`).animate({left: `${movement[0][1].x*50}px`, top: `${movement[0][1].y*50}px`}, 400, function() {$(this).removeClass("moving");});
+		//console.log({position: movement[0][1]});
+		$(`#Block-Standard-${this.id}`).data({position: movement[0][1]});
+		//$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).attr("id", `#Block-Standard-${Vector2.ToString(movement[0][1])}`)
 	}
 	GetVisuals(grid) {
-		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${Vector2.ToString(this.position)}" style="left: ${100 + this.position.x*50}px; top: ${100 + this.position.y*50}px;">
+		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${this.id}" style="left: ${this.position.x*50}px; top: ${this.position.y*50}px;">
 				<div class="block-center color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/center.svg"});"></div>
 				<div class="block-corner-topLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 				<div class="block-corner-topRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 				<div class="block-corner-bottomLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 				<div class="block-corner-bottomRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 			</span>`);
+		$(`#Block-Standard-${this.id}`).data({position: this.position, class:"Block", subclass:"Standard", id: this.id});
 	}
 }
+Block.flags = ["selectable"];
 
 module.exports = {Block};

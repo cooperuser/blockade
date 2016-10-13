@@ -1,3 +1,72 @@
+#game {
+	width: 800px;
+	height: 600px;
+	overflow: visible;
+	padding: 275px 350px 275px 375px;
+}
+
+#gui {
+	position: fixed;
+	width: 800px;
+	height: 600px;
+}
+
+.selector {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	pointer-events: visible;
+}
+
+.selector>.button {
+	position: absolute;
+	padding: 5px;
+}
+
+.selector>.button[disabled=""] {
+	cursor: default;
+}
+
+.selector>.button.up {
+	left: 12px;
+	right: 12px;
+	top: -2px;
+	height: 14px;
+}
+
+.selector>.button.left {
+	top: 12px;
+	bottom: 12px;
+	left: -2px;
+	width: 14px;
+}
+
+.selector>.button.right {
+	top: 12px;
+	bottom: 12px;
+	right: -2px;
+	width: 14px;
+}
+
+.selector>.button.down {
+	left: 12px;
+	right: 12px;
+	bottom: -2px;
+	height: 14px;
+}
+
+#tiles {
+	position: relative;
+}
+
+#plates {
+	position: relative;
+}
+
+#blocks {
+	position: relative;
+}
+
 .tile {
 	position: absolute;
 	width: 50px;
