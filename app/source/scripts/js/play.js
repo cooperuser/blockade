@@ -136,6 +136,10 @@ $("#game").on("mouseleave", ".selector", function(event) {
 	$(".selector").remove();
 });
 
+$("#restart").on("click", function() {
+	location.reload();
+})
+
 setInterval(function() {
 	if (selected == undefined) {
 		return;
