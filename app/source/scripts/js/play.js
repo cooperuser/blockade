@@ -8,7 +8,7 @@ const Tile = require(`${__dirname}/js/init/Tiles`);
 const Plate = require(`${__dirname}/js/init/Plates`);
 const Block = require(`${__dirname}/js/init/Blocks`);
 
-var file, data = {}, hasWon = false, backpage;
+var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
 function render() {
 	$("#game").css({width: `${data.size.x * 50 + 750}px`, height: `${data.size.y * 50 + 550}px`})
@@ -75,6 +75,19 @@ function init(path="source/default-levels/level0.json", back="levelselect.html?p
 	render();
 }
 
+function updateInfo() {
+	$("#moves").html(moves);
+	$({distance: distance}).animate({distance: newDistance}, {
+		duration: 400,
+		step: function() {
+			$("#distance").html(Math.round(this.distance));
+		},
+		complete: function() {
+			distance = newDistance;
+		}
+	});
+}
+
 function checkWin() {
 	var actives = [];
 	for (var x in data.grid) {
@@ -128,6 +141,7 @@ $("#game").on("click", ".selector>.button", function(event) {
 		block.velocity = Vector2.FromDirection($(this).data("id"));
 		block.Move();
 		$(".selector").remove();
+		updateInfo();
 		checkWin();
 	}
 });
@@ -150,5 +164,8 @@ setInterval(function() {
 	}
 	if (selected != undefined) {
 
+	}
+	if (!infoOpen) {
+		$("#info").css({right: `${54 - $("#info").width()}px`});
 	}
 })

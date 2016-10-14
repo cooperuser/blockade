@@ -21,6 +21,17 @@
 					</div>
 				</div>
 			</div>
+			<div id="info" class="navbar navbar-default" style="position: absolute; right:0px; bottom: 0px;">
+				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+						<ul class="nav navbar-nav">
+							<li><a id="infoArrow" style="padding-left: 8px;">»</a></li>
+							<li><a>Moves: <span id="moves">0</span></a></li>
+							<li><a>Distance: <span id="distance">0</span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</span>
 		<div id="game">
 			<div id="tiles">
@@ -55,16 +66,28 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="js/play.js"></script>
 	<script>
+		var infoOpen = true;
 		$("#menu").css({left: `${54 - $("#menu").width()}px`});
 		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
 
 		$("#menu").on("mouseenter", function() {
-			setTimeout(function() {$("#menuArrow").html('«')}, 100)
+			setTimeout(function() {$("#menuArrow").html('«')}, 100);
 			$(this).stop().animate({left: "0px"}, 200);
 		});
 		$("#menu").on("mouseleave", function() {
-			setTimeout(function() {$("#menuArrow").html('»')}, 100)
+			setTimeout(function() {$("#menuArrow").html('»')}, 100);
 			$(this).stop().animate({left: `${54 - $("#menu").width()}px`}, 200);
+		});
+		$("#infoArrow").on("click", function() {
+			if (infoOpen) {
+				infoOpen = false;
+				setTimeout(function() {$("#infoArrow").html('«')}, 100);
+				$("#info").stop().animate({right: `${54 - $("#info").width()}px`}, 200);
+			} else {
+				infoOpen = true;
+				setTimeout(function() {$("#infoArrow").html('»')}, 100);
+				$("#info").stop().animate({right: "0px"}, 200);
+			}
 		});
 		init();
 	</script>

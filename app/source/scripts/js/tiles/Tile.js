@@ -24,9 +24,10 @@ class Tile {
 		}
 	}
 	Slide(grid, block=null) {
-
+		newDistance += 1;
 	};
 	Depart(grid, block=null) {
+		moves += 1;
 		if (typeof grid[this.position.x][this.position.y].plate != "undefined") {
 			grid[this.position.x][this.position.y].plate.Unpress(block);
 		}
