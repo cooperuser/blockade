@@ -8,7 +8,7 @@ const Tile = require(`${__dirname}/js/init/Tiles`);
 const Plate = require(`${__dirname}/js/init/Plates`);
 const Block = require(`${__dirname}/js/init/Blocks`);
 
-var file, data = {}, hasWon = false;
+var file, data = {}, hasWon = false, backpage;
 
 function render() {
 	$("#game").css({width: `${data.size.x * 50 + 750}px`, height: `${data.size.y * 50 + 550}px`})
@@ -22,9 +22,10 @@ function render() {
 	}
 }
 
-function init(path="source/default-levels/level0.json") {
+function init(path="source/default-levels/level0.json", back="levelselect.html?page=1") {
 	var filePath = `${__dirname}/../../${path}`
 	if (fs.existsSync(filePath)) {
+		backpage = back;
 		file = fs.readFileSync(filePath, "utf8");
 		data = JSON.parse(file);
 		var min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
@@ -72,7 +73,6 @@ function init(path="source/default-levels/level0.json") {
 		return;
 	}
 	render();
-	data.grid[0][2].block.velocity.x = 1;
 }
 
 function checkWin() {
@@ -138,7 +138,11 @@ $("#game").on("mouseleave", ".selector", function(event) {
 
 $("#restart").on("click", function() {
 	location.reload();
-})
+});
+
+$("#exit").on("click", function() {
+	window.location = backpage;
+});
 
 setInterval(function() {
 	if (selected == undefined) {
