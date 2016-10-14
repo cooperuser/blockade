@@ -32,6 +32,7 @@
   },
   "info": {
 	"name": "Debug",
+	"number": 0,
 	"creators": ["Cooper Anderson"],
 	"creator-score": {"moves": -1, "distance": -1},
 	"flags": []

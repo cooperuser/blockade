@@ -28,6 +28,8 @@ function init(path="source/default-levels/level0.json", back="levelselect.html?p
 		backpage = back;
 		file = fs.readFileSync(filePath, "utf8");
 		data = JSON.parse(file);
+		$("#levelName").html(data.info.name);
+		$("#levelNumber").html(data.info.number);
 		var min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
 		for (var object in data.board) {
 			data.board[object].forEach(function(ob, index) {
