@@ -10,9 +10,24 @@ const Block = require(`${__dirname}/js/init/Blocks`);
 
 var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
+jQuery.fn.center = function () {
+	this.css("position","absolute");
+	this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
+			$(window).scrollTop() - ($(this).height() > $(window).height()) ? 0 : 100) + "px");console.log($(this).height());
+	this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
+			$(window).scrollLeft() - ($(this).width() > $(window).width()) ? 0 : 100) + "px");
+	return this;
+}
+
 function render() {
-	$("#game").css({width: `${data.size.x * 50 + 750}px`, height: `${data.size.y * 50 + 550}px`})
-	window.scrollTo(data.size.x * 25 - 25, data.size.y * 25 - 25);
+	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 170}px`})
+	if ($("#game").outerWidth() < $(window).width()) {
+		$("#game").css({left: ($(window).width() - $("#game").outerWidth())/2});
+	}
+	if ($("#game").outerHeight() < $(window).height()) {
+		$("#game").css({top: ($(window).height() - $("#game").outerHeight())/2});
+	}
+	window.scrollBy(($(document).width() - $(window).width())/2, ($(document).height() - $(window).height())/2);
 	for (var x in data.grid) {
 		for (var y in data.grid[x]) {
 			for (var object in data.grid[x][y]) {
@@ -103,7 +118,7 @@ function checkWin() {
 		hasWon = true;
 		setTimeout(function () {
 			$("#winModal").modal("toggle")
-		}, 200);
+		}, 400);
 	}
 }
 

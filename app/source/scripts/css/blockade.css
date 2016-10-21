@@ -1,8 +1,9 @@
 #game {
+	position: absolute;
 	width: 800px;
 	height: 600px;
 	overflow: visible;
-	padding: 275px 350px 275px 375px;
+	padding: 85px 25px 85px 25px;
 }
 
 #gui {
