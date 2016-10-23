@@ -32,20 +32,21 @@
 		</style>
 	</head>
 	<body style="font-family: Hasklig;">
-		<nav id="menu" class="navbar navbar-default" style="position: absolute; left:0px;">
-			<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="levelselect.html">Level Select</a></li>
-						<li><a href="#" class="modal-button" data-toggle="modal" data-target="#helpModal">Help</a></li>
-						<li><a href="#" id="restart">Restart</a></li>
-						<li><a href="menu.html" id="exit">Exit</a></li>
-						<li><a href="playNew.html">Play</a></li>
-						<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
-					</ul>
+		<span id="gui" style="z-index: 1; pointer-events: none;">
+			<nav id="menu" class="navbar navbar-default" style="position: absolute; left:0px; pointer-events: all;">
+				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="levelselect.html">Level Select</a></li>
+							<li><a href="#" class="modal-button" data-toggle="modal" data-target="#helpModal">Help</a></li>
+							<li><a href="#" id="restart">Restart</a></li>
+							<li><a href="menu.html" id="exit">Exit</a></li>
+							<li><a href="playNew.html">Play</a></li>
+							<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
 		<div id="game">
 			<div id="tiles">
 
