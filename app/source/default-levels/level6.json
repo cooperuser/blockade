@@ -1,44 +1,45 @@
 {
-	"grid": [10, 8],
-	"tiles": [
-		[0, 5],
-		[1, 5],
-		[1, 6],
-		[1, 7],
-		[2, 5],
-		[2, 7],
-		[3, 3],
-		[3, 4],
-		[3, 5],
-		[3, 7],
-		[4, 3],
-		[4, 5],
-		[4, 7],
-		[5, 3],
-		[5, 5],
-		[5, 6],
-		[5, 7],
-		[6, 3],
-		[6, 5],
-		[7, 0],
-		[7, 1],
-		[7, 2],
-		[7, 3],
-		[7, 4],
-		[7, 5],
-		[8, 2],
-		[9, 2]
-	],
-	"blocks": [
-		[0, 5],
-		[7, 0]
-	],
-	"plates": [
-		[9, 2]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 5]},
+			{"class": "Standard", "position": [1, 5]},
+			{"class": "Standard", "position": [1, 6]},
+			{"class": "Standard", "position": [1, 7]},
+			{"class": "Standard", "position": [2, 5]},
+			{"class": "Standard", "position": [2, 7]},
+			{"class": "Standard", "position": [3, 3]},
+			{"class": "Standard", "position": [3, 4]},
+			{"class": "Standard", "position": [3, 5]},
+			{"class": "Standard", "position": [3, 7]},
+			{"class": "Standard", "position": [4, 3]},
+			{"class": "Standard", "position": [4, 5]},
+			{"class": "Standard", "position": [4, 7]},
+			{"class": "Standard", "position": [5, 3]},
+			{"class": "Standard", "position": [5, 5]},
+			{"class": "Standard", "position": [5, 6]},
+			{"class": "Standard", "position": [5, 7]},
+			{"class": "Standard", "position": [6, 3]},
+			{"class": "Standard", "position": [6, 5]},
+			{"class": "Standard", "position": [7, 0]},
+			{"class": "Standard", "position": [7, 1]},
+			{"class": "Standard", "position": [7, 2]},
+			{"class": "Standard", "position": [7, 3]},
+			{"class": "Standard", "position": [7, 4]},
+			{"class": "Standard", "position": [7, 5]},
+			{"class": "Standard", "position": [8, 2]},
+			{"class": "Standard", "position": [9, 2]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [9, 2], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [0, 5], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [7, 0], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "Symbiosis",
 		"creators": ["Grady Shoemaker"],
-		"moves": 16
+		"creator-score": {"moves": 16}
 	}
 }

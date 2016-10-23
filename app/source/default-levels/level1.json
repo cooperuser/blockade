@@ -1,28 +1,29 @@
 {
-	"grid": [5, 3],
-	"tiles": [
-		[0, 1],
-		[1, 0],
-		[1, 1],
-		[1, 2],
-		[2, 0],
-		[2, 1],
-		[2, 2],
-		[3, 0],
-		[3, 1],
-		[3, 2],
-		[4, 1],
-		[4, 2]
-	],
-	"blocks": [
-		[1, 0]
-	],
-	"plates": [
-		[0, 1]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 1]},
+			{"class": "Standard", "position": [1, 0]},
+			{"class": "Standard", "position": [1, 1]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [2, 0]},
+			{"class": "Standard", "position": [2, 1]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [3, 0]},
+			{"class": "Standard", "position": [3, 1]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 2]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [0, 1], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [1, 0], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "First Steps",
 		"creators": ["Cooper Anderson"],
-		"moves": 4
+		"creator-score": {"moves": 4}
 	}
 }

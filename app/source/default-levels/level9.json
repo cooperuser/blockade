@@ -1,40 +1,41 @@
 {
-	"grid": [9, 5],
-	"tiles": [
-		[0, 1],
-		[0, 2],
-		[1, 1],
-		[1, 2],
-		[2, 0],
-		[2, 1],
-		[2, 2],
-		[2, 3],
-		[2, 4],
-		[3, 4],
-		[4, 4],
-		[5, 4],
-		[6, 0],
-		[6, 1],
-		[6, 2],
-		[6, 3],
-		[6, 4],
-		[7, 2],
-		[7, 3],
-		[8, 2],
-		[8, 3]
-	],
-	"blocks": [
-		[2, 0],
-		[2, 4],
-		[6, 4]
-	],
-	"plates": [
-		[1, 2],
-		[7, 2]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 1]},
+			{"class": "Standard", "position": [0, 2]},
+			{"class": "Standard", "position": [1, 1]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [2, 0]},
+			{"class": "Standard", "position": [2, 1]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [2, 3]},
+			{"class": "Standard", "position": [2, 4]},
+			{"class": "Standard", "position": [3, 4]},
+			{"class": "Standard", "position": [4, 4]},
+			{"class": "Standard", "position": [5, 4]},
+			{"class": "Standard", "position": [6, 0]},
+			{"class": "Standard", "position": [6, 1]},
+			{"class": "Standard", "position": [6, 2]},
+			{"class": "Standard", "position": [6, 3]},
+			{"class": "Standard", "position": [6, 4]},
+			{"class": "Standard", "position": [7, 2]},
+			{"class": "Standard", "position": [7, 3]},
+			{"class": "Standard", "position": [8, 2]},
+			{"class": "Standard", "position": [8, 3]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [1, 2], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [7, 2], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [2, 0], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [2, 4], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [6, 4], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "Correspondence",
 		"creators": ["Jack Warner", "Grady Shoemaker"],
-		"moves": 19
+		"creator-score": {"moves": 19}
 	}
 }

@@ -1,39 +1,40 @@
 {
-	"grid": [8, 5],
-	"tiles": [
-		[0, 4],
-		[1, 2],
-		[1, 3],
-		[1, 4],
-		[2, 2],
-		[2, 4],
-		[3, 0],
-		[3, 1],
-		[3, 2],
-		[3, 4],
-		[4, 0],
-		[4, 1],
-		[4, 2],
-		[4, 3],
-		[4, 4],
-		[5, 0],
-		[5, 2],
-		[5, 3],
-		[5, 4],
-		[6, 0],
-		[6, 4],
-		[7, 4]
-	],
-	"blocks": [
-		[2, 4],
-		[7, 4]
-	],
-	"plates": [
-		[5, 0]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 4]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [1, 3]},
+			{"class": "Standard", "position": [1, 4]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [2, 4]},
+			{"class": "Standard", "position": [3, 0]},
+			{"class": "Standard", "position": [3, 1]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [3, 4]},
+			{"class": "Standard", "position": [4, 0]},
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 2]},
+			{"class": "Standard", "position": [4, 3]},
+			{"class": "Standard", "position": [4, 4]},
+			{"class": "Standard", "position": [5, 0]},
+			{"class": "Standard", "position": [5, 2]},
+			{"class": "Standard", "position": [5, 3]},
+			{"class": "Standard", "position": [5, 4]},
+			{"class": "Standard", "position": [6, 0]},
+			{"class": "Standard", "position": [6, 4]},
+			{"class": "Standard", "position": [7, 4]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [5, 0], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [2, 4], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [7, 4], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "The Climb",
 		"creators": ["Grady Shoemaker"],
-		"moves": 15
+		"creator-score": {"moves": 15}
 	}
 }

@@ -111,13 +111,13 @@
 				}
 			} else {
 				if (!$("#play-button").attr("disabled")) {
-					window.location = `play.html?leveldata=${$("#play-button").data("id")}&custom=0`
+					window.location = `playNew.html?leveldata=${$("#play-button").data("id")}&custom=0`
 				}
 			}
 		});
 		$("#play-button").on("click", function() {
 			if (!$(this).attr("disabled")) {
-				window.location = `play.html?leveldata=${$(this).data("id")}&custom=0`
+				window.location = `playNew.html?leveldata=${$(this).data("id")}&custom=0`
 			}
 		});
 		load();

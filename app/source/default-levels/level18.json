@@ -1,53 +1,54 @@
 {
-	"grid": [11, 4],
-	"tiles": [
-		[0, 1],
-		[0, 2],
-		[0, 3],
-		[1, 1],
-		[1, 2],
-		[1, 3],
-		[2, 1],
-		[2, 2],
-		[2, 3],
-		[3, 2],
-		[4, 0],
-		[4, 1],
-		[4, 2],
-		[4, 3],
-		[5, 0],
-		[5, 1],
-		[5, 2],
-		[5, 3],
-		[6, 0],
-		[6, 1],
-		[6, 2],
-		[6, 3],
-		[7, 2],
-		[8, 1],
-		[8, 2],
-		[8, 3],
-		[9, 1],
-		[9, 2],
-		[9, 3],
-		[10, 1],
-		[10, 2],
-		[10, 3]
-	],
-	"blocks": [
-		[0, 1],
-		[0, 3],
-		[2, 3],
-		[8, 3],
-		[10, 1],
-		[10, 3]
-	],
-	"plates": [
-		[5, 1]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 1]},
+			{"class": "Standard", "position": [0, 2]},
+			{"class": "Standard", "position": [0, 3]},
+			{"class": "Standard", "position": [1, 1]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [1, 3]},
+			{"class": "Standard", "position": [2, 1]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [2, 3]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [4, 0]},
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 2]},
+			{"class": "Standard", "position": [4, 3]},
+			{"class": "Standard", "position": [5, 0]},
+			{"class": "Standard", "position": [5, 1]},
+			{"class": "Standard", "position": [5, 2]},
+			{"class": "Standard", "position": [5, 3]},
+			{"class": "Standard", "position": [6, 0]},
+			{"class": "Standard", "position": [6, 1]},
+			{"class": "Standard", "position": [6, 2]},
+			{"class": "Standard", "position": [6, 3]},
+			{"class": "Standard", "position": [7, 2]},
+			{"class": "Standard", "position": [8, 1]},
+			{"class": "Standard", "position": [8, 2]},
+			{"class": "Standard", "position": [8, 3]},
+			{"class": "Standard", "position": [9, 1]},
+			{"class": "Standard", "position": [9, 2]},
+			{"class": "Standard", "position": [9, 3]},
+			{"class": "Standard", "position": [10, 1]},
+			{"class": "Standard", "position": [10, 2]},
+			{"class": "Standard", "position": [10, 3]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [5, 1], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [0, 1], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [0, 3], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [2, 3], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [8, 3], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [10, 1], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [10, 3], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "Satellite",
 		"creators": ["Grady Shoemaker"],
-		"moves": 16
+		"creator-score": {"moves": 16}
 	}
 }

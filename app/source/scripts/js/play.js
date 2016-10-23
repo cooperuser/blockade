@@ -8,6 +8,7 @@ const Tile = require(`${__dirname}/js/init/Tiles`);
 const Plate = require(`${__dirname}/js/init/Plates`);
 const Block = require(`${__dirname}/js/init/Blocks`);
 
+level = location.search.split("?")[1].split("&")[0].split('=')[1];
 var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
 jQuery.fn.center = function () {
@@ -37,14 +38,33 @@ function render() {
 	}
 }
 
-function init(path="source/default-levels/level0.json", back="levelselect.html?page=1") {
+function init(path=`source/default-levels/level${level}.json`, back="levelselect.html?page=1") {
 	var filePath = `${__dirname}/../../${path}`
 	if (fs.existsSync(filePath)) {
 		backpage = back;
 		file = fs.readFileSync(filePath, "utf8");
 		data = JSON.parse(file);
 		$("#levelName").html(data.info.name);
-		$("#levelNumber").html(data.info.number);
+		$("#levelNumber").html(level);
+		/* */
+		files = fs.readdirSync(`${__dirname}/../default-levels/`);
+		offset = 1;
+		while (true) {
+			if (files.includes("level"+String(Number(level)+offset)+".json")) {
+				cont = `playNew.html?leveldata=${Number(level)+offset}`;
+				break;
+			}
+			if (Number(level)+offset > Math.max.apply(null, files.filter(function(text) {
+				return text.slice(0, 5) == "level" && text.slice(text.length-5, text.length) == ".json" && !isNaN(text.slice(5, text.length-5));
+			}).map(function(text) {
+				return Number(text.replace(/\D/g, ''));
+			}))) {
+				cont = "levelselect.html";
+				break;
+			}
+			offset++;
+		}
+		/* */
 		var min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
 		for (var object in data.board) {
 			data.board[object].forEach(function(ob, index) {
@@ -173,6 +193,14 @@ $("#restart").on("click", function() {
 
 $("#exit").on("click", function() {
 	window.location = backpage;
+});
+
+$("#levelSelect").on("click", function() {
+	window.location = "levelselect.html";
+});
+
+$("#continue").on("click", function() {
+	window.location = cont;
 });
 
 setInterval(function() {

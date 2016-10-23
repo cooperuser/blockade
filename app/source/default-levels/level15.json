@@ -1,46 +1,47 @@
 {
-	"grid": [11, 5],
-	"tiles": [
-		[0, 2],
-		[1, 2],
-		[2, 2],
-		[2, 3],
-		[2, 4],
-		[3, 2],
-		[3, 3],
-		[4, 0],
-		[4, 1],
-		[4, 2],
-		[4, 3],
-		[5, 0],
-		[5, 2],
-		[6, 0],
-		[6, 1],
-		[6, 2],
-		[7, 0],
-		[7, 1],
-		[7, 2],
-		[7, 3],
-		[8, 1],
-		[8, 2],
-		[8, 3],
-		[9, 0],
-		[9, 1],
-		[9, 2],
-		[9, 3],
-		[10, 2]
-	],
-	"blocks": [
-		[0, 2],
-		[10, 2]
-	],
-	"plates": [
-		[5, 2],
-		[6, 0]
-	],
-	"data": {
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 2]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [2, 3]},
+			{"class": "Standard", "position": [2, 4]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [3, 3]},
+			{"class": "Standard", "position": [4, 0]},
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 2]},
+			{"class": "Standard", "position": [4, 3]},
+			{"class": "Standard", "position": [5, 0]},
+			{"class": "Standard", "position": [5, 2]},
+			{"class": "Standard", "position": [6, 0]},
+			{"class": "Standard", "position": [6, 1]},
+			{"class": "Standard", "position": [6, 2]},
+			{"class": "Standard", "position": [7, 0]},
+			{"class": "Standard", "position": [7, 1]},
+			{"class": "Standard", "position": [7, 2]},
+			{"class": "Standard", "position": [7, 3]},
+			{"class": "Standard", "position": [8, 1]},
+			{"class": "Standard", "position": [8, 2]},
+			{"class": "Standard", "position": [8, 3]},
+			{"class": "Standard", "position": [9, 0]},
+			{"class": "Standard", "position": [9, 1]},
+			{"class": "Standard", "position": [9, 2]},
+			{"class": "Standard", "position": [9, 3]},
+			{"class": "Standard", "position": [10, 2]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [5, 2], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [6, 0], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [0, 2], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [10, 2], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
 		"name": "Two-Block Shuffle",
 		"creators": ["Grady Shoemaker"],
-		"moves": 26
+		"creator-score": {"moves": 26}
 	}
 }
