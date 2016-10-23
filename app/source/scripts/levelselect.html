@@ -69,13 +69,13 @@
 			for (var y = 0; y < height; y++) {
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
 				for (var x = 0; x < width; x++) {
-					level = ((y) * height + x + 1) + (width * height * (page - 1));
-					var pathToFile = `${__dirname}/../default-levels/level${level}.json`;
+					levelicon = ((y) * height + x + 1) + (width * height * (page - 1));
+					var pathToFile = `${__dirname}/../default-levels/level${levelicon}.json`;
 					var json = (fs.existsSync(pathToFile))?fs.readFileSync(pathToFile, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""):"{}";
-					var color = (progress.completed.includes(`level${level}`))?"success":"primary";
-					var color = (progress.unlocked.includes(`level${level}`))?color:"default";
+					var color = (progress.completed.includes(`level${levelicon}`))?"success":"primary";
+					var color = (progress.unlocked.includes(`level${levelicon}`))?color:"default";
 					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
-					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button" stye="width: 65px;">${level}</a>`)//play.html?leveldata=${path}
+					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${levelicon}" class="btn btn-${color} btn-lg btn-block level-button" stye="width: 65px;">${levelicon}</a>`)//play.html?leveldata=${path}
 				}
 			}
 			if (page == 1) {
