@@ -204,7 +204,7 @@ $("#open").on("click", function() {
 $("#play").on("click", function() {
 	setGrid();
 	fs.writeFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, JSON.stringify(leveldata), "utf8");
-	location = "play.html?leveldata=.last-opened&custom=2";
+	location = "playOld.html?leveldata=.last-opened&custom=2";
 })
 
 $("#save").on("click", function() {

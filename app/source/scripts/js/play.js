@@ -51,7 +51,7 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		offset = 1;
 		while (true) {
 			if (files.includes("level"+String(Number(level)+offset)+".json")) {
-				cont = `playNew.html?leveldata=${Number(level)+offset}`;
+				cont = `play.html?leveldata=${Number(level)+offset}`;
 				break;
 			}
 			if (Number(level)+offset > Math.max.apply(null, files.filter(function(text) {

@@ -4,109 +4,47 @@
 		<meta charset="UTF-8">
 		<title>Blockade - Play</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
+		<link rel="stylesheet" href="../resources/themes/default.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-		<style>
-			html, body {
-				max-width: 100%;
-				overflow-x: hidden;
-			}
-			td {
-				width: 50px;
-				height: 50px;
-				text-align: center;
-				padding: 1px;
-			}
-			div.cell {
-				background-color: #333333;
-				height: 48px;
-			}
-			.container {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translateX(-50%) translateY(-50%);
-			}
-			.block {
-				margin: 2px;
-				width: 46px;
-				height: 46px;
-			}
-			.block-group {
-				position: absolute;
-			}
-			.plate {
-				margin: 17px;
-				padding: 5px;
-				width: 16px;
-				height: 16px;
-				position: absolute;
-			}
-			.directional-button-vertical {
-				margin: 17px 13px;
-				padding: 5px;
-				width: 24px;
-				height: 16px;
-				position: absolute;
-			}
-			.directional-button-horizontal {
-				margin: 13px 17px;
-				padding: 5px;
-				width: 16px;
-				height: 24px;
-				position: absolute;
-			}
-			.directional-button.disabled {
-				cursor: default;
-			}
-		</style>
 	</head>
 	<body style="font-family: Hasklig;">
-		<nav id="menu" class="navbar navbar-default" style="width: 440px;position: absolute; left:-385px;">
-			<div class="container-fluid" style="padding-right: 0px;">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="levelselect.html">Level Select</a></li>
-						<li><a href="#" class="modal-button" data-toggle="modal" data-target="#helpModal">Help</a></li>
-						<li><a href="#" id="restart">Restart</a></li>
-						<li><a href="menu.html" id="exit">Exit</a></li>
-						<li><a id="arrow" style="padding-right: 0px;">»</a></li>
-					</ul>
+		<span id="gui" style="z-index: 1; pointer-events: none;">
+			<div id="menu" class="navbar navbar-default" style="position: absolute; left:0px; pointer-events: all;">
+				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a id="restart" style="cursor: pointer;">Restart</a></li>
+							<li><a id="exit" style="cursor: pointer;">Exit</a></li>
+							<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</nav>
-		<nav id="panel" class="navbar navbar-default" style="position: absolute; left: 542px; bottom: 0px; margin: 0px; width:1000px;">
-			<div class="container-fluid" style="padding-left: 0px;">
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" style="padding-left: 24px;">
-					<ul class="nav navbar-nav">
-						<li><a href="#" id="panel-arrow" style="padding-left: 0px;">»</a></li>
-						<li><a>Moves: <span id="moves">0</span></a></li>
-						<li><a>Time: <span id="time">5</span>s</a></li>
-					</ul>
+			<div id="info" class="navbar navbar-default" style="position: absolute; right:0px; bottom: 0px; pointer-events: all;">
+				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+						<ul class="nav navbar-nav">
+							<li><a id="infoArrow" style="padding-left: 8px;">»</a></li>
+							<li><a>Moves: <span id="moves">0</span></a></li>
+							<li><a>Distance: <span id="distance">0</span></a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</nav>
-		<div style="position: absolute; left: 4px; bottom: 4px;">
-			<span class="label label-info" id="levelNumber">0</span> <span id="levelName">Debug</span>
-		</div>
-		<div class="container" id="game" align="center" style="display: inline-block; margin: 0px; padding: 0px;">
-			<table id="table" style="margin: 0px;">
-			</table>
-		</div>
-		<div id="helpModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Help</h4>
-					</div>
-					<div class="modal-body">
-						<p>Not sure what to do? Try hovering your mouse over one of the colored blocks.</p>
-						<p>If you're stuck, go back and play some of the earlier levels. There might be something you forgot along the way that might be helpful.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
+			<div style="position: absolute; left: 4px; bottom: 27px;">
+				<span class="label label-info" id="levelNumber"></span> <span id="levelName"></span>
+			</div>
+		</span>
+		<div id="game">
+			<div id="tiles">
+
+			</div>
+			<div id="plates">
+
+			</div>
+			<div id="blocks">
+
 			</div>
 		</div>
 		<div id="winModal" class="modal fade" role="dialog">
@@ -129,5 +67,31 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="js/play1.js"></script>
+	<script src="js/play.js"></script>
+	<script>
+		var infoOpen = true;
+		$("#menu").css({left: `${54 - $("#menu").width()}px`});
+		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
+
+		$("#menu").on("mouseenter", function() {
+			setTimeout(function() {$("#menuArrow").html('«')}, 100);
+			$(this).stop().animate({left: "0px"}, 200);
+		});
+		$("#menu").on("mouseleave", function() {
+			setTimeout(function() {$("#menuArrow").html('»')}, 100);
+			$(this).stop().animate({left: `${54 - $("#menu").width()}px`}, 200);
+		});
+		$("#infoArrow").on("click", function() {
+			if (infoOpen) {
+				infoOpen = false;
+				setTimeout(function() {$("#infoArrow").html('«')}, 100);
+				$("#info").stop().animate({right: `${54 - $("#info").width()}px`}, 200);
+			} else {
+				infoOpen = true;
+				setTimeout(function() {$("#infoArrow").html('»')}, 100);
+				$("#info").stop().animate({right: "0px"}, 200);
+			}
+		});
+		init();
+	</script>
 </html>
