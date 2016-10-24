@@ -12,6 +12,20 @@ level = location.search.split("?")[1].split("&")[0].split('=')[1];
 var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
 var flags = {
+	showMoveButtonsUntilClick: function() {
+		if (!$(".selector").length) {
+			var objectData = $(".block").data();
+			selected = data.grid[objectData.position.x][objectData.position.y].block;
+			var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+			$("#game").append(`
+					<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
+						<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
+						<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
+						<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
+						<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
+					</div>`);
+		}
+	},
 	showMoveButtonsUntilHover: function() {
 		if (!$(".selector").length) {
 			var objectData = $(".block").data();
@@ -19,20 +33,6 @@ var flags = {
 			var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
 			$("#game").append(`
 				<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
-					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
-				</div>`);
-		}
-	},
-	showMoveButtonsUntilClick: function() {
-		if (!$(".selector").length) {
-			var objectData = $(".block").data();
-			selected = data.grid[objectData.position.x][objectData.position.y].block;
-			var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
-			$("#game").append(`
-				<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
 					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
 					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
 					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
@@ -132,11 +132,10 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		return;
 	}
 	render();
-	if (typeof data.info.flags != "undefined") {
-		data.info.flags.forEach(function (flag, index) {
-			console.log(flag);
+	for (var flag in flags) {
+		if (typeof data.info.flags != "undefined" && data.info.flags.includes(flag)) {
 			flags[flag]();
-		});
+		}
 	}
 }
 
