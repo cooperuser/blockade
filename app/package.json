@@ -1,7 +1,7 @@
 {
 	"name": "blockade",
 	"productName": "Blockade",
-	"version": "0.3.17",
+	"version": "0.3.18",
 	"release": "indev",
 	"main": "source/scripts/js/main.js"
 }
