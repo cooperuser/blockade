@@ -166,6 +166,10 @@ function checkWin() {
 		setTimeout(function () {
 			$("#winModal").modal("toggle")
 		}, 400);
+		setTimeout(function () {
+			$("#win-moves").html(moves);
+			$("#win-distance").html(distance);
+		}, 800)
 	}
 }
 
