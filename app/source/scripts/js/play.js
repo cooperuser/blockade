@@ -181,7 +181,7 @@ function checkWin() {
 			});
 			//$("#win-moves").html(moves);
 			//$("#win-distance").html(distance);
-		}, 800)
+		}, 1000)
 	}
 }
 
