@@ -11,13 +11,19 @@ const Block = require(`${__dirname}/js/init/Blocks`);
 level = location.search.split("?")[1].split("&")[0].split('=')[1];
 var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
-jQuery.fn.center = function () {
-	this.css("position","absolute");
-	this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
-			$(window).scrollTop() - ($(this).height() > $(window).height()) ? 0 : 100) + "px");console.log($(this).height());
-	this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-			$(window).scrollLeft() - ($(this).width() > $(window).width()) ? 0 : 100) + "px");
-	return this;
+var flags = {
+	showMoveButtonsOnLoad: function() {
+		var objectData = $(".block").data();
+		selected = data.grid[objectData.position.x][objectData.position.y].block;
+		var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+		$("#game").append(`
+			<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
+				<a class="btn btn-${(checkMoves.up)?"success":"default"} button up" data-id='up' ${(checkMoves.up)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.left)?"success":"default"} button left" data-id='left' ${(checkMoves.left)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
+			</div>`)
+	}
 }
 
 function render() {
@@ -110,6 +116,10 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		return;
 	}
 	render();
+	data.info.flags.forEach(function(flag, index) {
+		console.log(flag);
+		flags[flag]();
+	});
 }
 
 function updateInfo() {
@@ -159,6 +169,12 @@ $("#game").on("mousemove", ".Object", function(event) {
 				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
 				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
 			</div>`)
+	}
+});
+
+$(document).on("mousemove", function(event) {
+	if($(".selector").length && !($(event.target).hasClass("selector"))) {
+		console.log("test");
 	}
 });
 
