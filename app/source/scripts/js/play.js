@@ -12,7 +12,7 @@ level = location.search.split("?")[1].split("&")[0].split('=')[1];
 var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
 var flags = {
-	showMoveButtonsOnLoad: function() {
+	showMoveButtonsUntilHover: function() {
 		var objectData = $(".block").data();
 		selected = data.grid[objectData.position.x][objectData.position.y].block;
 		var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
@@ -22,7 +22,19 @@ var flags = {
 				<a class="btn btn-${(checkMoves.left)?"success":"default"} button left" data-id='left' ${(checkMoves.left)?"":"disabled"}></a>
 				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
 				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
-			</div>`)
+			</div>`);
+	},
+	showMoveButtonsUntilClick: function() {
+		var objectData = $(".block").data();
+		selected = data.grid[objectData.position.x][objectData.position.y].block;
+		var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+		$("#game").append(`
+			<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
+				<a class="btn btn-${(checkMoves.up)?"success":"default"} button up" data-id='up' ${(checkMoves.up)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.left)?"success":"default"} button left" data-id='left' ${(checkMoves.left)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
+				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
+			</div>`);
 	}
 }
 
@@ -200,7 +212,9 @@ $("#game").on("click", ".selector>.button", function(event) {
 });
 
 $("#game").on("mouseleave", ".selector", function(event) {
-	$(".selector").remove();
+	if (!$(this).hasClass("keepOnHover")) {
+		$(".selector").remove();
+	}
 });
 
 $("#restart").on("click", function() {
