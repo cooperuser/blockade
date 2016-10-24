@@ -167,8 +167,20 @@ function checkWin() {
 			$("#winModal").modal("toggle")
 		}, 400);
 		setTimeout(function () {
-			$("#win-moves").html(moves);
-			$("#win-distance").html(distance);
+			$({ moves: 0 }).animate({ moves: moves }, {
+				duration: 400,
+				step: function () {
+					$('#win-moves').text(Math.ceil(this.moves));
+				}
+			});
+			$({ distance: 0 }).animate({ distance: distance }, {
+				duration: 400,
+				step: function () {
+					$('#win-distance').text(Math.ceil(this.distance));
+				}
+			});
+			//$("#win-moves").html(moves);
+			//$("#win-distance").html(distance);
 		}, 800)
 	}
 }
