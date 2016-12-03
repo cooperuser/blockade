@@ -38,6 +38,7 @@
 	},
 	"info": {
 		"name": "Hyrule Field III",
+		"icon-color": "success",
 		"creators": ["Nintendo"],
 		"creator-score": {"moves": 11}
 	}

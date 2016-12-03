@@ -4,20 +4,21 @@
 		<meta charset="UTF-8">
 		<title>Blockade - Level Select</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/levelselect.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
 			td {
 				padding: 5px;
 			}
-			.btn-lg {
-				padding: 18px 19px;
+			.level-button {
+				padding: 18px 0px;
 			}
 		</style>
 	</head>
 	<body style="font-family: Hasklig;">
 		<div class="container" align="center">
 			<br><br><br>
-			<a href="#" id="leftArrow" data-id="0" class="btn btn-info move"><-</a>
+			<a href="#" id="leftArrow" data-id="-1" class="btn btn-info move"><-</a>
 			<a href="#" id="title" class="btn btn-info" style="width: 290px; cursor: default; opacity: 1.0;" disabled>Page </a>
 			<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
 			<br><br>
@@ -35,8 +36,7 @@
 				</div>
 			</div>
 
-			<table id="table" data-id="1" style="margin-right: 7px;">
-			</table>
+			<table id="table" style="margin-right: 7px;"></table>
 			<br>
 			<a href="menu.html" class="btn btn-default" style="width: 140px;">Back</a>
 			<a href="#" class="btn btn-info" id="play-button" style="width: 140px;" data-id="" disabled>Play</a>
@@ -59,56 +59,54 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
 		const fs = require("fs");
-		var width = 4;
-		var height = 4;
+
+		levels = {};
+		fs.readdirSync(`${__dirname}/../default-levels/`).filter(function(levelName) {
+			return levelName.startsWith("level") && levelName.endsWith(".json") && /(?!(?!0$)0)^[0-9]+$/.test(levelName.slice(5, -5));
+		}).forEach(function(levelName) {
+			level = Number(levelName.slice(5, -5));
+			color = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/level${level}.json`)).info["icon-color"];
+			color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
+			levels[level] = {color: color};
+		});
+
+		const size = [4, 4];
+		const pages = Math.min(Math.ceil(Math.max.apply(null, Object.keys(levels).map(function(levelNum) {return Number(levelNum);}).concat([1])) / (size[0] * size[1])), 4096);
+
 		var level;
-		progress = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/unlocked.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""))
-		function load() {
-			page = Number($("#table").data("id"));
+		var page = 1;
+
+		function update() {
+			$("#table").empty();
+			$("#table").data("id", page);
 			$("#title").html(`Page ${page}`);
-			for (var y = 0; y < height; y++) {
+			if (page + $("#leftArrow").data("id") < 1) $("#leftArrow").attr("disabled", "disabled");
+			else $("#leftArrow").removeAttr("disabled");
+			if (page + $("#rightArrow").data("id") > pages) $("#rightArrow").attr("disabled", "disabled");
+			else $("#rightArrow").removeAttr("disabled");
+			for (var y = 0; y < size[1]; y++) {
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
-				for (var x = 0; x < width; x++) {
-					var levelIcon = ((y) * height + x + 1) + (width * height * (page - 1));
-					var pathToFile = `${__dirname}/../default-levels/level${levelIcon}.json`;
-					var json = (fs.existsSync(pathToFile))?fs.readFileSync(pathToFile, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("   ","").replace("  ",""):"{}";
-					var color = (progress.completed.includes(`level${levelIcon}`))?"success":"primary";
-					var color = (progress.unlocked.includes(`level${levelIcon}`))?color:"default";
+				for (var x = 0; x < size[0]; x++) {
+					var level = size[0] * size[1] * (page - 1) + (y * size[0] + x + 1);
+					var exists = Object.keys(levels).includes(String(level));
+					var color = exists ? levels[level].color : "default";
 					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
-					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${levelIcon}" class="btn btn-${color} btn-lg btn-block level-button" stye="width: 65px;">${levelIcon}</a>`)//play.html?leveldata=${path}
+					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
 				}
 			}
-			if (page == 1) {
-				$("#leftArrow").attr("disabled", "disabled");
-			} else {
-				$("#leftArrow").removeAttr("disabled");
-			}
-		}
-		function move(dir) {
-			page = Number($("#table").data("id"));
-			if (dir == 0) {
-				$("#table").data("id", page - 1);
-			} else {
-				$("#table").data("id", page + 1);
-			}
-			$("#table").empty();
-			load();
 		}
 		$(".move").on("click", function() {
 			if ($(this).attr("disabled") != "disabled") {
-				move(Number($(this).data("id")));
+				page += $(this).data("id");
 			}
+			update();
 		});
 		$("#table").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
 				level = $(this).attr("id");
-				var pathToFile = `${__dirname}/../default-levels/level${level}.json`;
 				$(".local.level").html(level);
-				if (fs.existsSync(pathToFile)) {
-					$("#play-button").removeAttr("disabled").data("id", level);
-				} else {
-					$("#play-button").attr("disabled", "disabled").data("id", 0);
-				}
+				if (Object.keys(levels).includes(String(level))) $("#play-button").removeAttr("disabled").data("id", level);
+				else $("#play-button").attr("disabled", "disabled").data("id", 0);
 			} else {
 				if (!$("#play-button").attr("disabled")) {
 					window.location = `play.html?leveldata=${$("#play-button").data("id")}&custom=0`
@@ -120,6 +118,6 @@
 				window.location = `play.html?leveldata=${$(this).data("id")}&custom=0`
 			}
 		});
-		load();
+		update();
 	</script>
 </html>

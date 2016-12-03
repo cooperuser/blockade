@@ -39,6 +39,7 @@
 	},
 	"info": {
 		"name": "Snowpeak Ruins",
+		"icon-color": "success",
 		"creators": ["Nintendo"],
 		"creator-score": {"moves": 16}
 	}

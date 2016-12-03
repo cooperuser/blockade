@@ -29,6 +29,7 @@
 	},
 	"info": {
 		"name": "Hyrule Field II",
+		"icon-color": "success",
 		"creators": ["Nintendo"],
 		"creator-score": {"moves": 10}
 	}
