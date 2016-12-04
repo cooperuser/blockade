@@ -24,7 +24,6 @@
 	"info": {
 		"name": "First Steps",
 		"creators": ["Cooper Anderson"],
-		"creator-score": {"moves": 4},
-	  	"flags": ["showMoveButtonsUntilHover"]
+		"creator-score": {"moves": 4}
 	}
 }

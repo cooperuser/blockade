@@ -6,6 +6,9 @@
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
+			[disabled] {
+				pointer-events: none;
+			}
 			td {
 				padding: 5px;
 			}
@@ -14,11 +17,11 @@
 			}
 		</style>
 	</head>
-	<body style="font-family: Hasklig;">
+	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
 		<div class="container" align="center">
 			<br><br><br>
 			<a href="#" id="leftArrow" data-id="-1" class="btn btn-info move"><-</a>
-			<a href="#" id="title" class="btn btn-info" style="width: 290px; cursor: default; opacity: 1.0;" disabled>Page </a>
+			<a href="#" id="title" class="btn btn-info disabled" style="width: 290px; cursor: default; opacity: 1.0;">Page </a>
 			<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
 			<br><br>
 			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 134px; height: 290px;">
@@ -38,7 +41,7 @@
 			<table id="table" style="margin-right: 7px;"></table>
 			<br>
 			<a href="menu.html" class="btn btn-default" style="width: 140px;">Back</a>
-			<a href="#" class="btn btn-info" id="play-button" style="width: 140px;" data-id="" disabled>Play</a>
+			<a href="#" class="btn btn-info disabled" id="play-button" style="width: 140px;" data-id="">Play</a>
 
 			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 134px; height: 290px;">
 				<div class="panel-heading">
@@ -72,17 +75,21 @@
 		const size = [4, 4];
 		const pages = Math.min(Math.ceil(Math.max.apply(null, Object.keys(levels).map(function(levelNum) {return Number(levelNum);}).concat([1])) / (size[0] * size[1])), 4096);
 
-		var level;
+		var level = undefined;
 		var page = 1;
 
+		function init() {
+			$(".btn").attr("draggable", "false");
+			update();
+		}
 		function update() {
 			$("#table").empty();
 			$("#table").data("id", page);
 			$("#title").html(`Page ${page}`);
-			if (page + $("#leftArrow").data("id") < 1) $("#leftArrow").attr("disabled", "disabled");
-			else $("#leftArrow").removeAttr("disabled");
-			if (page + $("#rightArrow").data("id") > pages) $("#rightArrow").attr("disabled", "disabled");
-			else $("#rightArrow").removeAttr("disabled");
+			if (page + $("#leftArrow").data("id") < 1) $("#leftArrow").addClass("disabled");
+			else $("#leftArrow").removeClass("disabled");
+			if (page + $("#rightArrow").data("id") > pages) $("#rightArrow").addClass("disabled");
+			else $("#rightArrow").removeClass("disabled");
 			for (var y = 0; y < size[1]; y++) {
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
 				for (var x = 0; x < size[0]; x++) {
@@ -93,9 +100,21 @@
 					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
 				}
 			}
+			$(".level-button").attr("draggable", "false");
+			highlight();
 		}
+		function highlight() {
+			$('.level-button').removeClass("active");
+			if (level !== undefined) $(`.level-button#${level}`).addClass("active");
+		}
+		$(".btn").on("mouseup mouseleave", function() {
+			$(this).blur();
+		});
+		$("#table").on("mouseup mouseleave", ".level-button", function() {
+			$(this).blur();
+		});
 		$(".move").on("click", function() {
-			if ($(this).attr("disabled") != "disabled") {
+			if (!$(this).hasClass("disabled")) {
 				page += $(this).data("id");
 			}
 			update();
@@ -104,19 +123,21 @@
 			if (level != $(this).attr("id")) {
 				level = $(this).attr("id");
 				$(".local.level").html(level);
-				if (Object.keys(levels).includes(String(level))) $("#play-button").removeAttr("disabled").data("id", level);
-				else $("#play-button").attr("disabled", "disabled").data("id", 0);
+				$(".global.level").html(level);
+				if (Object.keys(levels).includes(String(level))) $("#play-button").removeClass("disabled").data("id", level);
+				else $("#play-button").addClass("disabled").data("id", 0);
 			} else {
-				if (!$("#play-button").attr("disabled")) {
+				if (!$("#play-button").hasClass("disabled")) {
 					window.location = `play.html?leveldata=${$("#play-button").data("id")}&custom=0`
 				}
 			}
+			highlight();
 		});
 		$("#play-button").on("click", function() {
-			if (!$(this).attr("disabled")) {
+			if (!$(this).hasClass("disabled")) {
 				window.location = `play.html?leveldata=${$(this).data("id")}&custom=0`
 			}
 		});
-		update();
+		init();
 	</script>
 </html>
