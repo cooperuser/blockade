@@ -15,6 +15,17 @@
 			.level-button {
 				padding: 18px 0px;
 			}
+			.panel-heading {
+				padding-left: 0px;
+				padding-right: 0px;
+			}
+			.panel-title {
+				font-family: inherit;
+				font-size: 15px;
+			}
+			strong {
+				font-style
+			}
 		</style>
 	</head>
 	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
@@ -26,15 +37,18 @@
 			<br><br>
 			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 134px; height: 290px;">
 				<div class="panel-heading">
-					<h3 class="panel-title">Local Score</h3>
+					<h3 class="panel-title"><span id="level" class="label label-info"></span> <span id="name"></span><br></h3>
 				</div>
 				<div class="panel-body" style="padding-top: 8px;">
-					<span style="float: left;">Level: </span><span class="local level" style="float: right;"></span><br><br>
-					<span style="float: left;">Time: </span><span class="local time" style="float: right;"></span><br><br>
-					<span style="float: left;">Moves: </span><span class="local moves" style="float: right;"></span><br><br>
-					<span style="float: left;">Accuracy: </span><span class="local accuracy" style="float: right;"></span><br><br>
-					<span style="float: left;">Score: </span><span class="local score" style="float: right;"></span><br><br>
-					<span style="float: left;">Rank: </span><span class="local rank" style="float: right;"></span><br><br>
+					<span id="moves-header" style="float: left;"></span>
+					<span style="float: right;"><span id="player-moves"></span> <span id="creator-moves" class="text-muted"></span></span><br><br>
+					<span id="distance-header" style="float: left;"></span>
+					<span style="float: right;"><span id="player-distance"></span> <span id="creator-distance" class="text-muted"></span></span><br><br>
+					<!--span style="float: middle; font-size: 17px;"><span id="creators-header" class="label label-primary"></span></span><br><br-->
+					<span id="creators-header" class="label label-primary" style="float: middle; font-size: inherit;"></span><br><br>
+					<span id="creator-0" style="float: middle;"></span><br><br>
+					<span id="creator-1" style="float: middle;"></span><br><br>
+					<span id="creator-2" style="float: middle;"></span><br><br>
 				</div>
 			</div>
 
@@ -45,15 +59,10 @@
 
 			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 134px; height: 290px;">
 				<div class="panel-heading">
-					<h3 class="panel-title">Global Score</h3>
+					<h3 class="panel-title">Rankings</h3>
 				</div>
 				<div class="panel-body" style="padding-top: 8px;">
-					<span style="float: left;">Level: </span><span class="global level" style="float: right;"></span><br><br>
-					<span style="float: left;">Time: </span><span class="global time" style="float: right;"></span><br><br>
-					<span style="float: left;">Moves: </span><span class="global moves" style="float: right;"></span><br><br>
-					<span style="float: left;">Accuracy: </span><span class="global accuracy" style="float: right;"></span><br><br>
-					<span style="float: left;">Score: </span><span class="global score" style="float: right;"></span><br><br>
-					<span style="float: left;">Rank: </span><span class="global rank" style="float: right;"></span><br><br>
+
 				</div>
 			</div>
 		</div>
@@ -81,6 +90,7 @@
 		function init() {
 			$(".btn").attr("draggable", "false");
 			update();
+			showInfo();
 		}
 		function update() {
 			$("#table").empty();
@@ -107,6 +117,32 @@
 			$('.level-button').removeClass("active");
 			if (level !== undefined) $(`.level-button#${level}`).addClass("active");
 		}
+		function showInfo() {
+			if (level !== undefined) {
+				const json = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/level${level}.json`));
+				$("#level").html(level);
+				const cap = 21 - Math.floor(String(level).length * 2/3)
+				if (Object.keys(json.info).includes("name")) $("#name").html(json.info.name.length > cap ? json.info.name.slice(0, cap - 3) + "..." : json.info.name);
+				else $("#name").html("Level");
+				$("#moves-header").html("Moves:");
+				$("#distance-header").html("Distance:");
+				$("#player-moves, #player-distance").html("?");
+				if (Object.keys(json.info).includes("creators") && json.info.creators.length) $("#creators-header").html("Creators");
+				else $("#creators-header").html("");
+				for (var i = 0; i < 3; i++) {
+					if (Object.keys(json.info).includes("creators") && json.info.creators[i] !== undefined) {
+						$(`#creator-${i}`).html(json.info.creators[i].length > 22 ? json.info.creators[i].slice(0, 19) + "..." : json.info.creators[i]);
+					} else $(`#creator-${i}`).html("");
+				}
+				if (Object.keys(json.info).includes("creator-score") && Object.keys(json.info["creator-score"]).includes("moves")) $("#creator-moves").html("/ " + json.info["creator-score"].moves);
+				else $("#creator-moves").html("");
+				if (Object.keys(json.info).includes("creator-score") && Object.keys(json.info["creator-score"]).includes("distance")) $("#creator-distance").html("/ " + json.info["creator-score"].distance);
+				else $("#creator-distance").html("");
+			} else {
+				$("#level, #moves-header, #player-moves, #creator-moves, #distance-header, #player-distance, #creator-distance, #creators-header, #creator-0, #creator-1, #creator-2").html("");
+				$("#name").html("Level");
+			}
+		}
 		$(".btn").on("mouseup mouseleave", function() {
 			$(this).blur();
 		});
@@ -121,9 +157,7 @@
 		});
 		$("#table").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
-				level = $(this).attr("id");
-				$(".local.level").html(level);
-				$(".global.level").html(level);
+				level = Number($(this).attr("id"));
 				if (Object.keys(levels).includes(String(level))) $("#play-button").removeClass("disabled").data("id", level);
 				else $("#play-button").addClass("disabled").data("id", 0);
 			} else {
@@ -132,6 +166,7 @@
 				}
 			}
 			highlight();
+			showInfo();
 		});
 		$("#play-button").on("click", function() {
 			if (!$(this).hasClass("disabled")) {
