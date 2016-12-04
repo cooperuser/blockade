@@ -1,7 +1,10 @@
 {
 	"name": "blockade",
 	"productName": "Blockade",
-	"version": "0.3.28",
+	"version": "0.3.29",
 	"release": "indev",
-	"main": "source/scripts/js/main.js"
+	"main": "source/scripts/js/main.js",
+	"scripts": {
+		"start": "/Applications/Electron.app/Contents/MacOS/Electron ./"
+	}
 }
