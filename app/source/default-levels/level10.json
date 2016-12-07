@@ -43,6 +43,6 @@
 	"info": {
 		"name": "Underground Heist",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 17}
+		"creator-score": {"moves": 17, "distance": 59}
 	}
 }

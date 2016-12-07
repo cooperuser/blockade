@@ -37,6 +37,6 @@
 	"info": {
 		"name": "Which One?",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 9}
+		"creator-score": {"moves": 9, "distance": 21}
 	}
 }

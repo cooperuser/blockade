@@ -36,6 +36,6 @@
 	"info": {
 		"name": "Doubling Up",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 6}
+		"creator-score": {"moves": 6, "distance": 19}
 	}
 }

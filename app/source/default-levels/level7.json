@@ -35,6 +35,6 @@
 	"info": {
 		"name": "The Climb",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 15}
+		"creator-score": {"moves": 15, "distance": 38}
 	}
 }

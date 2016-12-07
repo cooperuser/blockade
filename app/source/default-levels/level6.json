@@ -40,6 +40,6 @@
 	"info": {
 		"name": "Symbiosis",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 16}
+		"creator-score": {"moves": 16, "distance": 51}
 	}
 }

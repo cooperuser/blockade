@@ -36,6 +36,6 @@
 	"info": {
 		"name": "Correspondence",
 		"creators": ["Jack Warner", "Grady Shoemaker"],
-		"creator-score": {"moves": 19}
+		"creator-score": {"moves": 19, "distance": 36}
 	}
 }

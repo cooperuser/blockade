@@ -34,6 +34,6 @@
 	"info": {
 		"name": "Not So Easy",
 		"creators": ["Grady Shoemaker", "Cooper Anderson"],
-		"creator-score": {"moves": 8}
+		"creator-score": {"moves": 8, "distance": 20}
 	}
 }

@@ -24,6 +24,6 @@
 	"info": {
 		"name": "First Steps",
 		"creators": ["Cooper Anderson"],
-		"creator-score": {"moves": 4}
+		"creator-score": {"moves": 4, "distance": 10}
 	}
 }

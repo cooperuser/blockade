@@ -31,6 +31,6 @@
 	"info": {
 		"name": "Spire",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 13}
+		"creator-score": {"moves": 13, "distance": 28}
 	}
 }

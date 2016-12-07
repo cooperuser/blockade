@@ -35,6 +35,6 @@
 	"info": {
 		"name": "Mushroom",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 10}
+		"creator-score": {"moves": 10, "distance": 24}
 	}
 }

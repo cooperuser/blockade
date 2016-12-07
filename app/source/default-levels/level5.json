@@ -39,6 +39,6 @@
 	"info": {
 		"name": "Globular",
 		"creators": ["Grady Shoemaker"],
-		"creator-score": {"moves": 10}
+		"creator-score": {"moves": 10, "distance": 27}
 	}
 }
