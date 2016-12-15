@@ -3,13 +3,14 @@
  */
 
 const fs = require("fs");
-const {Vector2} = require(`${__dirname}/js/Vectors`);
-const Tile = require(`${__dirname}/js/init/Tiles`);
-const Plate = require(`${__dirname}/js/init/Plates`);
-const Block = require(`${__dirname}/js/init/Blocks`);
+const {retrieve, readJSON} = require("./js/tools");
+const {Vector2} = require("./js/Vectors");
+const Tile = require("./js/init/Tiles");
+const Plate = require("./js/init/Plates");
+const Block = require("./js/init/Blocks");
 
 level = location.search.split("?")[1].split("&")[0].split('=')[1];
-var file, data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
+var data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
 
 var flags = {
 	showMoveButtonsUntilClick: function() {
@@ -43,7 +44,7 @@ var flags = {
 }
 
 function render() {
-	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 170}px`})
+	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 170}px`});
 	if ($("#game").outerWidth() < $(window).width()) {
 		$("#game").css({left: ($(window).width() - $("#game").outerWidth())/2});
 	}
@@ -64,9 +65,9 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 	var filePath = `${__dirname}/../../${path}`
 	if (fs.existsSync(filePath)) {
 		backpage = back;
-		file = fs.readFileSync(filePath, "utf8");
-		data = JSON.parse(file);
-		$("#levelName").html(data.info.name);
+		data = readJSON(filePath);
+		const name = retrieve(data, "info.name");
+		if (typeof name == "string") $("#levelName").html(name);
 		$("#levelNumber").html(level);
 		/* */
 		files = fs.readdirSync(`${__dirname}/../default-levels/`);
@@ -133,7 +134,7 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 	}
 	render();
 	for (var flag in flags) {
-		if (typeof data.info.flags != "undefined" && data.info.flags.includes(flag)) {
+		if (Array.isArray(retrieve(data, "info.flags")) && data.info.flags.includes(flag)) {
 			flags[flag]();
 		}
 	}
@@ -205,11 +206,11 @@ $("#game").on("mousemove", ".Object", function(event) {
 	}
 });
 
-$(document).on("mousemove", function(event) {
+/*$(document).on("mousemove", function(event) {
 	if($(".selector").length && !($(event.target).hasClass("selector"))) {
 		console.log("test");
 	}
-});
+});*/
 
 $("#game").on("mouseleave", ".Object", function(event) {
 	var objectData = $(this).data();

@@ -70,15 +70,19 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
 		const fs = require("fs");
+		const {retrieve, readJSON} = require("./js/tools");
 
 		levels = {};
 		fs.readdirSync(`${__dirname}/../default-levels/`).filter(function(levelName) {
 			return levelName.startsWith("level") && levelName.endsWith(".json") && /(?!(?!0$)0)^[0-9]+$/.test(levelName.slice(5, -5));
 		}).forEach(function(levelName) {
-			level = Number(levelName.slice(5, -5));
-			color = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/level${level}.json`)).info["icon-color"];
-			color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
-			levels[level] = {color: color};
+			const level = Number(levelName.slice(5, -5));
+			const json = readJSON(`${__dirname}/../default-levels/level${level}.json`);
+			if (json !== undefined) {
+				var color = retrieve(json, "info.icon-color");
+				color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
+				levels[level] = {color: color};
+			}
 		});
 
 		const size = [4, 4];
@@ -104,7 +108,7 @@
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
 				for (var x = 0; x < size[0]; x++) {
 					var level = size[0] * size[1] * (page - 1) + (y * size[0] + x + 1);
-					var exists = Object.keys(levels).includes(String(level));
+					var exists = level in levels;
 					var color = exists ? levels[level].color : "default";
 					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
 					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
@@ -119,24 +123,24 @@
 		}
 		function showInfo() {
 			if (level !== undefined) {
-				const json = JSON.parse(fs.readFileSync(`${__dirname}/../default-levels/level${level}.json`));
+				const json = readJSON(`${__dirname}/../default-levels/level${level}.json`);
 				$("#level").html(level);
 				const cap = 21 - Math.floor(String(level).length * 2/3)
-				if (Object.keys(json.info).includes("name")) $("#name").html(json.info.name.length > cap ? json.info.name.slice(0, cap - 3) + "..." : json.info.name);
+				if (typeof retrieve(json, "info.name") === "string") $("#name").html(json.info.name.length > cap ? json.info.name.slice(0, cap - 3) + "..." : json.info.name);
 				else $("#name").html("Level");
 				$("#moves-header").html("Moves:");
 				$("#distance-header").html("Distance:");
 				$("#player-moves, #player-distance").html("?");
-				if (Object.keys(json.info).includes("creators") && json.info.creators.length) $("#creators-header").html("Creators");
+				if (retrieve(json, "info.creators") !== undefined && json.info.creators.length) $("#creators-header").html("Creators");
 				else $("#creators-header").html("");
 				for (var i = 0; i < 3; i++) {
-					if (Object.keys(json.info).includes("creators") && json.info.creators[i] !== undefined) {
+					if (retrieve(json, "info.creators") !== undefined && typeof json.info.creators[i] === "string") {
 						$(`#creator-${i}`).html(json.info.creators[i].length > 22 ? json.info.creators[i].slice(0, 19) + "..." : json.info.creators[i]);
 					} else $(`#creator-${i}`).html("");
 				}
-				if (Object.keys(json.info).includes("creator-score") && Object.keys(json.info["creator-score"]).includes("moves")) $("#creator-moves").html("/ " + json.info["creator-score"].moves);
+				if (retrieve(json, "info.creator-score.moves") !== undefined) $("#creator-moves").html("/ " + json.info["creator-score"].moves);
 				else $("#creator-moves").html("");
-				if (Object.keys(json.info).includes("creator-score") && Object.keys(json.info["creator-score"]).includes("distance")) $("#creator-distance").html("/ " + json.info["creator-score"].distance);
+				if (retrieve(json, "info.creator-score.distance") !== undefined) $("#creator-distance").html("/ " + json.info["creator-score"].distance);
 				else $("#creator-distance").html("");
 			} else {
 				$("#level, #moves-header, #player-moves, #creator-moves, #distance-header, #player-distance, #creator-distance, #creators-header, #creator-0, #creator-1, #creator-2").html("");
@@ -158,7 +162,7 @@
 		$("#table").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
 				level = Number($(this).attr("id"));
-				if (Object.keys(levels).includes(String(level))) $("#play-button").removeClass("disabled").data("id", level);
+				if (level in levels) $("#play-button").removeClass("disabled").data("id", level);
 				else $("#play-button").addClass("disabled").data("id", 0);
 			} else {
 				if (!$("#play-button").hasClass("disabled")) {
