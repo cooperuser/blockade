@@ -44,7 +44,7 @@ var flags = {
 }
 
 function render() {
-	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 170}px`});
+	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 128}px`});
 	if ($("#game").outerWidth() < $(window).width()) {
 		$("#game").css({left: ($(window).width() - $("#game").outerWidth())/2});
 	}

@@ -4,18 +4,24 @@
 		<meta charset="UTF-8">
 		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<style>
+			.centered {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
 	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
-		<div class="container" align="center">
-			<br><br><br><br><br><br><br><br><br><br>
-			<h1 id="title" style="font-family: Hasklig; font-size: 80px; opacity: 0.0;">「Blockade」</h1><br><br>
+		<div class="container centered" align="center">
+			<h1 id="title" style="font-family: Hasklig; font-size: 80px; margin-top: 0px; margin-bottom: 16px; opacity: 0.0;">「Blockade」</h1>
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
-		setTimeout(function() {}, 500)
-		$("#title").animate({opacity: 1.0}, 1000, function() {console.log("test")})
+		$("#title").animate({opacity: 1.0}, 1000, function() {})
 		setTimeout(function() {
 			window.location = "menu.html";
 		}, 1750);

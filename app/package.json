@@ -1,7 +1,7 @@
 {
 	"name": "blockade",
 	"productName": "Blockade",
-	"version": "0.3.33",
+	"version": "0.3.34",
 	"release": "indev",
 	"main": "source/scripts/js/main.js",
 	"scripts": {
