@@ -79,7 +79,7 @@ class Block {
 		$(`#Block-Standard-${this.id}`).data({position: movement[0][1]});
 		//$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).attr("id", `#Block-Standard-${Vector2.ToString(movement[0][1])}`)
 	}
-	GetVisuals(grid) {
+	GetVisuals(size) {
 		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${this.id}" style="left: ${this.position.x*50}px; top: ${this.position.y*50}px;">
 				<div class="block-center color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/center.svg"});"></div>
 				<div class="block-corner-topLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>

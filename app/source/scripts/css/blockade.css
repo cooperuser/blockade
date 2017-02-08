@@ -1,15 +1,15 @@
 #game {
 	position: absolute;
 	width: 800px;
-	height: 600px;
+	height: 578px;
 	overflow: visible;
 	padding: 64px 25px 64px 25px;
 }
 
 #gui {
 	position: fixed;
-	width: 800px;
-	height: 600px;
+	width: 100%;
+	height: 100%;
 }
 
 .selector {

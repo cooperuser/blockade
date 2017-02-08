@@ -44,18 +44,18 @@ var flags = {
 }
 
 function render() {
-	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 128}px`});
-	if ($("#game").outerWidth() < $(window).width()) {
+	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 128}px`/*, left: 0, top: 0*/});
+	/*if ($("#game").outerWidth() < $(window).width()) {
 		$("#game").css({left: ($(window).width() - $("#game").outerWidth())/2});
 	}
 	if ($("#game").outerHeight() < $(window).height()) {
 		$("#game").css({top: ($(window).height() - $("#game").outerHeight())/2});
-	}
-	window.scrollBy(($(document).width() - $(window).width())/2, ($(document).height() - $(window).height())/2);
+	}*/ // temp
+	//window.scrollBy(($(document).width() - $(window).width()) / 2, ($(document).height() - $(window).height()) / 2);
 	for (var x in data.grid) {
 		for (var y in data.grid[x]) {
 			for (var object in data.grid[x][y]) {
-				data.grid[x][y][object].GetVisuals();
+				data.grid[x][y][object].GetVisuals(data.size);
 			}
 		}
 	}
@@ -71,7 +71,7 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		$("#levelNumber").html(level);
 		/* */
 		files = fs.readdirSync(`${__dirname}/../default-levels/`);
-		offset = 1;
+		let offset = 1;
 		while (true) {
 			if (files.includes("level"+String(Number(level)+offset)+".json")) {
 				cont = `play.html?leveldata=${Number(level)+offset}`;
@@ -90,18 +90,18 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		/* */
 		var min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
 		for (var object in data.board) {
-			data.board[object].forEach(function(ob, index) {
-				if (ob.position[0] < min.x) {
-					min.x = ob.position[0];
+			data.board[object].forEach(function(obj, index) {
+				if (obj.position[0] < min.x) {
+					min.x = obj.position[0];
 				}
-				if (ob.position[1] < min.y) {
-					min.y = ob.position[1];
+				if (obj.position[1] < min.y) {
+					min.y = obj.position[1];
 				}
-				if (ob.position[0] > max.x) {
-					max.x = ob.position[0];
+				if (obj.position[0] > max.x) {
+					max.x = obj.position[0];
 				}
-				if (ob.position[1] > max.y) {
-					max.y = ob.position[1];
+				if (obj.position[1] > max.y) {
+					max.y = obj.position[1];
 				}
 			});
 		}

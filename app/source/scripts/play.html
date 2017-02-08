@@ -13,12 +13,18 @@
 			.modal-title {
 				font-family: inherit;
 			}
+			.centered {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
 		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
-	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default; position: absolute; width: 100%; height: 100%;">
 		<span id="gui" style="z-index: 1; pointer-events: none;">
-			<div id="menu" class="navbar navbar-default" style="position: absolute; left: 0px; pointer-events: all;">
+			<div id="menu" class="navbar navbar-default" style="position: absolute; left: 0px; margin-bottom: 0px; pointer-events: all;">
 				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
@@ -29,7 +35,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="info" class="navbar navbar-default" style="position: absolute; right: 0px; bottom: 0px; pointer-events: all;">
+			<div id="info" class="navbar navbar-default" style="position: absolute; right: 0px; bottom: 0px; margin-bottom: 0px; pointer-events: all;">
 				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
 						<ul class="nav navbar-nav">
@@ -40,7 +46,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="position: absolute; left: 4px; bottom: 27px;">
+			<div style="position: absolute; left: 4px; bottom: 5px;">
 				<span class="label label-info" id="levelNumber"></span> <span id="levelName"></span>
 			</div>
 		</span>
@@ -84,9 +90,79 @@
 			$(this).blur();
 		});
 
-		var infoOpen = true;
+		let infoOpen = true;
+
 		$("#menu").css({left: `${54 - $("#menu").width()}px`});
 		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
+
+		/*// Percentage-based scrolling
+
+		function getSize() {
+			return [$(window).width(), $(window).height()];
+		}
+
+		function getScroll() {
+			let horizontal = $(document).scrollLeft() / Math.max($("#game").outerWidth() - windowSize[0], 0);
+			if (isNaN(horizontal)) horizontal = 0.5;
+			let vertical = $(document).scrollTop() / Math.max($("#game").outerHeight() - windowSize[1], 0);
+			if (isNaN(vertical)) vertical = 0.5;
+			return [horizontal, vertical];
+		}
+
+		function setScroll(scroll) {
+			$(document).scrollLeft(scroll[0] * Math.max($("#game").outerWidth() - windowSize[0], 0));
+			$(document).scrollTop(scroll[1] * Math.max($("#game").outerHeight() - windowSize[1], 0));
+		}
+
+		windowSize = getSize();
+		windowScroll = [0.5, 0.5];
+
+		$(window).on("scroll", function() {
+			windowScroll = getScroll();
+			//console.log(windowScroll);
+		});
+
+		$(window).on("resize", function() {
+			windowScroll = getScroll();
+			windowSize = getSize();
+			setScroll(windowScroll);
+		});*/
+
+		function getSize() {
+			return [$(window).width(), $(window).height()];
+		}
+
+		function getCenter() {
+			return [$(document).scrollLeft() + size[0] / 2, $(document).scrollTop() + size[1] / 2];
+		}
+
+		function setCenter() {
+			$(document).scrollLeft(center[0] - size[0] / 2);
+			$(document).scrollTop(center[1] - size[1] / 2);
+		}
+
+		function initCenter() {
+			$(document).scrollLeft(($(document).width() - size[0]) / 2);
+			$(document).scrollTop(($(document).height() - size[1]) / 2);
+		}
+
+		size = getSize();
+		initCenter();
+		center = getCenter();
+
+		$(window).on("scroll", function() {
+			center = getCenter();
+		});
+
+		$(window).on("resize", function() {
+			//center = getCenter();
+			size = getSize();
+			setCenter();
+
+			let horizontal = Math.max(($(document).width() - $("#game").outerWidth()) / 2, 0);
+			let vertical = Math.max(($(document).height() - $("#game").outerHeight()) / 2, 0);
+			$("#game").css("margin", `${vertical}px ${horizontal}px`);
+		});
 
 		$("#menu").on("mouseenter", function() {
 			setTimeout(function() {$("#menuArrow").html('«')}, 100);
