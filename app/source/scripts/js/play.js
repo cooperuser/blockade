@@ -3,7 +3,7 @@
  */
 
 const fs = require("fs");
-const {retrieve, readJSON} = require("./js/tools");
+const {readJSON, retrieve} = require("./js/tools");
 const {Vector2} = require("./js/Vectors");
 const Tile = require("./js/init/Tiles");
 const Plate = require("./js/init/Plates");
@@ -164,19 +164,19 @@ function checkWin() {
 	}
 	if (!actives.includes(false)) {
 		hasWon = true;
-		setTimeout(function () {
+		setTimeout(function() {
 			$("#winModal").modal("toggle")
 		}, 400);
-		setTimeout(function () {
-			$({ moves: 0 }).animate({ moves: moves }, {
+		setTimeout(function() {
+			$({moves: 0}).animate({moves: moves}, {
 				duration: 400,
-				step: function () {
+				step: function() {
 					$('#win-moves').text(Math.ceil(this.moves));
 				}
 			});
-			$({ distance: 0 }).animate({ distance: distance }, {
+			$({distance: 0}).animate({distance: distance}, {
 				duration: 400,
-				step: function () {
+				step: function() {
 					$('#win-distance').text(Math.ceil(this.distance));
 				}
 			});
