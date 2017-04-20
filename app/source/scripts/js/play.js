@@ -164,8 +164,10 @@ function checkWin() {
 	}
 	if (!actives.includes(false)) {
 		hasWon = true;
-		if (retrieve(data, "info.creator-score.moves") !== undefined) $("#win-creator-moves").html("/ " + data.info["creator-score"].moves);
-		if (retrieve(data, "info.creator-score.distance") !== undefined) $("#win-creator-distance").html("/ " + data.info["creator-score"].distance);
+		let creatorMoves = retrieve(data, "info.creator-score.moves");
+		let creatorDistance = retrieve(data, "info.creator-score.distance");
+		if (creatorMoves != undefined) $("#win-creator-moves").html("/ " + creatorMoves);
+		if (creatorDistance != undefined) $("#win-creator-distance").html("/ " + creatorDistance);
 		setTimeout(function() {
 			$("#winModal").modal();
 		}, 400);
@@ -173,18 +175,26 @@ function checkWin() {
 			$({moves: 0}).animate({moves: moves}, {
 				duration: 400,
 				step: function() {
-					$('#win-player-moves').text(Math.ceil(this.moves));
+					$("#win-player-moves").text(Math.ceil(this.moves));
 				}
 			});
 			$({distance: 0}).animate({distance: distance}, {
 				duration: 400,
 				step: function() {
-					$('#win-player-distance').text(Math.ceil(this.distance));
+					$("#win-player-distance").text(Math.ceil(this.distance));
 				}
 			});
 			//$("#win-player-moves").html(moves);
 			//$("#win-player-distance").html(distance);
-		}, 1000)
+		}, 1000);
+		setTimeout(function() {
+			if (moves <= creatorMoves) {
+				$("#win-player-moves, #win-creator-moves").addClass(moves == creatorMoves ? "text-success" : "text-warning");
+			}
+			if (distance <= creatorDistance) {
+				$("#win-player-distance, #win-creator-distance").addClass(distance == creatorDistance ? "text-success" : "text-warning");
+			}
+		}, 1340);
 	}
 }
 
