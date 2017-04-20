@@ -97,8 +97,8 @@
 				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li><a id="restart" style="cursor: pointer;">Restart</a></li>
-							<li><a id="exit" style="cursor: pointer;">Exit</a></li>
+							<li><a class="restart" style="cursor: pointer;">Restart</a></li>
+							<li><a class="exit" style="cursor: pointer;">Level Select</a></li>
 							<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
 						</ul>
 					</div>
@@ -130,16 +130,15 @@
 
 			</div>
 		</div>
-		<div id="winModal" class="modal fade" role="dialog">
+		<div id="winModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 						<h4 class="modal-title">Level Complete!</h4>
 					</div>
 					<div class="modal-body">
-						<span>Moves: <span id="win-moves">0</span></span><br>
-						<span>Distance: <span id="win-distance">0</span></span>
+						<span>Moves: <span id="win-player-moves">0</span> <span id="win-creator-moves" class="text-muted"></span></span><br>
+						<span>Distance: <span id="win-player-distance">0</span> <span id="win-creator-distance" class="text-muted"></span></span>
 					</div>
 					<div class="modal-footer">
 						<div style="text-align: center;">
@@ -182,8 +181,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" id="levelSelect">Level Select</button>
-						<button href="menu.html" type="button" class="btn btn-primary" data-dismiss="modal" id="continue">Continue</button>
+						<button type="button" class="btn btn-default restart">Replay</button>
+						<button type="button" class="btn btn-default exit">Level Select</button>
+						<button type="button" class="btn btn-primary continue" data-dismiss="modal">Continue</button>
 					</div>
 				</div>
 			</div>
@@ -224,6 +224,9 @@
 				$("#info").stop().animate({right: "0px"}, 200);
 			}
 		});
+		/*$("#winModal").modal({
+			backdrop: "static"
+		});*/
 
 		const colors = ["green", "lime", "yellow", "orange", "red"];
 		function clear(group) {

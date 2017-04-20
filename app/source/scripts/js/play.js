@@ -164,24 +164,26 @@ function checkWin() {
 	}
 	if (!actives.includes(false)) {
 		hasWon = true;
+		if (retrieve(data, "info.creator-score.moves") !== undefined) $("#win-creator-moves").html("/ " + data.info["creator-score"].moves);
+		if (retrieve(data, "info.creator-score.distance") !== undefined) $("#win-creator-distance").html("/ " + data.info["creator-score"].distance);
 		setTimeout(function() {
-			$("#winModal").modal("toggle")
+			$("#winModal").modal();
 		}, 400);
 		setTimeout(function() {
 			$({moves: 0}).animate({moves: moves}, {
 				duration: 400,
 				step: function() {
-					$('#win-moves').text(Math.ceil(this.moves));
+					$('#win-player-moves').text(Math.ceil(this.moves));
 				}
 			});
 			$({distance: 0}).animate({distance: distance}, {
 				duration: 400,
 				step: function() {
-					$('#win-distance').text(Math.ceil(this.distance));
+					$('#win-player-distance').text(Math.ceil(this.distance));
 				}
 			});
-			//$("#win-moves").html(moves);
-			//$("#win-distance").html(distance);
+			//$("#win-player-moves").html(moves);
+			//$("#win-player-distance").html(distance);
 		}, 1000)
 	}
 }
@@ -239,19 +241,15 @@ $("#game").on("mouseleave", ".selector", function(event) {
 	}
 });
 
-$("#restart").on("click", function() {
+$(".restart").on("click", function() {
 	location.reload();
 });
 
-$("#exit").on("click", function() {
+$(".exit").on("click", function() {
 	window.location = backpage;
 });
 
-$("#levelSelect").on("click", function() {
-	window.location = "levelselect.html";
-});
-
-$("#continue").on("click", function() {
+$(".continue").on("click", function() {
 	window.location = cont;
 });
 
