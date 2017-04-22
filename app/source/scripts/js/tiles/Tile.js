@@ -24,7 +24,7 @@ class Tile {
 		}
 	}
 	Slide(grid, block=null) {
-		newDistance += 1;
+		distance += 1;
 	};
 	Depart(grid, block=null) {
 		moves += 1;

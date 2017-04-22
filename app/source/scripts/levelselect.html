@@ -38,9 +38,9 @@
 				</div>
 				<div class="panel-body" style="padding-top: 8px;">
 					<span id="moves-header" style="float: left;"></span>
-					<span style="float: right;"><span id="player-moves"></span> <span id="creator-moves" class="text-muted"></span></span><br><br>
+					<span style="float: right;"><span id="player-moves" class="score text-muted"></span> <span id="creator-moves" class="score text-muted"></span></span><br><br>
 					<span id="distance-header" style="float: left;"></span>
-					<span style="float: right;"><span id="player-distance"></span> <span id="creator-distance" class="text-muted"></span></span><br><br>
+					<span style="float: right;"><span id="player-distance" class="score text-muted"></span> <span id="creator-distance" class="score text-muted"></span></span><br><br>
 					<!--span style="float: middle; font-size: 17px;"><span id="creators-header" class="label label-primary"></span></span><br><br-->
 					<span id="creators-header" class="label label-primary" style="float: middle; font-size: inherit;"></span><br><br>
 					<span id="creator-0" style="float: middle;"></span><br><br>
@@ -69,24 +69,22 @@
 		const fs = require("fs");
 		const {readJSON, retrieve} = require("./js/tools");
 
-		levels = {};
-		fs.readdirSync(`${__dirname}/../default-levels/`).filter(function(levelName) {
-			return levelName.startsWith("level") && levelName.endsWith(".json") && /(?!(?!0$)0)^[0-9]+$/.test(levelName.slice(5, -5));
-		}).forEach(function(levelName) {
-			const level = Number(levelName.slice(5, -5));
-			const json = readJSON(`${__dirname}/../default-levels/level${level}.json`);
-			if (json !== undefined) {
-				var color = retrieve(json, "info.icon-color");
+		/*let levels = {};
+		const names = readJSON(`${__dirname}/../levels.json`);
+		names.forEach(function(name, number) {
+			data = readJSON(`${__dirname}/../levels/${name}.json`);
+			if (data !== undefined) {
+				var color = retrieve(data, "info.icon-color");
 				color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
-				levels[level] = {color: color};
+				levels[number] = {color: color};
 			}
-		});
+		});*/
 
 		const size = [4, 4];
-		const pages = Math.min(Math.ceil(Math.max.apply(null, Object.keys(levels).map(function(levelNum) {return Number(levelNum);}).concat([1])) / (size[0] * size[1])), 4096);
+		//const pages = Math.min(Math.ceil(Math.max.apply(null, Object.keys(levels).map(function(levelNum) {return Number(levelNum);}).concat([0])) / (size[0] * size[1])), 4096);
 
-		var level = undefined;
-		var page = 1;
+		let level = location.search.includes("=") ? Number(location.search.split("&")[0].split("=")[1]) : undefined;
+		let page = level == undefined ? 0 : Math.floor(level / (size[0] * size[1]));
 
 		function init() {
 			$(".btn").attr("draggable", "false");
@@ -97,16 +95,26 @@
 			$("#table").empty();
 			$("#table").data("id", page);
 			$("#title").html(`Page ${page}`);
-			if (page + $("#leftArrow").data("id") < 1) $("#leftArrow").addClass("disabled");
+			const names = readJSON(`${__dirname}/../levels.json`);
+			const pages = Math.min(Math.floor(
+				Math.max.apply(null,
+					names.map(function(name, index) {return readJSON(`${__dirname}/../levels/${name}.json`) != undefined ? index : 0;}).concat([0])
+				) / (size[0] * size[1])
+			) + 1, 4096);
+			if (page + $("#leftArrow").data("id") < 0) $("#leftArrow").addClass("disabled");
 			else $("#leftArrow").removeClass("disabled");
-			if (page + $("#rightArrow").data("id") > pages) $("#rightArrow").addClass("disabled");
+			if (page + $("#rightArrow").data("id") >= pages) $("#rightArrow").addClass("disabled");
 			else $("#rightArrow").removeClass("disabled");
-			for (var y = 0; y < size[1]; y++) {
+			for (let y = 0; y < size[1]; y++) {
 				$("#table").append(`<tr id="row-${y + 1}"></tr>`);
-				for (var x = 0; x < size[0]; x++) {
-					var level = size[0] * size[1] * (page - 1) + (y * size[0] + x + 1);
-					var exists = level in levels;
-					var color = exists ? levels[level].color : "default";
+				for (let x = 0; x < size[0]; x++) {
+					let level = size[0] * size[1] * page + size[0] * y + x;
+					//let exists = level in levels;
+					//let color = exists ? levels[level].color : "default";
+					let data = names[level] == undefined ? undefined : readJSON(`${__dirname}/../levels/${names[level]}.json`);
+					let exists = data != undefined;
+					let color = exists ? retrieve(data, "info.icon-color") : "default";
+					color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
 					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
 					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
 				}
@@ -117,27 +125,49 @@
 		function highlight() {
 			$('.level-button').removeClass("active");
 			if (level !== undefined) $(`.level-button#${level}`).addClass("active");
+			if (/*level in levels*/ readJSON(`${__dirname}/../levels.json`)[level] != undefined) $("#play-button").removeClass("disabled").data("id", level);
+			else $("#play-button").addClass("disabled").data("id", 0);
 		}
 		function showInfo() {
 			if (level !== undefined) {
-				const json = readJSON(`${__dirname}/../default-levels/level${level}.json`);
+				const name = readJSON(`${__dirname}/../levels.json`)[level];
+				const data = readJSON(`${__dirname}/../levels/${name}.json`);
+				const progress = readJSON(`${__dirname}/../../save-data/progress/${name}.json`);
 				$("#level").html(level);
 				const cap = 21 - Math.floor(String(level).length * 2/3)
-				if (typeof retrieve(json, "info.name") === "string") $("#name").html(json.info.name.length > cap ? json.info.name.slice(0, cap - 3) + "..." : json.info.name);
+				if (typeof retrieve(data, "info.name") === "string") $("#name").html(data.info.name.length > cap ? data.info.name.slice(0, cap - 3) + "..." : data.info.name);
 				else $("#name").html("Level");
 				$("#moves-header").html("Moves:");
 				$("#distance-header").html("Distance:");
-				$("#player-moves, #player-distance").html("?");
-				if (retrieve(json, "info.creators") !== undefined && json.info.creators.length) $("#creators-header").html("Creators");
+				$(".score").removeClass("text-success text-warning");
+				$(".score").addClass("text-muted");
+				let creatorMoves = retrieve(data, "info.creator-score.moves");
+				let creatorDistance = retrieve(data, "info.creator-score.distance");
+				if (retrieve(progress, "moves") != undefined) {
+					$("#player-moves").html(progress.moves);
+					$("#player-moves").removeClass("text-muted");
+					if (progress.moves <= creatorMoves) {
+						$("#player-moves, #creator-moves").addClass(progress.moves == creatorMoves ? "text-success" : "text-warning");
+					}
+				} else $("#player-moves").html("?");
+				if (retrieve(progress, "distance") != undefined) {
+					$("#player-distance").html(progress.distance);
+					$("#player-distance").removeClass("text-muted");
+					if (progress.distance <= creatorDistance) {
+						$("#player-distance, #creator-distance").addClass(progress.distance == creatorDistance ? "text-success" : "text-warning");
+					}
+				} else $("#player-distance").html("?");
+				// $("#player-moves, #player-distance").html("?");
+				if (retrieve(data, "info.creators") !== undefined && data.info.creators.length) $("#creators-header").html("Creators");
 				else $("#creators-header").html("");
-				for (var i = 0; i < 3; i++) {
-					if (retrieve(json, "info.creators") !== undefined && typeof json.info.creators[i] === "string") {
-						$(`#creator-${i}`).html(json.info.creators[i].length > 22 ? json.info.creators[i].slice(0, 19) + "..." : json.info.creators[i]);
+				for (let i = 0; i < 3; i++) {
+					if (retrieve(data, "info.creators") !== undefined && typeof data.info.creators[i] === "string") {
+						$(`#creator-${i}`).html(data.info.creators[i].length > 22 ? data.info.creators[i].slice(0, 19) + "..." : data.info.creators[i]);
 					} else $(`#creator-${i}`).html("");
 				}
-				if (retrieve(json, "info.creator-score.moves") !== undefined) $("#creator-moves").html("/ " + json.info["creator-score"].moves);
+				if (retrieve(data, "info.creator-score.moves") !== undefined) $("#creator-moves").html("/ " + data.info["creator-score"].moves);
 				else $("#creator-moves").html("");
-				if (retrieve(json, "info.creator-score.distance") !== undefined) $("#creator-distance").html("/ " + json.info["creator-score"].distance);
+				if (retrieve(data, "info.creator-score.distance") !== undefined) $("#creator-distance").html("/ " + data.info["creator-score"].distance);
 				else $("#creator-distance").html("");
 			} else {
 				$("#level, #moves-header, #player-moves, #creator-moves, #distance-header, #player-distance, #creator-distance, #creators-header, #creator-0, #creator-1, #creator-2").html("");
@@ -159,11 +189,9 @@
 		$("#table").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
 				level = Number($(this).attr("id"));
-				if (level in levels) $("#play-button").removeClass("disabled").data("id", level);
-				else $("#play-button").addClass("disabled").data("id", 0);
 			} else {
 				if (!$("#play-button").hasClass("disabled")) {
-					window.location = `play.html?leveldata=${$("#play-button").data("id")}&custom=0`
+					window.location = `play.html?level=${$("#play-button").data("id")}&custom=0`
 				}
 			}
 			highlight();
@@ -171,7 +199,7 @@
 		});
 		$("#play-button").on("click", function() {
 			if (!$(this).hasClass("disabled")) {
-				window.location = `play.html?leveldata=${$(this).data("id")}&custom=0`
+				window.location = `play.html?level=${$(this).data("id")}&custom=0`
 			}
 		});
 		init();

@@ -3,21 +3,21 @@
  */
 
 const fs = require("fs");
-const {readJSON, retrieve} = require("./js/tools");
+const {write, readJSON, retrieve} = require("./js/tools");
 const {Vector2} = require("./js/Vectors");
 const Tile = require("./js/init/Tiles");
 const Plate = require("./js/init/Plates");
 const Block = require("./js/init/Blocks");
 
-level = location.search.split("?")[1].split("&")[0].split('=')[1];
-var data = {}, hasWon = false, backpage, moves = 0, distance = 0, newDistance = 0;
+let level = Number(location.search.split("?")[1].split("&")[0].split('=')[1]);
+let data = {}, filename, hasWon = false, backpage = `levelselect.html?level=${level}`, moves = 0, distance = 0;
 
-var flags = {
+let flags = {
 	showMoveButtonsUntilClick: function() {
 		if (!$(".selector").length) {
-			var objectData = $(".block").data();
+			let objectData = $(".block").data();
 			selected = data.grid[objectData.position.x][objectData.position.y].block;
-			var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+			let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
 			$("#game").append(`
 					<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
 						<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
@@ -29,9 +29,9 @@ var flags = {
 	},
 	showMoveButtonsUntilHover: function() {
 		if (!$(".selector").length) {
-			var objectData = $(".block").data();
+			let objectData = $(".block").data();
 			selected = data.grid[objectData.position.x][objectData.position.y].block;
-			var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+			let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
 			$("#game").append(`
 				<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
 					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
@@ -52,44 +52,27 @@ function render() {
 		$("#game").css({top: ($(window).height() - $("#game").outerHeight())/2});
 	}
 	window.scrollBy(($(document).width() - $(window).width())/2, ($(document).height() - $(window).height())/2);
-	for (var x in data.grid) {
-		for (var y in data.grid[x]) {
-			for (var object in data.grid[x][y]) {
+	for (let x in data.grid) {
+		for (let y in data.grid[x]) {
+			for (let object in data.grid[x][y]) {
 				data.grid[x][y][object].GetVisuals();
 			}
 		}
 	}
 }
 
-function init(path=`source/default-levels/level${level}.json`, back="levelselect.html?page=1") {
-	var filePath = `${__dirname}/../../${path}`
+function init(path, back) {
+	filename = readJSON(`${__dirname}/../levels.json`)[level];
+	if (path == undefined) path = `source/levels/${filename}.json`;
+	if (back != undefined) backpage = back;
+	let filePath = `${__dirname}/../../${path}`;
 	if (fs.existsSync(filePath)) {
-		backpage = back;
 		data = readJSON(filePath);
 		const name = retrieve(data, "info.name");
 		if (typeof name == "string") $("#levelName").html(name);
 		$("#levelNumber").html(level);
-		/* */
-		files = fs.readdirSync(`${__dirname}/../default-levels/`);
-		offset = 1;
-		while (true) {
-			if (files.includes("level"+String(Number(level)+offset)+".json")) {
-				cont = `play.html?leveldata=${Number(level)+offset}`;
-				break;
-			}
-			if (Number(level)+offset > Math.max.apply(null, files.filter(function(text) {
-				return text.slice(0, 5) == "level" && text.slice(text.length-5, text.length) == ".json" && !isNaN(text.slice(5, text.length-5));
-			}).map(function(text) {
-				return Number(text.replace(/\D/g, ''));
-			}))) {
-				cont = "levelselect.html";
-				break;
-			}
-			offset++;
-		}
-		/* */
-		var min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
-		for (var object in data.board) {
+		let min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
+		for (let object in data.board) {
 			data.board[object].forEach(function(ob, index) {
 				if (ob.position[0] < min.x) {
 					min.x = ob.position[0];
@@ -107,13 +90,13 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 		}
 		data.size = Vector2.Add(Vector2.Sub(max, min), new Vector2(1, 1));
 		data.grid = [];
-		for (var x = 0; x < data.size.x; x++) {
+		for (let x = 0; x < data.size.x; x++) {
 			data.grid.push([]);
-			for (var y = 0; y < data.size.y; y++) {
+			for (let y = 0; y < data.size.y; y++) {
 				data.grid[x].push({});
 			}
 		}
-		for (var object in data.board) {
+		for (let object in data.board) {
 			data.board[object].forEach(function(tile, index) {
 				data.board[object][index].position[0] -= min.x;
 				data.board[object][index].position[1] -= min.y;
@@ -129,11 +112,11 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 			data.grid[block.position[0]][block.position[1]].block = new Block[block.class]($.extend(block.attributes, {position: Vector2.FromList(block.position), id: index}));
 		});
 	} else {
-		init();
+		$("#errorModal").modal();
 		return;
 	}
 	render();
-	for (var flag in flags) {
+	for (let flag in flags) {
 		if (Array.isArray(retrieve(data, "info.flags")) && data.info.flags.includes(flag)) {
 			flags[flag]();
 		}
@@ -142,21 +125,18 @@ function init(path=`source/default-levels/level${level}.json`, back="levelselect
 
 function updateInfo() {
 	$("#moves").html(moves);
-	$({distance: distance}).animate({distance: newDistance}, {
+	$({distance: Number($("#distance").html())}).animate({distance: distance}, {
 		duration: 400,
 		step: function() {
 			$("#distance").html(Math.round(this.distance));
-		},
-		complete: function() {
-			distance = newDistance;
 		}
 	});
 }
 
 function checkWin() {
-	var actives = [];
-	for (var x in data.grid) {
-		for (var y in data.grid[x]) {
+	let actives = [];
+	for (let x in data.grid) {
+		for (let y in data.grid[x]) {
 			if (typeof data.grid[x][y].plate != "undefined") {
 				actives.push(data.grid[x][y].plate.active);
 			}
@@ -164,8 +144,15 @@ function checkWin() {
 	}
 	if (!actives.includes(false)) {
 		hasWon = true;
-		let creatorMoves = retrieve(data, "info.creator-score.moves");
-		let creatorDistance = retrieve(data, "info.creator-score.distance");
+		const savedMoves = retrieve(readJSON(`${__dirname}/../../save-data/progress/${filename}.json`), "moves");
+		const savedDistance = retrieve(readJSON(`${__dirname}/../../save-data/progress/${filename}.json`), "distance");
+		const bestMoves = savedMoves == undefined ? moves : Math.min(savedMoves, moves);
+		const bestDistance = savedDistance == undefined ? distance : Math.min(savedDistance, distance);
+		if (!retrieve(readJSON("save-data/preferences/developer.json"), "disable-progress")) {
+			write(`${__dirname}/../../save-data/progress/${filename}.json`, `{\n\t"moves": ${bestMoves},\n\t"distance": ${bestDistance}\n}`);
+		}
+		const creatorMoves = retrieve(data, "info.creator-score.moves");
+		const creatorDistance = retrieve(data, "info.creator-score.distance");
 		if (creatorMoves != undefined) $("#win-creator-moves").html("/ " + creatorMoves);
 		if (creatorDistance != undefined) $("#win-creator-distance").html("/ " + creatorDistance);
 		setTimeout(function() {
@@ -184,8 +171,8 @@ function checkWin() {
 					$("#win-player-distance").text(Math.ceil(this.distance));
 				}
 			});
-			//$("#win-player-moves").html(moves);
-			//$("#win-player-distance").html(distance);
+			// $("#win-player-moves").html(moves);
+			// $("#win-player-distance").html(distance);
 		}, 1000);
 		setTimeout(function() {
 			if (moves <= creatorMoves) {
@@ -198,16 +185,16 @@ function checkWin() {
 	}
 }
 
-var selected;
+let selected;
 
 $("#game").on("mousemove", ".Object", function(event) {
-	var objectData = $(this).data();
-	var subclass = eval(objectData.class)[objectData.subclass];
-	var flags = subclass.flags;
+	let objectData = $(this).data();
+	let subclass = eval(objectData.class)[objectData.subclass];
+	let flags = subclass.flags;
 	if (flags.includes("selectable") && !$(this).hasClass("moving") && !hasWon) {
 		$(".selector").remove();
 		selected = data.grid[objectData.position.x][objectData.position.y].block;
-		var checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
+		let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
 		$("#game").append(`
 			<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
 				<a class="btn btn-${(checkMoves.up)?"success":"default"} button up" data-id='up' ${(checkMoves.up)?"":"disabled"}></a>
@@ -225,17 +212,17 @@ $("#game").on("mousemove", ".Object", function(event) {
 });*/
 
 $("#game").on("mouseleave", ".Object", function(event) {
-	var objectData = $(this).data();
-	var subclass = eval(objectData.class)[objectData.subclass];
-	var flags = subclass.flags;
+	let objectData = $(this).data();
+	let subclass = eval(objectData.class)[objectData.subclass];
+	let flags = subclass.flags;
 	if (flags.includes("selectable")) {
 		//selected = undefined;
 	}
 });
 
 $("#game").on("click", ".selector>.button", function(event) {
-	var info = $(this).parent().data("id");
-	var block = data.grid[info.position.x][info.position.y].block
+	let info = $(this).parent().data("id");
+	let block = data.grid[info.position.x][info.position.y].block
 	if (!hasWon) {
 		block.velocity = Vector2.FromDirection($(this).data("id"));
 		block.Move();
@@ -260,7 +247,19 @@ $(".exit").on("click", function() {
 });
 
 $(".continue").on("click", function() {
-	window.location = cont;
+	let names = readJSON(`${__dirname}/../levels.json`);
+	let files = fs.readdirSync(`${__dirname}/../levels/`);
+	let offset = 0;
+	while (true) {
+		offset++;
+		if (names[level + offset] != undefined && files.includes(`${names[level + offset]}.json`)) {
+			window.location = `play.html?level=${level + offset}`;
+			break;
+		} else if (level + offset >= names.length) {
+			window.location = backpage;
+			break;
+		}
+	}
 });
 
 setInterval(function() {

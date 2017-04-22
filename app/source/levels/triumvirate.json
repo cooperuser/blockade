@@ -1,0 +1,41 @@
+{
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 1]},
+			{"class": "Standard", "position": [0, 2]},
+			{"class": "Standard", "position": [0, 3]},
+			{"class": "Standard", "position": [1, 0]},
+			{"class": "Standard", "position": [1, 1]},
+			{"class": "Standard", "position": [1, 2]},
+			{"class": "Standard", "position": [1, 3]},
+			{"class": "Standard", "position": [1, 4]},
+			{"class": "Standard", "position": [2, 1]},
+			{"class": "Standard", "position": [2, 2]},
+			{"class": "Standard", "position": [2, 3]},
+			{"class": "Standard", "position": [2, 4]},
+			{"class": "Standard", "position": [3, 0]},
+			{"class": "Standard", "position": [3, 1]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [3, 3]},
+			{"class": "Standard", "position": [3, 4]},
+			{"class": "Standard", "position": [4, 0]},
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 3]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [1, 0], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [1, 3], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [4, 3], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [0, 1], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [3, 4], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [4, 0], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
+		"name": "Triumvirate",
+		"creators": ["Grady Shoemaker"],
+		"creator-score": {"moves": 11, "distance": 24}
+	}
+}
