@@ -1,5 +1,6 @@
+const fs = require("fs");
+
 function access(path) {
-	let fs = require("fs");
 	let dirs = path.split("/");
 	if (!dirs[0]) {
 		dirs = dirs.slice(1);
@@ -17,16 +18,37 @@ function access(path) {
 			try {
 				return fs.readFileSync(current);
 			} catch(error) {
-				fs.closeSync(fs.openSync(current, "w"));
+				// fs.closeSync(fs.openSync(current, "w"));
+				fs.writeFileSync(current, "");
 				return fs.readFileSync(current);
 			}
 		}
 	}
 }
 
+function write(path, data) {
+	let dirs = path.split("/");
+	if (!dirs[0]) {
+		dirs = dirs.slice(1);
+		dirs[0] = "/" + dirs[0];
+	}
+	for (let i = 0; i < dirs.length; i++) {
+		let current = dirs.slice(0, i+1).join("/");
+		if (i != dirs.length - 1) {
+			try {
+				fs.readdirSync(current);
+			} catch(error) {
+				fs.mkdirSync(current);
+			}
+		} else {
+			fs.writeFileSync(current, data);
+		}
+	}
+}
+
 function readJSON(path) {
 	try {
-		return JSON.parse(access(path));
+		return JSON.parse(fs.readFileSync(path));
 	} catch(error) {
 		return undefined;
 	}
@@ -42,5 +64,6 @@ function retrieve(item, attributes) {
 }
 
 module.exports.access = access;
+module.exports.write = write;
 module.exports.readJSON = readJSON;
 module.exports.retrieve = retrieve;
