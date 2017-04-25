@@ -4,29 +4,19 @@
 		<meta charset="UTF-8">
 		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
-			.btn:focus {
-				outline: none !important;
-			}
-			.modal-title {
-				font-family: inherit;
-			}
 			span.label {
 				padding-top: 3.375px;
 			}
 			.label-purple {
 				background-color: #9C27B0;
 			}
-			.centered {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
 		</style>
 	</head>
-	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+		<div class="container-fluid drag-bar"></div>
 		<div class="container centered" align="center">
 			<h1 style="font-family: Hasklig; font-size: 80px; margin-top: 0px; margin-bottom: 0px;">「Blockade」</h1><br><br>
 			<div style="width: 300px; margin-bottom: 12px;">
@@ -37,8 +27,8 @@
 				<a href="#" id="quit" class="btn btn-default btn-lg btn-block">Quit</a>
 			</div>
 		</div>
-		<!--span class="label label-default" style="position: absolute; left: 2px; bottom: 2px;"><span style="font-family: Verdana">©</span> Cooper Anderson 2016</span-->
-		<span id="version" class="label" style="position: absolute; right: 2px; bottom: 2px;"></span>
+		<!--span class="label label-default" style="position: absolute; left: 6px; bottom: 6px;"><span style="font-family: Verdana">©</span> Cooper Anderson 2016</span-->
+		<span id="version" class="label" style="position: absolute; right: 6px; bottom: 6px;"></span>
 		<div id="about-modal" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -75,6 +65,10 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script>
+		$(document).ready(function() {
+		    $("body").show();
+		});
+
 		const remote = require("electron").remote
 		const fs = remote.require("fs")
 

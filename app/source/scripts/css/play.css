@@ -1,0 +1,140 @@
+#game {
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	overflow: visible;
+	/* padding: 64px 16px 64px 16px; */
+	padding: 48px 16px 48px 16px;
+}
+
+#gui {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
+.selector {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	pointer-events: visible;
+}
+
+.selector>.button {
+	position: absolute;
+	padding: 5px;
+}
+
+.selector>.button[disabled=""] {
+	cursor: default;
+}
+
+.selector>.button.up {
+	left: 12px;
+	right: 12px;
+	top: -2px;
+	height: 14px;
+}
+
+.selector>.button.left {
+	top: 12px;
+	bottom: 12px;
+	left: -2px;
+	width: 14px;
+}
+
+.selector>.button.right {
+	top: 12px;
+	bottom: 12px;
+	right: -2px;
+	width: 14px;
+}
+
+.selector>.button.down {
+	left: 12px;
+	right: 12px;
+	bottom: -2px;
+	height: 14px;
+}
+
+#tiles {
+	position: relative;
+}
+
+#plates {
+	position: relative;
+}
+
+#blocks {
+	position: relative;
+}
+
+.tile {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.tile>div {
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	width: 48px;
+	height: 48px;
+}
+
+.plate {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.plate>div {
+	position: absolute;
+	left: 17px;
+	top: 17px;
+	width: 16px;
+	height: 16px;
+}
+
+.block {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+}
+.block-center {
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 46px;
+	height: 46px;
+}
+.block-corner-topLeft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	left: 2px;
+	top: 2px;
+}
+.block-corner-topRight {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	right: 2px;
+	top: 2px;
+	transform: rotate(90deg);
+}
+.block-corner-bottomLeft {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	left: 2px;
+	bottom: 2px;
+	transform: rotate(270deg);
+}
+.block-corner-bottomRight {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	right: 2px;
+	bottom: 2px;
+	transform: rotate(180deg);
+}

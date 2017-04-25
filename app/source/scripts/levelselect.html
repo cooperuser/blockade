@@ -4,11 +4,9 @@
 		<meta charset="UTF-8">
 		<title>Blockade - Level Select</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
-			[disabled] {
-				pointer-events: none;
-			}
 			td {
 				padding: 5px;
 			}
@@ -25,16 +23,16 @@
 			}
 		</style>
 	</head>
-	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
-		<div class="container" align="center">
-			<br><br><br>
+	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+		<div class="container-fluid drag-bar"></div>
+		<div class="container centered" align="center" style="width: 800px;">
 			<a href="#" id="leftArrow" data-id="-1" class="btn btn-info move"><-</a>
 			<a href="#" id="title" class="btn btn-info disabled" style="width: 290px; cursor: default; opacity: 1.0;">Page </a>
 			<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
 			<br><br>
-			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 134px; height: 290px;">
+			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 71px; height: 290px;">
 				<div class="panel-heading">
-					<h3 class="panel-title"><span id="level" class="label label-info"></span> <span id="name"></span><br></h3>
+					<h3 class="panel-title"><span id="level" class="label label-info" style="position: relative; top: -1px;"></span> <span id="name"></span><br></h3>
 				</div>
 				<div class="panel-body" style="padding-top: 8px;">
 					<span id="moves-header" style="float: left;"></span>
@@ -49,12 +47,12 @@
 				</div>
 			</div>
 
-			<table id="table" style="margin-right: 7px;"></table>
+			<table id="table" style="margin-right: 8px;"></table>
 			<br>
 			<a href="menu.html" class="btn btn-default" style="width: 140px;">Back</a>
 			<a href="#" class="btn btn-info disabled" id="play-button" style="width: 140px;" data-id="">Play</a>
 
-			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 134px; height: 290px;">
+			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 71px; height: 290px;">
 				<div class="panel-heading">
 					<h3 class="panel-title">Rankings</h3>
 				</div>
@@ -66,6 +64,10 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
+		$(document).ready(function() {
+		    $("body").show();
+		});
+
 		const fs = require("fs");
 		const {readJSON, retrieve} = require("./js/tools");
 

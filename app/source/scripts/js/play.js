@@ -44,14 +44,15 @@ let flags = {
 }
 
 function render() {
-	$("#game").css({width: `${data.size.x * 50 + 50}px`, height: `${data.size.y * 50 + 128}px`});
+	/* $("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 128}px`}); */
+	$("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 96}px`});
 	if ($("#game").outerWidth() < $(window).width()) {
-		$("#game").css({left: ($(window).width() - $("#game").outerWidth())/2});
+		$("#game").css({left: ($(window).width() - $("#game").outerWidth()) / 2});
 	}
 	if ($("#game").outerHeight() < $(window).height()) {
-		$("#game").css({top: ($(window).height() - $("#game").outerHeight())/2});
+		$("#game").css({top: ($(window).height() - $("#game").outerHeight()) / 2});
 	}
-	window.scrollBy(($(document).width() - $(window).width())/2, ($(document).height() - $(window).height())/2);
+	window.scrollBy(($(document).width() - $(window).width()) / 2, ($(document).height() - $(window).height()) / 2);
 	for (let x in data.grid) {
 		for (let y in data.grid[x]) {
 			for (let object in data.grid[x][y]) {
@@ -71,6 +72,10 @@ function init(path, back) {
 		const name = retrieve(data, "info.name");
 		if (typeof name == "string") $("#levelName").html(name);
 		$("#levelNumber").html(level);
+		const creatorMoves = retrieve(data, "info.creator-score.moves");
+		const creatorDistance = retrieve(data, "info.creator-score.distance");
+		if (creatorMoves != undefined) $("#creator-moves").html("/ " + creatorMoves);
+		if (creatorDistance != undefined) $("#creator-distance").html("/ " + creatorDistance);
 		let min = Vector2.FromList(data.board.Tiles[0].position), max = Vector2.FromList(data.board.Tiles[0].position);
 		for (let object in data.board) {
 			data.board[object].forEach(function(ob, index) {
@@ -148,7 +153,7 @@ function checkWin() {
 		const savedDistance = retrieve(readJSON(`${__dirname}/../../save-data/progress/${filename}.json`), "distance");
 		const bestMoves = savedMoves == undefined ? moves : Math.min(savedMoves, moves);
 		const bestDistance = savedDistance == undefined ? distance : Math.min(savedDistance, distance);
-		if (!retrieve(readJSON("save-data/preferences/developer.json"), "disable-progress")) {
+		if (!retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "disable-progress")) {
 			write(`${__dirname}/../../save-data/progress/${filename}.json`, `{\n\t"moves": ${bestMoves},\n\t"distance": ${bestDistance}\n}`);
 		}
 		const creatorMoves = retrieve(data, "info.creator-score.moves");
@@ -162,24 +167,24 @@ function checkWin() {
 			$({moves: 0}).animate({moves: moves}, {
 				duration: 400,
 				step: function() {
-					$("#win-player-moves").text(Math.ceil(this.moves));
+					$("#win-moves").text(Math.ceil(this.moves));
 				}
 			});
 			$({distance: 0}).animate({distance: distance}, {
 				duration: 400,
 				step: function() {
-					$("#win-player-distance").text(Math.ceil(this.distance));
+					$("#win-distance").text(Math.ceil(this.distance));
 				}
 			});
-			// $("#win-player-moves").html(moves);
-			// $("#win-player-distance").html(distance);
+			// $("#win-moves").html(moves);
+			// $("#win-distance").html(distance);
 		}, 1000);
 		setTimeout(function() {
 			if (moves <= creatorMoves) {
-				$("#win-player-moves, #win-creator-moves").addClass(moves == creatorMoves ? "text-success" : "text-warning");
+				$("#win-moves, #win-creator-moves").addClass(moves == creatorMoves ? "text-success" : "text-warning");
 			}
 			if (distance <= creatorDistance) {
-				$("#win-player-distance, #win-creator-distance").addClass(distance == creatorDistance ? "text-success" : "text-warning");
+				$("#win-distance, #win-creator-distance").addClass(distance == creatorDistance ? "text-success" : "text-warning");
 			}
 		}, 1340);
 	}
