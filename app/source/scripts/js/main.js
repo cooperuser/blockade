@@ -13,7 +13,7 @@ let win;
 function createWindow() {
 	// Create the browser window.
 	let showTitleBar = retrieve(readJSON(`${__dirname}/../../../save-data/preferences/developer.json`), "show-title-bar") || (process.platform !== "darwin");
-	win = new BrowserWindow({width: 800, height: 600 + (showTitleBar ? 22 : 0), minWidth: 800, minHeight: 600 + (showTitleBar ? 22 : 0), resizable: false, maximizable: false, fullscreenable: false, titleBarStyle: showTitleBar ? "default" : "hidden-inset", backgroundColor: "#191919"});
+	win = new BrowserWindow({width: 800, height: 600 + (showTitleBar ? 22 : 0), minWidth: 800, minHeight: 600 + (showTitleBar ? 22 : 0), resizable: false, maximizable: false, fullscreenable: false, titleBarStyle: showTitleBar ? "default" : "hidden-inset", backgroundColor: "#1a1a19"});
 	if (__dirname == "/Users/cooperanderson/Google Drive/Other/Programming/JetBrains/WebStorm/Blockade/app/source/scripts/js"){
 		BrowserWindow.addDevToolsExtension("/Users/cooperanderson/Library/Application\ Support/Google/Chrome\ Canary/Default/Extensions/bomhdjeadceaggdgfoefmpeafkjhegbo/2.2.1_0");
 	}

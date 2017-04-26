@@ -7,21 +7,24 @@
 		<link rel="stylesheet" href="css/blockade.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
-	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default; opacity: 0.0;">
 		<div class="container-fluid drag-bar"></div>
 		<div class="container centered" align="center">
-			<h1 id="title" style="font-family: Hasklig; font-size: 80px; margin-top: 0px; margin-bottom: 16px; opacity: 0.0;">「Blockade」</h1>
+			<h1 style="font-family: Hasklig; font-size: 80px; margin-top: 0px; margin-bottom: 16px;">「Blockade」</h1>
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
+		const intervals = {appear: 800, hold: 450, vanish: 550};
 		$(document).ready(function() {
-		    $("body").show();
+			$("body").show();
+			$("body").animate({opacity: 1.0}, intervals.appear);
+			setTimeout(function() {
+				$("body").animate({opacity: 0.0}, intervals.vanish);
+			}, intervals.appear + intervals.hold);
+			setTimeout(function() {
+				window.location = "menu.html";
+			}, intervals.appear + intervals.hold + intervals.vanish);
 		});
-
-		$("#title").animate({opacity: 1.0}, 1000, function() {});
-		setTimeout(function() {
-			window.location = "menu.html";
-		}, 1750);
 	</script>
 </html>

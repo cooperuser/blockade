@@ -87,7 +87,7 @@
 		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
-	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default; opacity: 0.0;">
 		<div class="container-fluid drag-bar" style="position: absolute;"></div>
 		<div id="game">
 			<div id="tiles">
@@ -223,7 +223,8 @@
 	<script src="js/play.js"></script>
 	<script>
 		$(document).ready(function() {
-		    $("body").show();
+			$("body").show();
+			$("body").animate({opacity: 1.0}, 100);
 		});
 
 		$('[data-toggle="tooltip"]').tooltip();

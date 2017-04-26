@@ -23,49 +23,56 @@
 			}
 		</style>
 	</head>
-	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default;">
+	<body hidden style="font-family: Hasklig; -webkit-user-select: none; cursor: default; padding: 0px; opacity: 0.0;">
 		<div class="container-fluid drag-bar"></div>
-		<div class="container centered" align="center" style="width: 800px;">
-			<a href="#" id="leftArrow" data-id="-1" class="btn btn-info move"><-</a>
-			<a href="#" id="title" class="btn btn-info disabled" style="width: 290px; cursor: default; opacity: 1.0;">Page </a>
-			<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
-			<br><br>
-			<div class="panel panel-primary" style="position: absolute; left: 8px; right: 558px; top: 71px; height: 290px;">
-				<div class="panel-heading">
-					<h3 class="panel-title"><span id="level" class="label label-info" style="position: relative; top: -1px;"></span> <span id="name"></span><br></h3>
-				</div>
-				<div class="panel-body" style="padding-top: 8px;">
-					<span id="moves-header" style="float: left;"></span>
-					<span style="float: right;"><span id="player-moves" class="score text-muted"></span> <span id="creator-moves" class="score text-muted"></span></span><br><br>
-					<span id="distance-header" style="float: left;"></span>
-					<span style="float: right;"><span id="player-distance" class="score text-muted"></span> <span id="creator-distance" class="score text-muted"></span></span><br><br>
-					<!--span style="float: middle; font-size: 17px;"><span id="creators-header" class="label label-primary"></span></span><br><br-->
-					<span id="creators-header" class="label label-primary" style="float: middle; font-size: inherit;"></span><br><br>
-					<span id="creator-0" style="float: middle;"></span><br><br>
-					<span id="creator-1" style="float: middle;"></span><br><br>
-					<span id="creator-2" style="float: middle;"></span><br><br>
-				</div>
+		<div class="container centered" align="center" style="width: 800px; padding: 0px;">
+			<div>
+				<a href="#" id="leftArrow" data-id="-1" class="btn btn-info move"><-</a>
+				<a href="#" id="title" class="btn btn-info disabled" style="width: 290px; cursor: default; opacity: 1.0;">Page </a>
+				<a href="#" id="rightArrow" data-id="1" class="btn btn-info move">-></a>
 			</div>
-
-			<table id="table" style="margin-right: 8px;"></table>
 			<br>
-			<a href="menu.html" class="btn btn-default" style="width: 140px;">Back</a>
-			<a href="#" class="btn btn-info disabled" id="play-button" style="width: 140px;" data-id="">Play</a>
-
-			<div class="panel panel-primary" style="position: absolute; left: 550px; right: 8px; top: 71px; height: 290px;">
-				<div class="panel-heading">
-					<h3 class="panel-title">Rankings</h3>
+			<div>
+				<div class="panel panel-primary centered-y" style="position: absolute; left: 8px; width: 238px; height: 290px;">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<span id="level" class="label label-info" style="position: relative; top: -1px;"></span> <span id="name"></span>
+						</h3>
+					</div>
+					<div class="panel-body" style="padding-top: 8px;">
+						<span id="moves-header" style="float: left;"></span>
+						<span style="float: right;"><span id="player-moves" class="score text-muted"></span> <span id="creator-moves" class="score text-muted"></span></span><br><br>
+						<span id="distance-header" style="float: left;"></span>
+						<span style="float: right;"><span id="player-distance" class="score text-muted"></span> <span id="creator-distance" class="score text-muted"></span></span><br><br>
+						<!--span style="float: middle; font-size: 17px;"><span id="creators-header" class="label label-primary"></span></span><br><br-->
+						<span id="creators-header" class="label label-primary" style="float: middle; font-size: inherit;"></span><br><br>
+						<span id="creator-0" style="float: middle;"></span><br><br>
+						<span id="creator-1" style="float: middle;"></span><br><br>
+						<span id="creator-2" style="float: middle;"></span><br><br>
+					</div>
 				</div>
-				<div class="panel-body" style="padding-top: 8px;">
+				<div class="panel panel-primary centered-y" style="position: absolute; right: 8px; width: 238px; height: 290px;">
+					<div class="panel-heading">
+						<h3 class="panel-title">Rankings</h3>
+					</div>
+					<div class="panel-body" style="padding-top: 8px;">
 
+					</div>
 				</div>
+				<table id="table" style="background: none;"></table>
+			</div>
+			<br>
+			<div>
+				<a href="menu.html" class="btn btn-default" style="width: 141px;">Back</a>
+				<a href="#" class="btn btn-info disabled" id="play-button" style="width: 141px;" data-id="">Play</a>
 			</div>
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function() {
-		    $("body").show();
+			$("body").show();
+			$("body").animate({opacity: 1.0}, 100);
 		});
 
 		const fs = require("fs");

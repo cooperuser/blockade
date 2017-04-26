@@ -11,6 +11,12 @@
 	transform: translate(-50%, -50%);
 }
 
+.centered-y {
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
 .btn:focus {
 	outline: none !important;
 }
@@ -21,4 +27,10 @@
 
 .modal-title {
 	font-family: inherit;
+}
+
+.label {
+	font-weight: unset;
+	padding-left: 0.6em;
+	padding-right: 0.6em;
 }
