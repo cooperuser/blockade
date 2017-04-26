@@ -248,7 +248,7 @@ $(".restart").on("click", function() {
 });
 
 $(".exit").on("click", function() {
-	window.location = backpage;
+	location = backpage;
 });
 
 $(".continue").on("click", function() {
@@ -258,10 +258,10 @@ $(".continue").on("click", function() {
 	while (true) {
 		offset++;
 		if (names[level + offset] != undefined && files.includes(`${names[level + offset]}.json`)) {
-			window.location = `play.html?level=${level + offset}`;
+			location = `play.html?level=${level + offset}`;
 			break;
 		} else if (level + offset >= names.length) {
-			window.location = backpage;
+			location = backpage;
 			break;
 		}
 	}

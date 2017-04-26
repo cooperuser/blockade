@@ -199,7 +199,7 @@
 				level = Number($(this).attr("id"));
 			} else {
 				if (!$("#play-button").hasClass("disabled")) {
-					window.location = `play.html?level=${$("#play-button").data("id")}&custom=0`
+					location = `play.html?level=${$("#play-button").data("id")}&custom=0`
 				}
 			}
 			highlight();
@@ -207,7 +207,7 @@
 		});
 		$("#play-button").on("click", function() {
 			if (!$(this).hasClass("disabled")) {
-				window.location = `play.html?level=${$(this).data("id")}&custom=0`
+				location = `play.html?level=${$(this).data("id")}&custom=0`
 			}
 		});
 		init();

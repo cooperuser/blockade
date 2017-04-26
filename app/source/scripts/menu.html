@@ -20,11 +20,10 @@
 		<div class="container centered" align="center">
 			<h1 style="font-family: Hasklig; font-size: 80px; margin-top: 0px; margin-bottom: 0px;">「Blockade」</h1><br><br>
 			<div style="width: 300px; margin-bottom: 12px;">
-				<a href="levelselect.html" id="play" class="btn btn-default btn-lg btn-block">Play</a><br>
-				<a href="editor.html?play=0" id="editor" class="btn btn-default btn-lg btn-block">Editor</a><br>
-				<!--a href="#" id="about" class="btn btn-default btn-lg btn-block modal-button" data-toggle="modal" data-target="#about-modal">About</a><br-->
-				<a href="#" id="about" class="btn btn-default btn-lg btn-block">About</a><br>
-				<a href="#" id="quit" class="btn btn-default btn-lg btn-block">Quit</a>
+				<a id="play" class="btn btn-default btn-lg btn-block">Play</a><br>
+				<a id="editor" class="btn btn-default btn-lg btn-block disabled active">Editor</a><br>
+				<a id="about" class="btn btn-default btn-lg btn-block">About</a><br>
+				<a id="quit" class="btn btn-default btn-lg btn-block">Quit</a>
 			</div>
 		</div>
 		<!--span class="label label-default" style="position: absolute; left: 6px; bottom: 6px;"><span style="font-family: Verdana">©</span> Cooper Anderson 2016</span-->
@@ -69,13 +68,19 @@
 			$("body").animate({opacity: 1.0}, 100);
 		});
 
-		const remote = require("electron").remote
-		const fs = remote.require("fs")
+		const remote = require("electron").remote;
+		const fs = remote.require("fs");
 
 		$(".btn").attr("draggable", "false");
 
 		$(".btn").on("mouseup mouseleave", function() {
 			$(this).blur();
+		});
+		$("#play").on("click", function() {
+			location = "levelselect.html";
+		});
+		$("#editor").on("click", function() {
+			location = "editor.html?play=0";
 		});
 		$("#about").on("click", function() {
 			$("#about-modal").modal("show");
@@ -84,13 +89,14 @@
 			event.preventDefault()
 			remote.app.quit()
 		});
-		$(document).on("keydown", function(event) {
-			if (event.key == '|') {
-				location = "testing.html";
-			}
-		});
+		function editor() {
+			location = "editor.html?play=0";
+		}
+		function testing() {
+			location = "testing.html";
+		}
 
-		data = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`,'utf8'))
+		data = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`,'utf8'));
 		if (data.release == "indev") {
 			$("#version").addClass("label-danger").addClass("label-purple");
 		} else if (data.release == "alpha") {
@@ -102,6 +108,6 @@
 		} else if (data.release == "release") {
 			$("#version").addClass("label-primary");
 		}
-		$("#version").html(data.release + " " + data.version)
+		$("#version").html(data.release + " " + data.version);
 	</script>
 </html>
