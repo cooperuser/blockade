@@ -1,6 +1,6 @@
 // Module to control application life.
 // Module to create native browser window.
-const {app, BrowserWindow, webFrame, Menu} = require("electron");
+const {app, shell, BrowserWindow, Menu} = require("electron");
 const {readJSON, retrieve} = require("./tools");
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -53,7 +53,12 @@ app.on("ready", function() {
 			submenu: [
 				{role: "reload"},
 				{role: "forcereload"},
-				{role: "toggledevtools"}
+				{role: "toggledevtools"},
+				{type: "separator"},
+				{label: "Show Application Folder", click: function() {
+					// shell.openItem(`${__dirname}/../../../`);
+					shell.showItemInFolder(__dirname.split("/").slice(0, -3).join("/"));
+				}}
 			]
 		});
 	}
