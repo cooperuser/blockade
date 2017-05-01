@@ -44,7 +44,7 @@ let flags = {
 }
 
 function render() {
-	/* $("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 128}px`}); */
+	// $("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 128}px`});
 	$("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 96}px`});
 	if ($("#game").outerWidth() < $(window).width()) {
 		$("#game").css({left: ($(window).width() - $("#game").outerWidth()) / 2});
@@ -66,11 +66,11 @@ function init(path, back) {
 	filename = readJSON(`${__dirname}/../levels.json`)[level];
 	if (path == undefined) path = `source/levels/${filename}.json`;
 	if (back != undefined) backpage = back;
-	let filePath = `${__dirname}/../../${path}`;
-	if (fs.existsSync(filePath)) {
-		data = readJSON(filePath);
+	data = readJSON(`${__dirname}/../../${path}`);
+	if (data != undefined) {
 		const name = retrieve(data, "info.name");
-		if (typeof name == "string") $("#levelName").html(name);
+		$("title").html(name);
+		$("#levelName").html(name);
 		$("#levelNumber").html(level);
 		const creatorMoves = retrieve(data, "info.creator-score.moves");
 		const creatorDistance = retrieve(data, "info.creator-score.distance");
@@ -267,14 +267,8 @@ $(".continue").on("click", function() {
 	}
 });
 
-setInterval(function() {
-	if (selected == undefined) {
-		return;
-	}
-	if (selected != undefined) {
-
-	}
-	if (!infoOpen) {
+/* setInterval(function() {
+	if (selected != undefined && !infoOpen) {
 		$("#info").css({right: `${54 - $("#info").width()}px`});
 	}
-})
+}); */

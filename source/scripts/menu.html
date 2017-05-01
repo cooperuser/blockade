@@ -64,18 +64,17 @@
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script>
+		const remote = require("electron").remote;
+		const fs = remote.require("fs");
+		const {readJSON, retrieve} = require("./js/tools");
+
 		$(document).ready(function() {
 			$("body").animate({opacity: 1.0}, 100);
 		});
 
-		const remote = require("electron").remote;
-		const fs = remote.require("fs");
-
 		$(".btn").attr("draggable", "false");
+		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
 
-		$(".btn").on("mouseup mouseleave", function() {
-			$(this).blur();
-		});
 		$("#play").on("click", function() {
 			location = "levelselect.html";
 		});
@@ -83,31 +82,35 @@
 			location = "editor.html?play=0";
 		});
 		$("#about").on("click", function() {
-			$("#about-modal").modal("show");
+			$("#about-modal").modal();
 		});
-		$("#quit").on("click", function(event) {
-			event.preventDefault()
-			remote.app.quit()
+		$("#quit").on("click", function() {
+			remote.app.quit();
 		});
-		function editor() {
+
+		function editor() { // console use only
 			location = "editor.html?play=0";
 		}
-		function testing() {
+		function testing() { // console use only
 			location = "testing.html";
 		}
 
-		data = JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`,'utf8'));
-		if (data.release == "indev") {
+		let data = readJSON(`${__dirname}/../../package.json`);
+		let release = retrieve(data, "release");
+		let version = retrieve(data, "version");
+		if (release == "indev") {
 			$("#version").addClass("label-danger").addClass("label-purple");
-		} else if (data.release == "alpha") {
+		} else if (release == "alpha") {
 			$("#version").addClass("label-danger");
-		} else if (data.release == "beta") {
+		} else if (release == "beta") {
 			$("#version").addClass("label-warning");
-		} else if (data.release == "stable") {
+		} else if (release == "stable") {
 			$("#version").addClass("label-success");
-		} else if (data.release == "release") {
+		} else if (release == "release") {
 			$("#version").addClass("label-primary");
+		} else {
+			$("#version").addClass("label-default");
 		}
-		$("#version").html(data.release + " " + data.version);
+		$("#version").html((release == undefined ? "" : release + " ") + version);
 	</script>
 </html>

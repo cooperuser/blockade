@@ -21,14 +21,14 @@ The `standard block` is the most basic type of `block`. When moved, a `standard 
 ### Wildcard Block `WIP`
 The `wildcard block` moves in the exact same fashion as the [`standard block`](#standard-block), sliding across the [`board`](#board) until it comes into contact with a wall or other solid object. However, this type of `block` differs from the [`standard block`](#standard-block) in that it is able to power any color of `plate` or `switch`.
 
-### Hollow Block `WIP`
+### Hollow Block
 The `hollow block` is a type of `block` that, like the [`standard block`](#standard-block), will move until it hits a wall or another solid object. However, when this `block` lands on a [`plate`](#plates) or `switch`, it will be unable to power the [`plate`](#plates) or `switch` due to its hollow interior.
 
 ### Lightweight Block `WIP`
-The `lightweight block` is a type of `block` that functions somewhat similarly to the [`hollow block`](#hollow-block-wip), in that it is unable to activate [`plates`](#plates) and `switches`. But unlike the [`standard block`](#standard-block) and [`hollow block`](#hollow-block-wip), which will stay put when another `block` impacts them, the `lightweight block` will be pushed in the same direction as the intervening `block` until the pair of `blocks` hits a wall or other solid object.
+The `lightweight block` is a type of `block` that functions somewhat similarly to the [`hollow block`](#hollow-block), in that it is unable to activate [`plates`](#plates) and `switches`. But unlike the [`standard block`](#standard-block) and [`hollow block`](#hollow-block), which will stay put when another `block` impacts them, the `lightweight block` will be pushed in the same direction as the intervening `block` until the pair of `blocks` hits a wall or other solid object.
 
 ### Block Cluster `WIP`
-Any number of `blocks` immediately adjacent to each other, horizontally or vertically, can be grouped together to form a `block cluster`. When moved, a `block cluster` will slide until any of the `blocks` comprising it come into contact with a wall. `Block clusters` must not necessarily consist entirely of one type of block; they may contain any combination of [`standard blocks`](#standard-block), [`wildcard blocks`](#wildcard-block-wip), [`hollow blocks`](#hollow-block-wip), or [`lightweight blocks`](#lightweight-block-wip). However, if a [`lightweight block`](#lightweight-block-wip) is in the same `block cluster` as any other `block` type, the group will behave as normal weight and therefore stay put regardless of any other `blocks` impacting it.
+Any number of `blocks` immediately adjacent to each other, horizontally or vertically, can be grouped together to form a `block cluster`. When moved, a `block cluster` will slide until any of the `blocks` comprising it come into contact with a wall. `Block clusters` must not necessarily consist entirely of one type of block; they may contain any combination of [`standard blocks`](#standard-block), [`wildcard blocks`](#wildcard-block-wip), [`hollow blocks`](#hollow-block), or [`lightweight blocks`](#lightweight-block-wip). However, if a [`lightweight block`](#lightweight-block-wip) is in the same `block cluster` as any other `block` type, the group will behave as normal weight and therefore stay put regardless of any other `blocks` impacting it.
 
 ## Plates
 `Plates` act as the goals or objectives of the level.
@@ -37,7 +37,7 @@ Any number of `blocks` immediately adjacent to each other, horizontally or verti
 The `standard plate` is the most basic type of `plate`, and will become powered if a certain type of [`block`](#blocks) comes to rest on top of it. A plate can be powered by a [`standard block`](#standard-block) of its same color, or a [`wildcard block`](#wildcard-block-wip). When all `plates` and [`victory blocks`](#victory-block-wip) in a level are powered, the level is completed.
 
 ### Wildcard Plate `WIP`
-The `wildcard plate` is a type of plate that, like the [`standard plate`](#standard-plate), must be powered by a [`standard block`](#standard-block) or [`wildcard block`](#wildcard-block-wip) for the level to be completed. However, this type of `plate` is able to be powered by any color of [`standard block`](#standard-block), as opposed to only one. `Wildcard plates` cannot be powered by [`hollow blocks`](#hollow-block-wip).
+The `wildcard plate` is a type of plate that, like the [`standard plate`](#standard-plate), must be powered by a [`standard block`](#standard-block) or [`wildcard block`](#wildcard-block-wip) for the level to be completed. However, this type of `plate` is able to be powered by any color of [`standard block`](#standard-block), as opposed to only one. `Wildcard plates` cannot be powered by [`hollow blocks`](#hollow-block).
 
 ## Wires
 `Wires` are the components that make electrical circuits function behind the scenes.

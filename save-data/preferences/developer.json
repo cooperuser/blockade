@@ -1,4 +1,5 @@
 {
+	"developer-tools": false,
 	"show-title-bar": false,
 	"disable-progress": false,
 	"level-ratings": false

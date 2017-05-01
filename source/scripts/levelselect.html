@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Blockade - Level Select</title>
+		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<link rel="stylesheet" href="css/blockade.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
@@ -70,12 +70,16 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
+		const fs = require("fs");
+		const {readJSON, retrieve} = require("./js/tools");
+
 		$(document).ready(function() {
 			$("body").animate({opacity: 1.0}, 100);
 		});
 
-		const fs = require("fs");
-		const {readJSON, retrieve} = require("./js/tools");
+		$(".btn").attr("draggable", "false");
+		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
+		$("#table").on("mouseup mouseleave", ".level-button", function() {$(this).blur();});
 
 		/*let levels = {};
 		const names = readJSON(`${__dirname}/../levels.json`);
@@ -95,7 +99,7 @@
 		let page = level == undefined ? 0 : Math.floor(level / (size[0] * size[1]));
 
 		function init() {
-			$(".btn").attr("draggable", "false");
+			// $(".btn").attr("draggable", "false");
 			update();
 			showInfo();
 		}
@@ -124,7 +128,7 @@
 					let color = exists ? retrieve(data, "info.icon-color") : "default";
 					color = ["default", "primary", "success", "info", "warning", "danger"].includes(color) ? color : "primary";
 					$("#row-" + (y + 1)).append(`<td class="row-${y + 1} col-${x + 1}"></td>`);
-					$(`.row-${y + 1}.col-${x + 1}`).append(`<a href="#" id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
+					$(`.row-${y + 1}.col-${x + 1}`).append(`<a id="${level}" class="btn btn-${color} btn-lg btn-block level-button ${exists ? "" : "disabled"}" style="width: 65px;">${level}</a>`);
 				}
 			}
 			$(".level-button").attr("draggable", "false");
@@ -182,12 +186,6 @@
 				$("#name").html("Level");
 			}
 		}
-		$(".btn").on("mouseup mouseleave", function() {
-			$(this).blur();
-		});
-		$("#table").on("mouseup mouseleave", ".level-button", function() {
-			$(this).blur();
-		});
 		$(".move").on("click", function() {
 			if (!$(this).hasClass("disabled")) {
 				page += $(this).data("id");

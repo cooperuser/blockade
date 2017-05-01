@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Blockade - Play</title>
+		<title></title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<link rel="stylesheet" href="css/blockade.css">
 		<link rel="stylesheet" href="css/play.css">
@@ -226,15 +226,11 @@
 			$("body").animate({opacity: 1.0}, 100);
 		});
 
+		$(".btn").attr("draggable", "false");
+		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
 		$('[data-toggle="tooltip"]').tooltip();
 
-		$(".btn").attr("draggable", "false");
-
-		$(".btn").on("mouseup mouseleave", function() {
-			$(this).blur();
-		});
-
-		var infoOpen = true;
+		/* var infoOpen = true;
 		$("#menu").css({left: `${54 - $("#menu").width()}px`});
 		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
 
@@ -256,7 +252,7 @@
 				setTimeout(function() {$("#infoArrow").html('»')}, 100);
 				$("#info").stop().animate({right: "0px"}, 200);
 			}
-		});
+		}); */
 
 		const colors = ["green", "lime", "yellow", "orange", "red"];
 		let quality = undefined;
@@ -318,6 +314,7 @@
 			$("#ratings").removeClass("hidden");
 			updateRatings();
 		}
+
 		init();
 	</script>
 </html>
