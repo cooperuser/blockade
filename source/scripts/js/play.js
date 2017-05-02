@@ -10,7 +10,7 @@ const Plate = require("./js/init/Plates");
 const Block = require("./js/init/Blocks");
 
 let level = Number(location.search.split("?")[1].split("&")[0].split('=')[1]);
-let data = {}, filename, hasWon = false, backpage = `levelselect.html?level=${level}`, moves = 0, distance = 0;
+let data = {}, filename = readJSON(`${__dirname}/../levels.json`)[level], hasWon = false, backpage = `levelselect.html?level=${level}`, moves = 0, distance = 0;
 
 let flags = {
 	showMoveButtonsUntilClick: function() {
@@ -63,7 +63,6 @@ function render() {
 }
 
 function init(path, back) {
-	filename = readJSON(`${__dirname}/../levels.json`)[level];
 	if (path == undefined) path = `source/levels/${filename}.json`;
 	if (back != undefined) backpage = back;
 	data = readJSON(`${__dirname}/../../${path}`);
