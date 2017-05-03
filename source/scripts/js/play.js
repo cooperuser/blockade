@@ -159,6 +159,7 @@ function checkWin() {
 		const creatorDistance = retrieve(data, "info.creator-score.distance");
 		if (creatorMoves != undefined) $("#win-creator-moves").html("/ " + creatorMoves);
 		if (creatorDistance != undefined) $("#win-creator-distance").html("/ " + creatorDistance);
+		if (retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "level-ratings")) loadFeedback();
 		setTimeout(function() {
 			$("#winModal").modal();
 		}, 400);

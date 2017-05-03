@@ -16,11 +16,11 @@ function access(path) {
 			}
 		} else {
 			try {
-				return fs.readFileSync(current);
+				return String(fs.readFileSync(current));
 			} catch(error) {
-				// fs.closeSync(fs.openSync(current, "w"));
-				fs.writeFileSync(current, "");
-				return fs.readFileSync(current);
+				// fs.closeSync(fs.openSync(current, "a"));
+				fs.appendFileSync(current, "");
+				return String(fs.readFileSync(current));
 			}
 		}
 	}

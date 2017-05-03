@@ -14,6 +14,7 @@
 			.btn-difficulty {
 				padding: 8px 12px 2px 10px;
 			}
+			/* hslpicker.com */
 			.btn-green {
 				background-color: #388e3c;
 				border-color: #388e3c;
@@ -154,7 +155,7 @@
 						<span>Moves: <span id="win-moves">0</span> <span id="win-creator-moves" class="text-muted"></span></span><br>
 						<span>Distance: <span id="win-distance">0</span> <span id="win-creator-distance" class="text-muted"></span></span>
 					</div>
-					<div class="modal-footer feedback hidden">
+					<div class="modal-footer feedback" hidden>
 						<div style="text-align: center;">
 							<div id="quality" class="btn-group" role="group">
 								<span><button id="quality-0" class="btn btn-default btn-quality" data-toggle="tooltip" title="Terrible">
@@ -194,7 +195,7 @@
 							<br>
 						</div>
 					</div>
-					<div class="modal-footer feedback hidden">
+					<div class="modal-footer feedback" hidden>
 						<textarea id="feedback" class="form-control" rows="3" placeholder="Leave some feedback (optional)..."></textarea>
 					</div>
 					<div class="modal-footer">
@@ -261,15 +262,8 @@
 		let quality = null;
 		let difficulty = null;
 
-		function clear(group) {
-			group.removeClass("btn-green");
-			group.removeClass("btn-lime");
-			group.removeClass("btn-yellow");
-			group.removeClass("btn-orange");
-			group.removeClass("btn-red");
-		}
 		function showQuality(rating) {
-			clear($(".btn-quality"));
+			$(".btn-quality").removeClass("btn-green btn-lime btn-yellow btn-orange btn-red");
 			if (rating != undefined) {
 				for (let i = 0; i <= rating; i++) {
 					$("#quality-" + i).addClass("btn-" + colors[colors.length +~ rating]);
@@ -277,29 +271,30 @@
 			}
 		}
 		function showDifficulty(rating) {
-			clear($(".btn-difficulty"));
+			$(".btn-difficulty").removeClass("btn-green btn-lime btn-yellow btn-orange btn-red");
 			if (rating != undefined) {
 				for (let i = 0; i <= rating; i++) {
 					$("#difficulty-" + i).addClass("btn-" + colors[rating]);
 				}
 			}
 		}
-		function updateRatings() {
+		function updateButtons() {
 			if (quality != undefined && difficulty != undefined) {
 				$(".win-button").removeClass("disabled");
 			} else {
 				$(".win-button").addClass("disabled");
 			}
-			showQuality(quality);
-			showDifficulty(difficulty);
 		}
 		function loadFeedback() {
 			quality = retrieve(readJSON(`${__dirname}/../../save-data/feedback/${filename}.json`), "quality");
 			if (quality == undefined) quality = null;
 			difficulty = retrieve(readJSON(`${__dirname}/../../save-data/feedback/${filename}.json`), "difficulty");
 			if (difficulty == undefined) difficulty = null;
-			updateRatings();
+			showQuality(quality);
+			showDifficulty(difficulty);
 			$("#feedback").val(retrieve(readJSON(`${__dirname}/../../save-data/feedback/${filename}.json`), "feedback"));
+			updateButtons();
+			$(".feedback").show();
 		}
 		function saveFeedback() {
 			write(`${__dirname}/../../save-data/feedback/${filename}.json`,
@@ -314,7 +309,7 @@
 		$(".btn-quality").on("click", function(event) {
 			quality = Number(event.currentTarget.id.replace(/\D/g, ''));
 			saveFeedback();
-			updateRatings();
+			updateButtons();
 		});
 		$("#quality").on("mouseleave", function() {
 			showQuality(quality);
@@ -325,19 +320,12 @@
 		$(".btn-difficulty").on("click", function(event) {
 			difficulty = Number(event.currentTarget.id.replace(/\D/g, ''));
 			saveFeedback();
-			updateRatings();
+			updateButtons();
 		});
 		$("#difficulty").on("mouseleave", function() {
 			showDifficulty(difficulty);
 		});
-		$("#feedback").on("blur", function() {
-			saveFeedback();
-			updateRatings();
-		});
-		if (retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "level-ratings")) {
-			$(".feedback").removeClass("hidden");
-			loadFeedback();
-		}
+		$("#feedback").on("blur", saveFeedback);
 
 		init();
 	</script>
