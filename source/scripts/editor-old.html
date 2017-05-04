@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>Blockade - Editor</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
 			td {
@@ -85,7 +86,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Open Level</h4>
 					</div>
 					<div class="modal-body">
@@ -103,7 +104,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Save Level</h4>
 					</div>
 					<div class="modal-body">
@@ -120,7 +121,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<button type="button" class="btn close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Help</h4>
 					</div>
 					<div class="modal-body">
@@ -135,6 +136,10 @@
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script>
+		$(".btn").attr("draggable", "false");
+		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
+	</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="js/editor1.js"></script>
 </html>

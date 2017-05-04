@@ -2,6 +2,8 @@
  * Created by cooperanderson on 9/7/16 AD.
  */
 const fs = require("fs");
+const {write, directory, readJSON} = require("./js/tools");
+
 var width = 15;
 var height = 9;
 var grid = []
@@ -108,7 +110,7 @@ for (var g = 0; g < location.search.slice(1).split('&').length; g++) {
 }
 
 if (location.search.split("?")[1].split("&")[0].split('=')[1] == '1') {
-	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
+	leveldata = readJSON(`${__dirname}/../../save-data/user-levels-old/.last-opened.json`);
 	leveldata.tiles.forEach(function(item, index) {
 		grid[item[0]][item[1]].push("tile");
 		place["tile"]({x: item[0], y: [item[1]]});
@@ -123,7 +125,7 @@ if (location.search.split("?")[1].split("&")[0].split('=')[1] == '1') {
 	});
 } else if (_GET["play"] == '2') {
 	name = _GET["name"]
-	leveldata = JSON.parse(fs.readFileSync(`${__dirname}/../../save-data/user-levels/${name}`, "utf8").replace(/(?:\r\n|\r|\n)/g, "").replace("  ", ""));
+	leveldata = readJSON(`${__dirname}/../../save-data/user-levels-old/${name}`);
 	leveldata.tiles.forEach(function(item, index) {
 		grid[item[0]][item[1]].push("tile");
 		place["tile"]({x: item[0], y: [item[1]]});
@@ -182,7 +184,7 @@ $("#menu").on("mouseleave", function() {
 });
 
 $("#openButton").on("click", function() {
-	files = fs.readdirSync(`${__dirname}/../../save-data/user-levels/`);
+	files = directory(`${__dirname}/../../save-data/user-levels-old/`);
 	$("#selectBox").empty();
 	for (var i = 0; i < files.length; i++) {
 		if (files[i][0] != '.') {
@@ -203,15 +205,15 @@ $("#open").on("click", function() {
 
 $("#play").on("click", function() {
 	setGrid();
-	fs.writeFileSync(`${__dirname}/../../save-data/user-levels/.last-opened.json`, JSON.stringify(leveldata), "utf8");
-	location = "playOld.html?leveldata=.last-opened&custom=2";
+	write(`${__dirname}/../../save-data/user-levels-old/.last-opened.json`, JSON.stringify(leveldata), "utf8");
+	location = "play-old.html?leveldata=.last-opened&custom=2";
 })
 
 $("#save").on("click", function() {
 	setGrid();
 	if ($("#name").val() != "" && $("#name").val()[0] != '.') {
 		name = $("#name").val();
-		fs.writeFileSync(`${__dirname}/../../save-data/user-levels/${name}.json`, JSON.stringify(leveldata), "utf8");
+		write(`${__dirname}/../../save-data/user-levels-old/${name}.json`, JSON.stringify(leveldata), "utf8");
 		$("#saveModal").modal("toggle");
 	}
 });

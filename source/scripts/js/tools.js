@@ -46,6 +46,14 @@ function write(path, data) {
 	}
 }
 
+function directory(path) {
+	try {
+		return fs.readdirSync(path);
+	} catch(error) {
+		return [];
+	}
+}
+
 function readJSON(path) {
 	try {
 		return JSON.parse(fs.readFileSync(path));
@@ -65,5 +73,6 @@ function retrieve(item, attributes) {
 
 module.exports.access = access;
 module.exports.write = write;
+module.exports.directory = directory;
 module.exports.readJSON = readJSON;
 module.exports.retrieve = retrieve;
