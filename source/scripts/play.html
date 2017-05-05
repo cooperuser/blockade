@@ -78,53 +78,18 @@
 			.icon-wrapper {
 				font-size: 29px;
 			}
-			.tooltip {
-				font-family: "Hasklig";
-				font-size: 14px;
-			}
-			h1, h2, h3, h4, h5, h6 {
-				font-family: "Hasklig";
-			}
 		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
-	<body style="font-family: Hasklig; -webkit-user-select: none; cursor: default; opacity: 0.0;">
+	<body style="opacity: 0.0;">
 		<div class="container-fluid drag-bar" style="position: absolute;"></div>
 		<div id="game">
-			<div id="tiles">
-
-			</div>
-			<div id="plates">
-
-			</div>
-			<div id="blocks">
-
-			</div>
+			<div id="tiles"></div>
+			<div id="plates"></div>
+			<div id="blocks"></div>
 		</div>
 		<div id="gui" style="pointer-events: none;">
-			<!--div id="menu" class="navbar navbar-default" style="position: absolute; left: 0px; pointer-events: all;">
-				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li><a class="restart" style="cursor: pointer;">Restart</a></li>
-							<li><a class="exit" style="cursor: pointer;">Level Select</a></li>
-							<li><a id="menuArrow" style="padding-right: 8px;">»</a></li>
-						</ul>
-					</div>
-				</div>
-			</div-->
-			<!--div id="info" class="navbar navbar-default" style="position: absolute; right: 0px; bottom: -21px; pointer-events: all;">
-				<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-						<ul class="nav navbar-nav">
-							<li><a id="infoArrow" style="padding-left: 8px;">»</a></li>
-							<li><a>Moves: <span id="moves">0</span></a></li>
-							<li><a>Distance: <span id="distance">0</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</div-->
-			<div style="position: absolute; right: 6px; top: 6px;">
+			<div style="position: absolute; right: 6px; top: 6px; pointer-events: none;">
 				<a type="button" class="btn btn-default btn-xs" style="margin: 0px;">
 					Moves: <span id="moves">0</span> <span id="creator-moves" class="text-muted"></span>
 				</a>
@@ -133,8 +98,8 @@
 				</a>
 			</div>
 			<div style="position: absolute; left: 6px; bottom: 6px;">
-				<span id="levelNumber" class="label label-info" style="position: relative; top: -1px;"></span>
-				<span id="levelName"></span>
+				<span id="level" class="label label-info" style="position: relative; top: -1px;"></span>
+				<span id="name"></span>
 			</div>
 			<div style="position: absolute; right: 6px; bottom: 6px; pointer-events: all;">
 				<a type="button" class="btn btn-default btn-sm restart" style="margin: 0px;">
@@ -145,7 +110,7 @@
 				</a>
 			</div>
 		</div>
-		<div id="winModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+		<div id="win" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -206,7 +171,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="errorModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+		<div id="error" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -233,30 +198,6 @@
 		$(".btn").attr("draggable", "false");
 		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
 		$('[data-toggle="tooltip"]').tooltip();
-
-		/* var infoOpen = true;
-		$("#menu").css({left: `${54 - $("#menu").width()}px`});
-		setTimeout(function() {$("#menu").css({left: `${54 - $("#menu").width()}px`});}, 0);
-
-		$("#menu").on("mouseenter", function() {
-			setTimeout(function() {$("#menuArrow").html('«')}, 100);
-			$(this).stop().animate({left: "0px"}, 200);
-		});
-		$("#menu").on("mouseleave", function() {
-			setTimeout(function() {$("#menuArrow").html('»')}, 100);
-			$(this).stop().animate({left: `${54 - $("#menu").width()}px`}, 200);
-		});
-		$("#infoArrow").on("click", function() {
-			if (infoOpen) {
-				infoOpen = false;
-				setTimeout(function() {$("#infoArrow").html('«')}, 100);
-				$("#info").stop().animate({right: `${54 - $("#info").width()}px`}, 200);
-			} else {
-				infoOpen = true;
-				setTimeout(function() {$("#infoArrow").html('»')}, 100);
-				$("#info").stop().animate({right: "0px"}, 200);
-			}
-		}); */
 
 		const colors = ["green", "lime", "yellow", "orange", "red"];
 		let quality = null;

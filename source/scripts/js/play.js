@@ -69,8 +69,8 @@ function init(path, back) {
 	if (data != undefined) {
 		const name = retrieve(data, "info.name");
 		$("title").html(name);
-		$("#levelName").html(name);
-		$("#levelNumber").html(level);
+		$("#name").html(name);
+		$("#level").html(level);
 		const creatorMoves = retrieve(data, "info.creator-score.moves");
 		const creatorDistance = retrieve(data, "info.creator-score.distance");
 		if (creatorMoves != undefined) $("#creator-moves").html("/ " + creatorMoves);
@@ -116,7 +116,7 @@ function init(path, back) {
 			data.grid[block.position[0]][block.position[1]].block = new Block[block.class]($.extend(block.attributes, {position: Vector2.FromList(block.position), id: index}));
 		});
 	} else {
-		$("#errorModal").modal();
+		$("#error").modal();
 		return;
 	}
 	render();
@@ -161,7 +161,7 @@ function checkWin() {
 		if (creatorDistance != undefined) $("#win-creator-distance").html("/ " + creatorDistance);
 		if (retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "level-ratings")) loadFeedback();
 		setTimeout(function() {
-			$("#winModal").modal();
+			$("#win").modal();
 		}, 400);
 		setTimeout(function() {
 			$({moves: 0}).animate({moves: moves}, {

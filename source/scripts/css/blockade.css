@@ -1,3 +1,12 @@
+body, h1, h2, h3, h4, h5, h6, .tooltip {
+	font-family: Hasklig;
+}
+
+body {
+	-webkit-user-select: none;
+	cursor: default;
+}
+
 .drag-bar {
 	-webkit-app-region: drag;
 	width: 100%;
@@ -39,4 +48,14 @@ input, textarea {
 	background-color: #444 !important;
 	color: white !important;
 	resize: none;
+}
+
+.tooltip {
+	font-size: 14px;
+}
+
+.logo {
+	font-size: 80px;
+	margin-top: 0px;
+	margin-bottom: 16px;
 }
