@@ -1,7 +1,5 @@
 #game {
 	position: absolute;
-	width: 800px;
-	height: 600px;
 	overflow: visible;
 	/* padding: 64px 16px 64px 16px; */
 	padding: 48px 16px 48px 16px;

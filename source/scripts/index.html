@@ -5,26 +5,46 @@
 		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<link rel="stylesheet" href="css/blockade.css">
+		<style>
+			html, body, #main {
+				height: 100%;
+			}
+		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
 	<body style="opacity: 0.0;">
 		<div class="container-fluid drag-bar"></div>
-		<div class="container centered" align="center">
-			<h1 class="logo">「Blockade」</h1>
+		<div id="main">
+			<div class="container centered" align="center">
+				<h1 class="logo">「Blockade」</h1>
+			</div>
 		</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script>
-		const intervals = {appear: 800, hold: 450, vanish: 550};
+		const intervals = {appear: 800, hold: 450, vanish: 550, skip: 100};
+		var hold, vanish, vanishing = false;
 
 		$(document).ready(function() {
 			$("body").animate({opacity: 1.0}, intervals.appear);
-			setTimeout(function() {
+			hold = setTimeout(function() {
+				vanishing = true;
 				$("body").animate({opacity: 0.0}, intervals.vanish);
 			}, intervals.appear + intervals.hold);
-			setTimeout(function() {
+			vanish = setTimeout(function() {
 				location = "menu.html";
 			}, intervals.appear + intervals.hold + intervals.vanish);
+		});
+		$("#main").on("click", function() {
+			if (!vanishing || $("body").css("opacity") > intervals.skip / intervals.vanish) {
+				clearTimeout(hold);
+				clearTimeout(vanish);
+				$("body").stop();
+				$("body").animate({opacity: 0.0}, intervals.skip);
+				setTimeout(function() {
+					location = "menu.html";
+				}, intervals.skip);
+			}
 		});
 	</script>
 </html>

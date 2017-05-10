@@ -161,6 +161,8 @@ function checkWin() {
 		if (creatorDistance != undefined) $("#win-creator-distance").html("/ " + creatorDistance);
 		if (retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "level-ratings")) loadFeedback();
 		setTimeout(function() {
+			// $("#win-moves").html(moves);
+			// $("#win-distance").html(distance);
 			$("#win").modal();
 		}, 400);
 		setTimeout(function() {
@@ -176,8 +178,6 @@ function checkWin() {
 					$("#win-distance").text(Math.ceil(this.distance));
 				}
 			});
-			// $("#win-moves").html(moves);
-			// $("#win-distance").html(distance);
 		}, 1000);
 		setTimeout(function() {
 			if (moves <= creatorMoves) {
