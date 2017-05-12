@@ -5,9 +5,18 @@
 const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Block {
-	constructor(attributes={}) {
-		var _attributes = {position: new Vector2(), color: 0, passable: false, moveable: true, pressable: true, velocity: new Vector2(), id: -1, superclass: "Block", subclass: "Standard"}
-		attributes = $.extend(_attributes, attributes);
+	constructor(attributes = {}) {
+		attributes = $.extend({
+			position: new Vector2(),
+			color: 0,
+			passable: false,
+			moveable: true,
+			pressable: true,
+			velocity: new Vector2(),
+			id: -1,
+			superclass: "Block",
+			subclass: "Standard"
+		}, attributes);
 		for (var key in attributes) {
 			this[key] = attributes[key];
 		}
@@ -74,20 +83,20 @@ class Block {
 	}
 	Animate(movement) {
 		$(`#Block-Standard-${this.id}`).addClass("moving");
-		$(`#Block-Standard-${this.id}`).animate({left: `${movement[0][1].x*50}px`, top: `${movement[0][1].y*50}px`}, {duration: 400, complete: function() {$(this).removeClass("moving");}});
+		$(`#Block-Standard-${this.id}`).animate({left: `${movement[0][1].x * 50}px`, top: `${movement[0][1].y * 50}px`}, {duration: 400, complete: function() {$(this).removeClass("moving");}});
 		//console.log({position: movement[0][1]});
 		$(`#Block-Standard-${this.id}`).data({position: movement[0][1]});
 		//$(`#Block-Standard-${Vector2.ToString(movement[0][0])}`).attr("id", `#Block-Standard-${Vector2.ToString(movement[0][1])}`)
 	}
 	GetVisuals(grid) {
-		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${this.id}" style="left: ${this.position.x*50}px; top: ${this.position.y*50}px;">
-				<div class="block-center color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/center.svg"});"></div>
-				<div class="block-corner-topLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
-				<div class="block-corner-topRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
-				<div class="block-corner-bottomLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
-				<div class="block-corner-bottomRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
-			</span>`);
-		$(`#Block-Standard-${this.id}`).data({position: this.position, class:"Block", subclass:"Standard", id: this.id});
+		$("#game>#blocks").append(`<span class="block Standard Object" id="Block-Standard-${this.id}" style="left: ${this.position.x * 50}px; top: ${this.position.y * 50}px;">
+			<div class="block-center color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/center.svg"});"></div>
+			<div class="block-corner-topLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
+			<div class="block-corner-topRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
+			<div class="block-corner-bottomLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
+			<div class="block-corner-bottomRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
+		</span>`);
+		$(`#Block-Standard-${this.id}`).data({position: this.position, class: "Block", subclass: "Standard", id: this.id});
 	}
 }
 Block.flags = ["selectable"];

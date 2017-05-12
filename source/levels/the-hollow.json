@@ -46,9 +46,9 @@
 			{"class": "Standard", "position": [10, 3], "attributes": {"color": 0}}
 		],
 		"Blocks": [
-			{"class": "Hollow", "position": [3, 3], "attributes": {"color": -1}},
+			{"class": "Hollow", "position": [3, 3]},
 			{"class": "Standard", "position": [6, 8], "attributes": {"color": 0}},
-			{"class": "Hollow", "position": [11, 3], "attributes": {"color": -1}}
+			{"class": "Hollow", "position": [11, 3]}
 		]
 	},
 	"info": {

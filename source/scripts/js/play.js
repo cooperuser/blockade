@@ -19,12 +19,13 @@ let flags = {
 			selected = data.grid[objectData.position.x][objectData.position.y].block;
 			let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
 			$("#game").append(`
-					<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
-						<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
-						<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
-						<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
-						<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
-					</div>`);
+				<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
+					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
+					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
+					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
+					<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
+				</div>
+			`);
 		}
 	},
 	showMoveButtonsUntilHover: function() {
@@ -38,7 +39,8 @@ let flags = {
 					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
 					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
 					<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
-				</div>`);
+				</div>
+			`);
 		}
 	}
 }
@@ -206,7 +208,8 @@ $("#game").on("mousemove", ".Object", function(event) {
 				<a class="btn btn-${(checkMoves.left)?"success":"default"} button left" data-id='left' ${(checkMoves.left)?"":"disabled"}></a>
 				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
 				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
-			</div>`)
+			</div>
+		`);
 	}
 });
 

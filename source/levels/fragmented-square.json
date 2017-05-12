@@ -49,10 +49,10 @@
 			{"class": "Standard", "position": [3, 7], "attributes": {"color": 0}}
 		],
 		"Blocks": [
-			{"class": "Hollow", "position": [2, 7], "attributes": {"color": -1}},
-			{"class": "Hollow", "position": [3, 7], "attributes": {"color": -1}},
+			{"class": "Hollow", "position": [2, 7]},
+			{"class": "Hollow", "position": [3, 7]},
 			{"class": "Standard", "position": [11, 1], "attributes": {"color": 0}},
-			{"class": "Hollow", "position": [12, 1], "attributes": {"color": -1}}
+			{"class": "Hollow", "position": [12, 1]}
 		]
 	},
 	"info": {

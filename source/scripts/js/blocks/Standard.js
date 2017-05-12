@@ -6,9 +6,9 @@ const {Block} = require(`${__dirname}/Block`);
 const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Standard extends Block {
-	constructor(attributes={}) {
+	constructor(attributes = {}) {
 		super(attributes);
 	}
 }
 
-module.exports = {Standard}
+module.exports = {Standard};

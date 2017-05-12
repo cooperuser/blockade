@@ -5,7 +5,7 @@
 const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Wire {
-	constructor(position=new Vector2(), color="white") {
+	constructor(position = new Vector2(), color = "white") {
 		this.position = position;
 		this.color = color;
 		this.passable = true;
@@ -13,7 +13,7 @@ class Wire {
 }
 
 class Gate {
-	constructor(position=new Vector2()) {
+	constructor(position = new Vector2()) {
 		this.position = position;
 		this.passable = true;
 	}

@@ -6,9 +6,9 @@ const {Tile} = require(`${__dirname}/Tile`);
 const {Vector2} = require(`${__dirname}/../Vectors`);
 
 class Standard extends Tile {
-	constructor(attributes={}) {
+	constructor(attributes = {}) {
 		super(attributes);
 	}
 }
 
-module.exports = {Standard}
+module.exports = {Standard};

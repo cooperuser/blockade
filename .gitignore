@@ -1,5 +1,4 @@
-# Created by .ignore support plugin (hsz.mobi)
-/run.sh
-.idea/
-Icon
 .DS_Store
+Icon
+.idea/
+/run.sh

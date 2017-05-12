@@ -46,9 +46,9 @@
 			{"class": "Standard", "position": [5, 7], "attributes": {"color": 0}}
 		],
 		"Blocks": [
-			{"class": "Hollow", "position": [2, 4], "attributes": {"color": -1}},
-			{"class": "Hollow", "position": [5, 1], "attributes": {"color": -1}},
-			{"class": "Hollow", "position": [5, 7], "attributes": {"color": -1}},
+			{"class": "Hollow", "position": [2, 4]},
+			{"class": "Hollow", "position": [5, 1]},
+			{"class": "Hollow", "position": [5, 7]},
 			{"class": "Standard", "position": [8, 4], "attributes": {"color": 0}},
 			{"class": "Standard", "position": [10, 2], "attributes": {"color": 0}},
 			{"class": "Standard", "position": [10, 6], "attributes": {"color": 0}},
