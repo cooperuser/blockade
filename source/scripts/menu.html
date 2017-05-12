@@ -5,13 +5,11 @@
 		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<link rel="stylesheet" href="css/blockade.css">
+		<link rel="stylesheet" href="css/about.css">
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<style>
 			span.label {
 				padding-top: 3.375px;
-			}
-			.label-purple {
-				background-color: #9C27B0;
 			}
 		</style>
 	</head>
@@ -20,42 +18,24 @@
 		<div class="container centered" align="center">
 			<h1 class="logo">「Blockade」</h1><br>
 			<div style="width: 300px; margin-bottom: 12px;">
-				<a id="play" class="btn btn-default btn-lg btn-block">Play</a><br>
-				<a id="editor" class="btn btn-default btn-lg btn-block disabled active">Editor</a><br>
-				<a id="about" class="btn btn-default btn-lg btn-block">About</a><br>
-				<a id="quit" class="btn btn-default btn-lg btn-block">Quit</a>
+				<a class="btn btn-default btn-lg btn-block menu-button play">Play</a><br>
+				<a class="btn btn-default btn-lg btn-block menu-button editor disabled active">Editor</a><br>
+				<a class="btn btn-default btn-lg btn-block menu-button about">About</a><br>
+				<a class="btn btn-default btn-lg btn-block menu-button quit">Quit</a>
 			</div>
 		</div>
 		<!--span class="label label-default" style="position: absolute; left: 6px; bottom: 6px;"><span style="font-family: Verdana">©</span> Blockade Team 2017</span-->
-		<span id="version" class="label" style="position: absolute; right: 6px; bottom: 6px;"></span>
-		<div id="about-modal" class="modal fade" role="dialog">
+		<!--span class="label version" style="position: absolute; right: 6px; bottom: 6px;"></span-->
+		<div id="about" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="btn close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">About</h4>
+						<!--button type="button" class="btn close close-about">&times;</button-->
+						<h4 class="modal-title">About Blockade <span class="label version version-header"></span></h4>
 					</div>
-					<div class="modal-body" style="-webkit-user-select: auto; cursor: auto;">
-						<p>Blockade is a minimal grid-based puzzle game that is inspired by the ice puzzles in The Legend of Zelda: Twilight Princess.</p>
-						<p>Programming:</p>
-						<ul>
-							<li>Cooper Anderson</li>
-							<li>Grady Shoemaker</li>
-						</ul>
-						<p>Level Design:</p>
-						<ul>
-							<li>Grady Shoemaker</li>
-							<li>Cooper Anderson</li>
-							<li>Jack Warner</li>
-						</ul>
-						<p>Special Thanks:</p>
-						<ul>
-							<li>Antony Suarez</li>
-							<li>Fernando Morales</li>
-						</ul>
-					</div>
+					<div id="about-text" class="modal-body"></div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default close-about">Close</button>
 					</div>
 				</div>
 			</div>
@@ -63,10 +43,12 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/version.js"></script>
 	<script>
 		const remote = require("electron").remote;
 		const fs = remote.require("fs");
-		const {readJSON, retrieve} = require("./js/tools");
+
+		$("#about-text").load("about-text.html");
 
 		$(document).ready(function() {
 			$("body").animate({opacity: 1.0}, 100);
@@ -75,16 +57,19 @@
 		$(".btn").attr("draggable", "false");
 		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
 
-		$("#play").on("click", function() {
+		$(".play").on("click", function() {
 			location = "levelselect.html";
 		});
-		$("#editor").on("click", function() {
+		$(".editor").on("click", function() {
 			location = "editor-old.html?play=0";
 		});
-		$("#about").on("click", function() {
-			$("#about-modal").modal();
+		$(".about").on("click", function() {
+			$("#about").modal();
 		});
-		$("#quit").on("click", function() {
+		$(".close-about").on("click", function() {
+			$("#about").modal("hide");
+		});
+		$(".quit").on("click", function() {
 			remote.app.quit();
 		});
 
@@ -94,23 +79,5 @@
 		function testing() { // console use only
 			location = "testing.html";
 		}
-
-		let data = readJSON(`${__dirname}/../../package.json`);
-		let release = retrieve(data, "release");
-		let version = retrieve(data, "version");
-		if (release == "indev") {
-			$("#version").addClass("label-danger").addClass("label-purple");
-		} else if (release == "alpha") {
-			$("#version").addClass("label-danger");
-		} else if (release == "beta") {
-			$("#version").addClass("label-warning");
-		} else if (release == "stable") {
-			$("#version").addClass("label-success");
-		} else if (release == "release") {
-			$("#version").addClass("label-primary");
-		} else {
-			$("#version").addClass("label-default");
-		}
-		$("#version").html((release == undefined ? "" : release + " ") + version);
 	</script>
 </html>

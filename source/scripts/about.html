@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>About</title>
+		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
+		<link rel="stylesheet" href="css/blockade.css">
+		<link rel="stylesheet" href="css/about.css">
+		<style>
+			.modal-dialog {
+				margin: 0px;
+			}
+		</style>
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	</head>
+	<body style="opacity: 0.0;">
+		<div class="container-fluid drag-bar" style="height: 60px;"></div>
+		<div id="about" class="modal" role="dialog" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">About Blockade <span class="label version version-header"></span></h4>
+					</div>
+					<div id="about-text" class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default close-about">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/version.js"></script>
+	<script>
+		const remote = require('electron').remote;
+
+		$("#about-text").load("about-text.html");
+
+		$(document).ready(function() {
+			$("#about").modal();
+			$("body").animate({opacity: 1.0}, 200);
+		});
+
+		$(".btn").attr("draggable", "false");
+		$(".btn").on("mouseup mouseleave", function() {$(this).blur();});
+
+		$(".close-about").on("click", function() {
+			remote.getCurrentWindow().close();
+		});
+	</script>
+</html>

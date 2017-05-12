@@ -1,12 +1,12 @@
 const {app, shell, BrowserWindow, Menu} = require("electron");
 const {readJSON, retrieve} = require("./tools");
 
-let win;
+let game = null, about = null;
 
 function createWindow() {
 	let showTitleBar = retrieve(readJSON(`${__dirname}/../../../save-data/preferences/developer.json`), "show-title-bar") || (process.platform != "darwin");
 
-	win = new BrowserWindow({
+	game = new BrowserWindow({
 		width: 800,
 		height: 600 + (showTitleBar ? 22 : 0),
 		minWidth: 800,
@@ -18,9 +18,25 @@ function createWindow() {
 		backgroundColor: "#1a1a19"
 	});
 
-	win.loadURL(`file://${__dirname}/../index.html`);
+	game.loadURL(`file://${__dirname}/../index.html`);
 
-	win.on("closed", function() {win = null;});
+	game.on("closed", function() {game = null;});
+}
+
+function createAbout() {
+	about = new BrowserWindow({
+		width: 600,
+		height: 500,
+		resizable: false,
+		maximizable: false,
+		fullscreenable: false,
+		frame: false,
+		backgroundColor: "#1a1a19"
+	});
+
+	about.loadURL(`file://${__dirname}/../about.html`);
+
+	about.on("closed", function() {about = null;});
 }
 
 app.on("ready", function() {
@@ -56,7 +72,10 @@ app.on("ready", function() {
 		template.unshift({
 			label: app.getName(),
 			submenu: [
-				{role: "about"},
+				{label: `About ${app.getName()}`, click: function() {
+					if (about === null) createAbout();
+					else about.focus();
+				}},
 				{type: "separator"},
 				{role: "services", submenu: []},
 				{type: "separator"},
@@ -76,5 +95,5 @@ app.on("ready", function() {
 app.on("window-all-closed", app.quit);
 
 app.on("activate", function() {
-	if (win === null) createWindow();
+	if (game === null && about === null) createWindow();
 });
