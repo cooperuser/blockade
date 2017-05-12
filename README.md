@@ -1,16 +1,16 @@
 # Blockade
 Blockade is a minimal but challenging puzzle game, inspired by the ice puzzles in The Legend of Zelda: Twilight Princess.
 
-## Programming
+### Programming
 - Cooper Anderson
 - Grady Shoemaker
 
-## Level Design
+### Level Design
 - Grady Shoemaker
 - Cooper Anderson
 - Jack Warner
 
-## Special Thanks
+### Special Thanks
 - Antony Suarez
 - Fernando Morales
 
