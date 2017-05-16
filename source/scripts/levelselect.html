@@ -123,10 +123,12 @@
 			$(".level-button").attr("draggable", "false");
 			highlight();
 		}
+
 		function highlight() {
 			$(".level-button").removeClass("active");
 			if (!$(`.level-button#${level}`).hasClass("disabled")) $(`.level-button#${level}`).addClass("active");
 		}
+
 		function showInfo() {
 			if (readJSON(`${__dirname}/../levels.json`)[level] != undefined) {
 				const filename = readJSON(`${__dirname}/../levels.json`)[level];
@@ -174,6 +176,7 @@
 				$("#play").addClass("disabled");
 			}
 		}
+
 		$("#select").on("click", ".level-button", function() {
 			if (level != $(this).attr("id")) {
 				level = Number($(this).attr("id"));

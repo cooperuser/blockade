@@ -211,6 +211,7 @@
 				}
 			}
 		}
+
 		function showDifficulty(rating) {
 			$(".btn-difficulty").removeClass("btn-green btn-lime btn-yellow btn-orange btn-red");
 			if (rating != undefined) {
@@ -219,6 +220,7 @@
 				}
 			}
 		}
+
 		function updateButtons() {
 			if (quality != undefined && difficulty != undefined) {
 				$(".win-button").removeClass("disabled");
@@ -226,6 +228,7 @@
 				$(".win-button").addClass("disabled");
 			}
 		}
+
 		function loadFeedback() {
 			quality = retrieve(readJSON(`${__dirname}/../../save-data/feedback/${filename}.json`), "quality");
 			if (quality == undefined) quality = null;
@@ -237,6 +240,7 @@
 			updateButtons();
 			$(".feedback").show();
 		}
+
 		function saveFeedback() {
 			write(`${__dirname}/../../save-data/feedback/${filename}.json`,
 				`{\n\t"quality": ${quality},\n\t"difficulty": ${difficulty}` +
@@ -244,6 +248,7 @@
 				`\n}`
 			);
 		}
+
 		$(".btn-quality").on("mouseenter", function(event) {
 			showQuality(Number(event.currentTarget.id.replace(/\D/g, '')));
 		});

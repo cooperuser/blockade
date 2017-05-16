@@ -2,48 +2,73 @@
  * Created by Cooper Anderson on 9/27/16 AD.
  */
 
-const fs = require("fs");
-const {write, readJSON, retrieve} = require("./js/tools");
+const {write, directory, readJSON, retrieve} = require("./js/tools");
 const {Vector2} = require("./js/Vectors");
 const Tile = require("./js/init/Tiles");
 const Plate = require("./js/init/Plates");
 const Block = require("./js/init/Blocks");
 
-let level = Number(location.search.split("?")[1].split("&")[0].split('=')[1]);
-let data = {}, filename = readJSON(`${__dirname}/../levels.json`)[level], hasWon = false, backpage = `levelselect.html?level=${level}`, moves = 0, distance = 0;
+let level = Number(location.search.split("?")[1].split("&")[0].split("=")[1]);
+let data = {}, filename = readJSON(`${__dirname}/../levels.json`)[level], backpage = `levelselect.html?level=${level}`, selected, moves = 0, distance = 0;
 
-let flags = {
-	showMoveButtonsUntilClick: function() {
-		if (!$(".selector").length) {
-			let objectData = $(".block").data();
-			selected = data.grid[objectData.position.x][objectData.position.y].block;
-			let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
-			$("#game").append(`
-				<div class="selector keepOnHover" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
-					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
-				</div>
-			`);
-		}
-	},
-	showMoveButtonsUntilHover: function() {
-		if (!$(".selector").length) {
-			let objectData = $(".block").data();
-			selected = data.grid[objectData.position.x][objectData.position.y].block;
-			let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
-			$("#game").append(`
-				<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
-					<a class="btn btn-${(checkMoves.up) ? "success" : "default"} button up" data-id='up' ${(checkMoves.up) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.left) ? "success" : "default"} button left" data-id='left' ${(checkMoves.left) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.right) ? "success" : "default"} button right" data-id='right' ${(checkMoves.right) ? "" : "disabled"}></a>
-					<a class="btn btn-${(checkMoves.down) ? "success" : "default"} button down" data-id='down' ${(checkMoves.down) ? "" : "disabled"}></a>
-				</div>
-			`);
-		}
+function select(object) {
+	let info = object.data();
+	let block = data.grid[info.position.x][info.position.y].block;
+	if (block != undefined) {
+		selected = block;
+		let available = block.CheckMove(data.grid);
+		let selector = object.children(".selector");
+		selector.children(".button").removeClass("btn-default btn-success disabled");
+		["up", "left", "right", "down"].forEach(function(direction) {
+			selector.children(`.button.${direction}`).addClass(available[direction] ? "btn-success" : "btn-default disabled");
+		});
+		selector.show();
 	}
 }
+
+function deselect(object) {
+	let selector = object.children(".selector");
+	selector.hide();
+	selector.children(".button").removeClass("btn-success").addClass("btn-default disabled");
+}
+
+let flags = {
+	showMoveButtonsUntilHover: function() {
+		$(".Object").toArray().forEach(function(object) {
+			select($(object));
+		});
+	},
+	showMoveButtonsUntilClick: function() {
+		$(".selector").addClass("keepOnHover");
+		this.showMoveButtonsUntilHover();
+	}
+}
+
+$("#game").on("mousemove", ".Object", function() {
+	let object = $(this);
+	let info = object.data();
+	let subclass = eval(info.class)[info.subclass];
+	if (subclass.flags.includes("selectable") && !object.hasClass("moving")) select(object);
+});
+
+$("#game").on("mouseleave", ".Object", function() {
+	let object = $(this);
+	let info = object.data();
+	let subclass = eval(info.class)[info.subclass];
+	// if (subclass.flags.includes("selectable")) selected = undefined;
+	if (!object.children(".selector").hasClass("keepOnHover")) deselect(object);
+});
+
+$("#game").on("click", ".selector>.button", function() {
+	let object = $(this).parent().parent();
+	let info = object.data();
+	let block = data.grid[info.position.x][info.position.y].block;
+	block.velocity = Vector2.FromDirection($(this).data("id"));
+	block.Move();
+	deselect(object);
+	$(".selector").removeClass("keepOnHover");
+	update();
+});
 
 function render() {
 	// $("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 128}px`});
@@ -129,7 +154,7 @@ function init(path, back) {
 	}
 }
 
-function updateInfo() {
+function update() {
 	$("#moves").html(moves);
 	$({distance: Number($("#distance").html())}).animate({distance: distance}, {
 		duration: 400,
@@ -137,9 +162,6 @@ function updateInfo() {
 			$("#distance").html(Math.round(this.distance));
 		}
 	});
-}
-
-function checkWin() {
 	let actives = [];
 	for (let x in data.grid) {
 		for (let y in data.grid[x]) {
@@ -149,7 +171,7 @@ function checkWin() {
 		}
 	}
 	if (!actives.includes(false)) {
-		hasWon = true;
+		$("#game").css("pointer-events", "none");
 		const savedMoves = retrieve(readJSON(`${__dirname}/../../save-data/progress/${filename}.json`), "moves");
 		const savedDistance = retrieve(readJSON(`${__dirname}/../../save-data/progress/${filename}.json`), "distance");
 		const bestMoves = savedMoves == undefined ? moves : Math.min(savedMoves, moves);
@@ -192,60 +214,6 @@ function checkWin() {
 	}
 }
 
-let selected;
-
-$("#game").on("mousemove", ".Object", function(event) {
-	let objectData = $(this).data();
-	let subclass = eval(objectData.class)[objectData.subclass];
-	let flags = subclass.flags;
-	if (flags.includes("selectable") && !$(this).hasClass("moving") && !hasWon) {
-		$(".selector").remove();
-		selected = data.grid[objectData.position.x][objectData.position.y].block;
-		let checkMoves = data.grid[objectData.position.x][objectData.position.y].block.CheckMove(data.grid);
-		$("#game").append(`
-			<div class="selector" data-id='{"position": ${JSON.stringify(objectData.position)}}' style="left: ${objectData.position.x * 50}px; top: ${objectData.position.y * 50}px;">
-				<a class="btn btn-${(checkMoves.up)?"success":"default"} button up" data-id='up' ${(checkMoves.up)?"":"disabled"}></a>
-				<a class="btn btn-${(checkMoves.left)?"success":"default"} button left" data-id='left' ${(checkMoves.left)?"":"disabled"}></a>
-				<a class="btn btn-${(checkMoves.right)?"success":"default"} button right" data-id='right' ${(checkMoves.right)?"":"disabled"}></a>
-				<a class="btn btn-${(checkMoves.down)?"success":"default"} button down" data-id='down' ${(checkMoves.down)?"":"disabled"}></a>
-			</div>
-		`);
-	}
-});
-
-/*$(document).on("mousemove", function(event) {
-	if($(".selector").length && !($(event.target).hasClass("selector"))) {
-		console.log("test");
-	}
-});*/
-
-$("#game").on("mouseleave", ".Object", function(event) {
-	let objectData = $(this).data();
-	let subclass = eval(objectData.class)[objectData.subclass];
-	let flags = subclass.flags;
-	if (flags.includes("selectable")) {
-		//selected = undefined;
-	}
-});
-
-$("#game").on("click", ".selector>.button", function(event) {
-	let info = $(this).parent().data("id");
-	let block = data.grid[info.position.x][info.position.y].block
-	if (!hasWon) {
-		block.velocity = Vector2.FromDirection($(this).data("id"));
-		block.Move();
-		$(".selector").remove();
-		updateInfo();
-		checkWin();
-	}
-});
-
-$("#game").on("mouseleave", ".selector", function(event) {
-	if (!$(this).hasClass("keepOnHover")) {
-		$(".selector").remove();
-	}
-});
-
 $(".restart").on("click", function() {
 	location.reload();
 });
@@ -256,7 +224,7 @@ $(".exit").on("click", function() {
 
 $(".continue").on("click", function() {
 	let names = readJSON(`${__dirname}/../levels.json`);
-	let files = fs.readdirSync(`${__dirname}/../levels/`);
+	let files = directory(`${__dirname}/../levels/`);
 	let offset = 0;
 	while (true) {
 		offset++;
@@ -269,9 +237,3 @@ $(".continue").on("click", function() {
 		}
 	}
 });
-
-/* setInterval(function() {
-	if (selected != undefined && !infoOpen) {
-		$("#info").css({right: `${54 - $("#info").width()}px`});
-	}
-}); */

@@ -95,6 +95,12 @@ class Block {
 			<div class="block-corner-topRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 			<div class="block-corner-bottomLeft color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
 			<div class="block-corner-bottomRight color${this.color}" style="-webkit-mask-image: url(${"../resources/textures/blocks/Standard/outer.svg"});"></div>
+			<div class="selector" hidden>
+				<a class="btn btn-default disabled button up" data-id="up"></a>
+				<a class="btn btn-default disabled button left" data-id="left"></a>
+				<a class="btn btn-default disabled button right" data-id="right"></a>
+				<a class="btn btn-default disabled button down" data-id="down"></a>
+			</div>
 		</span>`);
 		$(`#Block-Standard-${this.id}`).data({position: this.position, class: "Block", subclass: "Standard", id: this.id});
 	}
