@@ -22,6 +22,8 @@ function select(object) {
 		["up", "left", "right", "down"].forEach(function(direction) {
 			selector.children(`.button.${direction}`).addClass(available[direction] ? "btn-success" : "btn-default disabled");
 		});
+		$(".selected").hide();
+		object.children(".selected").show();
 		selector.show();
 	}
 }
@@ -68,6 +70,28 @@ $("#game").on("click", ".selector>.button", function() {
 	deselect(object);
 	$(".selector").removeClass("keepOnHover");
 	update();
+});
+
+$(document).on("keypress", function(event) {
+	if (selected != undefined && [119, 97, 100, 115].includes(event.which)) {
+		if (event.which == 119) {
+			selected.velocity = Vector2.FromDirection("up");
+		} else if (event.which == 97) {
+			selected.velocity = Vector2.FromDirection("left");
+		} else if (event.which == 100) {
+			selected.velocity = Vector2.FromDirection("right");
+		} else if (event.which == 115) {
+			selected.velocity = Vector2.FromDirection("down");
+		}
+		selected.Move();
+		deselect($(".selected:visible").parent());
+		$(".selector").removeClass("keepOnHover");
+		update();
+	}
+});
+
+$(document).on("keydown", function() {
+	// arrow key code
 });
 
 function render() {

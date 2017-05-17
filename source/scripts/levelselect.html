@@ -177,13 +177,6 @@
 			}
 		}
 
-		$("#select").on("click", ".level-button", function() {
-			if (level != $(this).attr("id")) {
-				level = Number($(this).attr("id"));
-				highlight();
-				showInfo();
-			} else $("#play").trigger("click");
-		});
 		$("#previous").on("click", function() {
 			page--;
 			update();
@@ -196,7 +189,17 @@
 			location = "menu.html";
 		});
 		$("#play").on("click", function() {
-			location = `play.html?level=${level}`;
+			if (!$(this).hasClass("disabled")) location = `play.html?level=${level}`;
+		});
+		$("#select").on("click", ".level-button", function() {
+			if (level != $(this).attr("id")) {
+				level = Number($(this).attr("id"));
+				highlight();
+				showInfo();
+			} else $("#play").trigger("click");
+		});
+		$(document).on("keypress", function(event) {
+			if (event.which == 13) $("#play").trigger("click");
 		});
 
 		update();

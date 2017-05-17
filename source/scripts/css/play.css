@@ -11,6 +11,13 @@
 	height: 100%;
 }
 
+.selected {
+	height: 100%;
+	border-style: solid;
+	border-color: white;
+	border-radius: 5px;
+}
+
 .selector {
 	pointer-events: visible;
 	width: 50px;
