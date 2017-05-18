@@ -8,6 +8,8 @@ const Tile = require("./js/init/Tiles");
 const Plate = require("./js/init/Plates");
 const Block = require("./js/init/Blocks");
 
+const grayButtons = !retrieve(readJSON(`${__dirname}/../../save-data/preferences/developer.json`), "hide-gray-buttons");
+
 let level = Number(location.search.split("?")[1].split("&")[0].split("=")[1]);
 let data = {}, filename = readJSON(`${__dirname}/../levels.json`)[level], backpage = `levelselect.html?level=${level}`, selected, moves = 0, distance = 0;
 
@@ -18,9 +20,9 @@ function select(object) {
 		selected = block;
 		let available = block.CheckMove(data.grid);
 		let selector = object.children(".selector");
-		selector.children(".button").removeClass("btn-default btn-success disabled");
+		selector.children(".button").removeClass("btn-default btn-success disabled hidden");
 		["up", "left", "right", "down"].forEach(function(direction) {
-			selector.children(`.button.${direction}`).addClass(available[direction] ? "btn-success" : "btn-default disabled");
+			selector.children(`.button.${direction}`).addClass(available[direction] ? "btn-success" : "btn-default disabled" + (grayButtons ? "" : " hidden"));
 		});
 		$(".selected").hide();
 		object.children(".selected").show();
@@ -31,7 +33,7 @@ function select(object) {
 function deselect(object) {
 	let selector = object.children(".selector");
 	selector.hide();
-	selector.children(".button").removeClass("btn-success").addClass("btn-default disabled");
+	selector.children(".button").removeClass("btn-success hidden").addClass("btn-default disabled");
 }
 
 let flags = {

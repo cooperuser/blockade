@@ -1,0 +1,69 @@
+{
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [4, 1]},
+			{"class": "Standard", "position": [4, 2]},
+			{"class": "Standard", "position": [4, 3]},
+			{"class": "Standard", "position": [4, 4]},
+			{"class": "Standard", "position": [4, 5]},
+			{"class": "Standard", "position": [4, 6]},
+			{"class": "Standard", "position": [4, 7]},
+			{"class": "Standard", "position": [5, 1]},
+			{"class": "Standard", "position": [5, 2]},
+			{"class": "Standard", "position": [5, 3]},
+			{"class": "Standard", "position": [5, 4]},
+			{"class": "Standard", "position": [5, 5]},
+			{"class": "Standard", "position": [5, 6]},
+			{"class": "Standard", "position": [5, 7]},
+			{"class": "Standard", "position": [6, 1]},
+			{"class": "Standard", "position": [6, 2]},
+			{"class": "Standard", "position": [6, 3]},
+			{"class": "Standard", "position": [6, 4]},
+			{"class": "Standard", "position": [6, 5]},
+			{"class": "Standard", "position": [6, 6]},
+			{"class": "Standard", "position": [6, 7]},
+			{"class": "Standard", "position": [7, 1]},
+			{"class": "Standard", "position": [7, 2]},
+			{"class": "Standard", "position": [7, 3]},
+			{"class": "Standard", "position": [7, 4]},
+			{"class": "Standard", "position": [7, 5]},
+			{"class": "Standard", "position": [7, 6]},
+			{"class": "Standard", "position": [7, 7]},
+			{"class": "Standard", "position": [8, 1]},
+			{"class": "Standard", "position": [8, 2]},
+			{"class": "Standard", "position": [8, 3]},
+			{"class": "Standard", "position": [8, 4]},
+			{"class": "Standard", "position": [8, 5]},
+			{"class": "Standard", "position": [8, 6]},
+			{"class": "Standard", "position": [8, 7]},
+			{"class": "Standard", "position": [9, 1]},
+			{"class": "Standard", "position": [9, 2]},
+			{"class": "Standard", "position": [9, 3]},
+			{"class": "Standard", "position": [9, 4]},
+			{"class": "Standard", "position": [9, 5]},
+			{"class": "Standard", "position": [9, 6]},
+			{"class": "Standard", "position": [9, 7]},
+			{"class": "Standard", "position": [10, 1]},
+			{"class": "Standard", "position": [10, 2]},
+			{"class": "Standard", "position": [10, 3]},
+			{"class": "Standard", "position": [10, 4]},
+			{"class": "Standard", "position": [10, 5]},
+			{"class": "Standard", "position": [10, 6]},
+			{"class": "Standard", "position": [10, 7]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [7, 4], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [4, 1], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [4, 7], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [10, 7], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
+		"name": "Big Box",
+		"icon-color": "warning",
+		"creators": ["Cooper Anderson"],
+		"creator-score": {"moves": 18, "distance": 79}
+	}
+}
