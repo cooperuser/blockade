@@ -201,6 +201,9 @@
 		$(document).on("keypress", function(event) {
 			if (event.which == 13) $("#play").trigger("click");
 		});
+		$(document).on("keydown", function(event) {
+			if (event.which == 27) $("#exit").trigger("click");
+		});
 
 		update();
 		showInfo();
