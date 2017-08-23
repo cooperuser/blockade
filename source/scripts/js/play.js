@@ -75,6 +75,9 @@ $("#game").on("click", ".selector>.button", function() {
 });
 
 $(document).on("keypress", function(event) {
+	if (event.which == 114) {
+		location.reload();
+	}
 	if (selected != undefined && [119, 97, 100, 115].includes(event.which)) {
 		if (event.which == 119) {
 			selected.velocity = Vector2.FromDirection("up");
