@@ -189,6 +189,7 @@
 	</body>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/color.js"></script>
 	<script src="js/play.js"></script>
 	<script>
 		$(document).ready(function() {
@@ -272,6 +273,16 @@
 			showDifficulty(difficulty);
 		});
 		$("#feedback").on("blur", saveFeedback);
+
+		let color = new Color(255, 255, 255);
+
+		setInterval(function() {
+			let percent = (Math.sin(Date.now() / 500) + 1) / 2;
+			$(".selected").css({"border-color": color.setAlpha(percent * .5 + .5).cssRGBA()});
+			//$(".selected").css({"border-color": Color.lerp([new Color(0, 128, 255),  new Color(0, 255, 128)], percent).cssRGBA()});
+			//console.log(Color.lerp([new Color(255, 255, 200, 0), new Color(255, 255, 128, 1)], percent).cssRGBA());
+			//$(".selected").css({"border-color": Color.lerp([new Color(256, 256, 256), new Color(200, 200, 256)], percent).setAlpha((percent) * .5 + .5).cssRGBA()});
+			}, 1);
 
 		init();
 	</script>
