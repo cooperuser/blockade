@@ -1,3 +1,8 @@
+@font-face {
+	font-family: Hasklig;
+	src: url(../../resources/fonts/Hasklig-Regular.otf);
+}
+
 body, h1, h2, h3, h4, h5, h6, .tooltip {
 	font-family: Hasklig;
 }
@@ -63,3 +68,4 @@ input, textarea {
 .menu-button {
 	padding: 18px 27px;
 }
+
