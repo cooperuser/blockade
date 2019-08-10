@@ -4,7 +4,7 @@ const {readJSON, retrieve} = require("./tools");
 let game = null, about = null;
 
 function createWindow() {
-	let showTitleBar = retrieve(readJSON(`${__dirname}/../../../save-data/preferences/developer.json`), "show-title-bar") || (process.platform != "darwin");
+	let showTitleBar = retrieve(readJSON(`${__dirname}/../../../save-data/preferences/developer.json`), "show-title-bar");
 
 	game = new BrowserWindow({
 		width: 800,
@@ -15,6 +15,7 @@ function createWindow() {
 		maximizable: false,
 		fullscreenable: false,
 		titleBarStyle: showTitleBar ? "default" : "hidden-inset",
+		frame: showTitleBar,
 		backgroundColor: "#1a1a19",
 		webPreferences: {nodeIntegration: true}
 	});

@@ -5,11 +5,6 @@
 		<title>Blockade</title>
 		<link rel="stylesheet" href="css/bootstrap.css" title="dark">
 		<link rel="stylesheet" href="css/blockade.css">
-		<style>
-			html, body, #main {
-				height: 100%;
-			}
-		</style>
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	</head>
 	<body style="opacity: 0.0;">
@@ -35,7 +30,7 @@
 				location = "menu.html";
 			}, intervals.appear + intervals.hold + intervals.vanish);
 		});
-		$("#main").on("click", function() {
+		$(window).on("click", function() {
 			if (!vanishing || $("body").css("opacity") > intervals.skip / intervals.vanish) {
 				clearTimeout(hold);
 				clearTimeout(vanish);
