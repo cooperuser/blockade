@@ -5,6 +5,12 @@
 	"version": "0.4.23",
 	"main": "source/scripts/js/main.js",
 	"scripts": {
-		"start": "electron ./"
+		"start": "electron ."
+	},
+	"dependencies": {
+		"jquery": "^3.4.1"
+	},
+	"devDependencies": {
+		"electron": "^6.0.1"
 	}
 }

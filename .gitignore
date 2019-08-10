@@ -1,5 +1,7 @@
 .DS_Store
 Icon
 .idea/
+node_modules/
+package-lock.json
 /run.sh
 save-data/
