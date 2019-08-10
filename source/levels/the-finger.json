@@ -1,0 +1,39 @@
+{
+	"board": {
+		"Tiles": [
+			{"class": "Standard", "position": [0, 5]},
+			{"class": "Standard", "position": [0, 7]},
+			{"class": "Standard", "position": [1, 4]},
+			{"class": "Standard", "position": [1, 5]},
+			{"class": "Standard", "position": [1, 6]},
+			{"class": "Standard", "position": [1, 7]},
+			{"class": "Standard", "position": [2, 4]},
+			{"class": "Standard", "position": [2, 5]},
+			{"class": "Standard", "position": [2, 6]},
+			{"class": "Standard", "position": [2, 7]},
+			{"class": "Standard", "position": [3, 0]},
+			{"class": "Standard", "position": [3, 1]},
+			{"class": "Standard", "position": [3, 2]},
+			{"class": "Standard", "position": [3, 3]},
+			{"class": "Standard", "position": [3, 4]},
+			{"class": "Standard", "position": [3, 5]},
+			{"class": "Standard", "position": [3, 6]},
+			{"class": "Standard", "position": [3, 7]},
+			{"class": "Standard", "position": [4, 4]},
+			{"class": "Standard", "position": [4, 7]}
+		],
+		"Plates": [
+			{"class": "Standard", "position": [3, 2], "attributes": {"color": 0}}
+		],
+		"Blocks": [
+			{"class": "Standard", "position": [0, 7], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [3, 0], "attributes": {"color": 0}},
+			{"class": "Standard", "position": [4, 7], "attributes": {"color": 0}}
+		]
+	},
+	"info": {
+		"name": "The Finger",
+		"creators": ["Grady Shoemaker"],
+		"creator-score": {"moves": 15, "distance": 41}
+	}
+}
