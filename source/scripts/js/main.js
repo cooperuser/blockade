@@ -11,7 +11,6 @@ function createWindow() {
 		height: 600 + (showTitleBar ? 22 : 0),
 		minWidth: 800,
 		minHeight: 600 + (showTitleBar ? 22 : 0),
-		resizable: false,
 		maximizable: false,
 		fullscreenable: false,
 		titleBarStyle: showTitleBar ? "default" : "hidden-inset",
@@ -99,3 +98,5 @@ app.on("window-all-closed", app.quit);
 app.on("activate", function() {
 	if (game === null && about === null) createWindow();
 });
+
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";

@@ -100,14 +100,7 @@ $(document).on("keydown", function() {
 });
 
 function render() {
-	// $("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 128}px`});
 	$("#game").css({width: `${data.size.x * 50 + 32}px`, height: `${data.size.y * 50 + 96}px`});
-	if ($("#game").outerWidth() < $(window).width()) {
-		$("#game").css({left: ($(window).width() - $("#game").outerWidth()) / 2});
-	}
-	if ($("#game").outerHeight() < $(window).height()) {
-		$("#game").css({top: ($(window).height() - $("#game").outerHeight()) / 2});
-	}
 	window.scrollBy(($(document).width() - $(window).width()) / 2, ($(document).height() - $(window).height()) / 2);
 	for (let x in data.grid) {
 		for (let y in data.grid[x]) {
