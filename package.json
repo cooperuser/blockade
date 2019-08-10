@@ -3,7 +3,7 @@
 	"productName": "Blockade",
 	"release": "indev",
 	"version": "0.4.24",
-	"main": "source/scripts/js/main.js",
+	"main": "source/scripts/js/overhaul/main.js",
 	"scripts": {
 		"start": "electron ."
 	},
