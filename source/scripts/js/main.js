@@ -15,7 +15,8 @@ function createWindow() {
 		maximizable: false,
 		fullscreenable: false,
 		titleBarStyle: showTitleBar ? "default" : "hidden-inset",
-		backgroundColor: "#1a1a19"
+		backgroundColor: "#1a1a19",
+		webPreferences: {nodeIntegration: true}
 	});
 
 	game.loadURL(`file://${__dirname}/../index.html`);
