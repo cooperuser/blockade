@@ -1,9 +1,0 @@
-<svg width="46" height="46" viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <mask id="center">
-            <rect width="100%" height="100%" fill="white"/>
-            <rect x="11" y="11" width="24" height="24" rx="5" ry="5" fill="black"></rect>
-        </mask>
-    </defs>
-    <path d="M4,0 H42 V4 H46 V42 H42 V46 H4 V42 H0 V4 H4" opacity=".65" mask="url(#center)"/>
-</svg>
