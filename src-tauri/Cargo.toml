@@ -1,8 +1,8 @@
 [package]
-name = "app"
+name = "blockade"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "Blockade game"
+authors = ["Cooper b. Anderson", "Grady Shoemaker"]
 license = ""
 repository = ""
 default-run = "app"
