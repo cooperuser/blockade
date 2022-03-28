@@ -1,11 +1,25 @@
 <script lang="ts">
-	export let name: string;
+	import { Router, Link, Route } from "svelte-routing";
+	import Menu from "./routes/Menu.svelte";
+	import About from "./routes/About.svelte";
+	import Editor from "./routes/Editor.svelte";
+	import Play from "./routes/Play.svelte";
+	import Levels from "./routes/Levels.svelte";
+
+	export let url = "";
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<Router url="{url}" >
+<div>
+	<Route path="play/:id" let:params>
+		<Play id={params.id} />
+	</Route>
+	<Route path="levels" component="{Levels}" />
+	<Route path="editor" component="{Editor}" />
+	<Route path="about" component="{About}" />
+	<Route path="/"><Menu /></Route>
+</div>
+</Router>
 
 <style>
 	main {
