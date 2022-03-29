@@ -8,9 +8,9 @@ export class Vector {
 	static right = new Vector(1, 0);
 	static zero = new Vector(0, 0);
 
-	constructor(x?: number, y?: number) {
-		this.x = x || 0;
-		this.y = y || 0;
+	constructor(x: number = 0, y: number = 0) {
+		this.x = x;
+		this.y = y;
 	}
 
 	add(other: Vector): Vector {

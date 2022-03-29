@@ -5,8 +5,8 @@ import { Vector } from "./vector";
 export type Shape = Pair<Vector, BlockType>[];
 
 export class Block {
-	position: Vector;
-	shape: Shape;
+	public position: Vector;
+	public shape: Shape;
 
 	constructor(position: Vector, type: BlockType) {
 		this.position = position;
