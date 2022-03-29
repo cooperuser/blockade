@@ -1,3 +1,5 @@
+import type { Pair } from "./util";
+
 export class Vector {
 	public x: number;
 	public y: number;
@@ -15,6 +17,10 @@ export class Vector {
 
 	add(other: Vector): Vector {
 		return new Vector(this.x + other.x, this.y + other.y);
+	}
+
+	addPair<U>(pair: Pair<Vector, U>): Vector {
+		return new Vector(this.x + pair[0].x, this.y + pair[0].y);
 	}
 
 	sub(other: Vector): Vector {
