@@ -2,7 +2,7 @@ import { Block, BlockType, type Shape } from "../block";
 import { Vector } from "../vector";
 
 class Standard extends BlockType {}
-const [typeA, typeB] = [new Standard(), new Standard()];
+const [blue, red] = [new Standard(0), new Standard(1)];
 const contains = (f: Shape, v: Vector) => f.some(p => p[0].equals(v));
 
 describe("Block", () => {
@@ -11,43 +11,43 @@ describe("Block", () => {
 	});
 
 	it("gets created at (0, 0)", () => {
-		const block = new Block(new Vector(1, 2), typeA);
+		const block = new Block(new Vector(1, 2), blue);
 		expect(block.shape.length).toBe(1);
 
 		const pair = block.shape[0];
 		expect(pair[0]).toEqual(new Vector(0, 0));
-		expect(pair[1]).toEqual(typeA);
+		expect(pair[1]).toEqual(blue);
 	});
 
 	it("can have blocks appended", () => {
-		const block = new Block(new Vector(1, 1), typeA);
-		const sizeAfterB = block.addBlock(new Vector(1, 2), typeA);
+		const block = new Block(new Vector(1, 1), blue);
+		const sizeAfterB = block.addBlock(new Vector(1, 2), blue);
 		expect(sizeAfterB).toBe(2);
 		expect(block.shape[1][0]).toEqual(new Vector(0, 1));
-		expect(block.shape[1][1]).toEqual(typeA);
+		expect(block.shape[1][1]).toEqual(blue);
 
-		const sizeAfterB2 = block.addBlock(new Vector(1, 2), typeA);
+		const sizeAfterB2 = block.addBlock(new Vector(1, 2), blue);
 		expect(block.shape.length).toBe(2);
 		expect(sizeAfterB2).toBe(-1);
 		expect(block.shape[1][0]).toEqual(new Vector(0, 1));
-		expect(block.shape[1][1]).toEqual(typeA);
+		expect(block.shape[1][1]).toEqual(blue);
 
-		const sizeAfterC = block.addBlock(new Vector(2, 1), typeA);
+		const sizeAfterC = block.addBlock(new Vector(2, 1), blue);
 		expect(block.shape.length).toBe(3);
 		expect(sizeAfterC).toBe(3);
 		expect(block.shape[2][0]).toEqual(new Vector(1, 0));
-		expect(block.shape[2][1]).toEqual(typeA);
+		expect(block.shape[2][1]).toEqual(blue);
 	});
 });
 
 describe("get front-facing blocks", () => {
-	const block = new Block(new Vector(0, 0), typeA);
+	const block = new Block(new Vector(0, 0), blue);
 	const outlier = new Vector(2, 2);
-	block.addBlock(Vector.up, typeA);
-	block.addBlock(Vector.down, typeA);
-	block.addBlock(Vector.left, typeA);
-	block.addBlock(Vector.right, typeA);
-	block.addBlock(outlier, typeA);
+	block.addBlock(Vector.up, blue);
+	block.addBlock(Vector.down, blue);
+	block.addBlock(Vector.left, blue);
+	block.addBlock(Vector.right, blue);
+	block.addBlock(outlier, blue);
 
 	describe("when moving up", () => {
 		const front = block.getFront(Vector.up);
@@ -127,11 +127,11 @@ describe("get front-facing blocks", () => {
 });
 
 describe("get front-facing blocks with types", () => {
-	const block = new Block(new Vector(0, 0), typeA);
+	const block = new Block(new Vector(0, 0), blue);
 	const topright = Vector.add(Vector.up, Vector.right);
-	block.addBlock(Vector.up, typeB);
-	block.addBlock(Vector.right, typeB);
-	block.addBlock(topright, typeB);
+	block.addBlock(Vector.up, red);
+	block.addBlock(Vector.right, red);
+	block.addBlock(topright, red);
 
 	describe("when moving up", () => {
 		const front = block.getFront(Vector.up);

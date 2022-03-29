@@ -71,7 +71,15 @@ export class Block {
 }
 
 export abstract class BlockType {
+	public color: number;
+	public hollow: boolean;
+
+	constructor(color: number = 0, hollow: boolean = false) {
+		this.color = color;
+		this.hollow = hollow;
+	}
+
 	equals(other: BlockType): boolean {
-		return this === other;
+		return this.color === other.color;
 	}
 }
