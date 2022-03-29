@@ -1,4 +1,4 @@
-import type { Level } from "./game";
+import type { Level } from "./level";
 import type { Pair } from "./util";
 import { Vector } from "./vector";
 
