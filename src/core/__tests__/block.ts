@@ -41,10 +41,12 @@ describe("Block", () => {
 
 describe("get front-facing blocks", () => {
 	const block = new Block(new Vector(0, 0), type);
+  const outlier = new Vector(2, 2);
 	block.addBlock(Vector.up, type);
 	block.addBlock(Vector.down, type);
 	block.addBlock(Vector.left, type);
 	block.addBlock(Vector.right, type);
+	block.addBlock(outlier, type);
 	function contains(front: Shape, vector: Vector): boolean {
 		return front.some(p => p[0].equals(vector));
 	}
@@ -60,8 +62,11 @@ describe("get front-facing blocks", () => {
 		it("includes the right block", () => {
 			expect(contains(front, Vector.right)).toBe(true);
 		});
+		it("includes the outlier block", () => {
+			expect(contains(front, outlier)).toBe(true);
+		});
 		it("includes no other blocks", () => {
-			expect(front.length).toBe(3);
+			expect(front.length).toBe(4);
 		});
 	});
 
@@ -76,8 +81,11 @@ describe("get front-facing blocks", () => {
 		it("includes the right block", () => {
 			expect(contains(front, Vector.right)).toBe(true);
 		});
+		it("includes the outlier block", () => {
+			expect(contains(front, outlier)).toBe(true);
+		});
 		it("includes no other blocks", () => {
-			expect(front.length).toBe(3);
+			expect(front.length).toBe(4);
 		});
 	});
 
@@ -92,8 +100,11 @@ describe("get front-facing blocks", () => {
 		it("includes the left block", () => {
 			expect(contains(front, Vector.left)).toBe(true);
 		});
+		it("includes the outlier block", () => {
+			expect(contains(front, outlier)).toBe(true);
+		});
 		it("includes no other blocks", () => {
-			expect(front.length).toBe(3);
+			expect(front.length).toBe(4);
 		});
 	});
 
@@ -108,8 +119,11 @@ describe("get front-facing blocks", () => {
 		it("includes the right block", () => {
 			expect(contains(front, Vector.right)).toBe(true);
 		});
+		it("includes the outlier block", () => {
+			expect(contains(front, outlier)).toBe(true);
+		});
 		it("includes no other blocks", () => {
-			expect(front.length).toBe(3);
+			expect(front.length).toBe(4);
 		});
 	});
 });
