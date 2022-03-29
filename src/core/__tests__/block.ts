@@ -9,7 +9,7 @@ describe("Block", () => {
 		expect(Block).toBeDefined();
 	});
 
-	it("is created with size 1 at (0, 0)", () => {
+	it("gets created at (0, 0)", () => {
 		const block = new Block(new Vector(1, 2), type);
 		expect(block.shape.length).toBe(1);
 
@@ -37,79 +37,79 @@ describe("Block", () => {
 		expect(block.shape[2][0]).toEqual(new Vector(1, 0));
 		expect(block.shape[2][1]).toEqual(type);
 	});
+});
 
-	describe("get front-facing blocks", () => {
-		const block = new Block(new Vector(0, 0), type);
-		block.addBlock(Vector.up, type);
-		block.addBlock(Vector.down, type);
-		block.addBlock(Vector.left, type);
-		block.addBlock(Vector.right, type);
-		function contains(front: Shape, vector: Vector): boolean {
-			return front.some(p => p[0].equals(vector));
-		}
+describe("get front-facing blocks", () => {
+	const block = new Block(new Vector(0, 0), type);
+	block.addBlock(Vector.up, type);
+	block.addBlock(Vector.down, type);
+	block.addBlock(Vector.left, type);
+	block.addBlock(Vector.right, type);
+	function contains(front: Shape, vector: Vector): boolean {
+		return front.some(p => p[0].equals(vector));
+	}
 
-		describe("when moving up", () => {
-			const front = block.getFront(Vector.up);
-			it("includes the top block", () => {
-				expect(contains(front, Vector.up)).toBe(true);
-			});
-			it("includes the left block", () => {
-				expect(contains(front, Vector.left)).toBe(true);
-			});
-			it("includes the right block", () => {
-				expect(contains(front, Vector.right)).toBe(true);
-			});
-			it("includes no other blocks", () => {
-				expect(front.length).toBe(3);
-			});
+	describe("when moving up", () => {
+		const front = block.getFront(Vector.up);
+		it("includes the top block", () => {
+			expect(contains(front, Vector.up)).toBe(true);
 		});
-
-		describe("when moving down", () => {
-			const front = block.getFront(Vector.down);
-			it("includes the bottom block", () => {
-				expect(contains(front, Vector.down)).toBe(true);
-			});
-			it("includes the left block", () => {
-				expect(contains(front, Vector.left)).toBe(true);
-			});
-			it("includes the right block", () => {
-				expect(contains(front, Vector.right)).toBe(true);
-			});
-			it("includes no other blocks", () => {
-				expect(front.length).toBe(3);
-			});
+		it("includes the left block", () => {
+			expect(contains(front, Vector.left)).toBe(true);
 		});
-
-		describe("when moving left", () => {
-			const front = block.getFront(Vector.left);
-			it("includes the top block", () => {
-				expect(contains(front, Vector.up)).toBe(true);
-			});
-			it("includes the bottom block", () => {
-				expect(contains(front, Vector.down)).toBe(true);
-			});
-			it("includes the left block", () => {
-				expect(contains(front, Vector.left)).toBe(true);
-			});
-			it("includes no other blocks", () => {
-				expect(front.length).toBe(3);
-			});
+		it("includes the right block", () => {
+			expect(contains(front, Vector.right)).toBe(true);
 		});
+		it("includes no other blocks", () => {
+			expect(front.length).toBe(3);
+		});
+	});
 
-		describe("when moving right", () => {
-			const front = block.getFront(Vector.right);
-			it("includes the top block", () => {
-				expect(contains(front, Vector.up)).toBe(true);
-			});
-			it("includes the bottom block", () => {
-				expect(contains(front, Vector.down)).toBe(true);
-			});
-			it("includes the right block", () => {
-				expect(contains(front, Vector.right)).toBe(true);
-			});
-			it("includes no other blocks", () => {
-				expect(front.length).toBe(3);
-			});
+	describe("when moving down", () => {
+		const front = block.getFront(Vector.down);
+		it("includes the bottom block", () => {
+			expect(contains(front, Vector.down)).toBe(true);
+		});
+		it("includes the left block", () => {
+			expect(contains(front, Vector.left)).toBe(true);
+		});
+		it("includes the right block", () => {
+			expect(contains(front, Vector.right)).toBe(true);
+		});
+		it("includes no other blocks", () => {
+			expect(front.length).toBe(3);
+		});
+	});
+
+	describe("when moving left", () => {
+		const front = block.getFront(Vector.left);
+		it("includes the top block", () => {
+			expect(contains(front, Vector.up)).toBe(true);
+		});
+		it("includes the bottom block", () => {
+			expect(contains(front, Vector.down)).toBe(true);
+		});
+		it("includes the left block", () => {
+			expect(contains(front, Vector.left)).toBe(true);
+		});
+		it("includes no other blocks", () => {
+			expect(front.length).toBe(3);
+		});
+	});
+
+	describe("when moving right", () => {
+		const front = block.getFront(Vector.right);
+		it("includes the top block", () => {
+			expect(contains(front, Vector.up)).toBe(true);
+		});
+		it("includes the bottom block", () => {
+			expect(contains(front, Vector.down)).toBe(true);
+		});
+		it("includes the right block", () => {
+			expect(contains(front, Vector.right)).toBe(true);
+		});
+		it("includes no other blocks", () => {
+			expect(front.length).toBe(3);
 		});
 	});
 });
