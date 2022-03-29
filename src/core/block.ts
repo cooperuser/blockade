@@ -1,16 +1,18 @@
 import type { Level } from "./level";
 import type { Pair } from "./util";
-import { Vector } from "./vector";
+import { Vector, type VectorHash } from "./vector";
 
 export type Shape = Pair<Vector, BlockType>[];
 
 export class Block {
 	public position: Vector;
 	public shape: Shape;
+	public occupies: Set<VectorHash>;
 
 	constructor(position: Vector, type: BlockType) {
 		this.position = position;
 		this.shape = [[new Vector(), type]];
+		this.occupies = new Set([position.hash()]);
 	}
 
 	/**
@@ -22,6 +24,7 @@ export class Block {
 	addBlock(position: Vector, type: BlockType): number {
 		const pos = Vector.sub(position, this.position);
 		if (this.shape.some(p => p[0].equals(pos))) return -1;
+		this.occupies.add(position.hash());
 		return this.shape.push([pos, type]);
 	}
 
@@ -40,17 +43,19 @@ export class Block {
 
 	/**
 	 * Can this block move in the given direction?
-	 * @param {Vector} direction - The direction being moved in
+	 * @param {Vector} dir - The direction being moved in
 	 * @param {Level} level - The level being played on
 	 * @param {Shape} front - The front-facing/collidable blocks
+	 * @param {number} moves - How many moves have been made so far
 	 * @returns {boolean} Whether the block can move
 	 */
-	canMove(direction: Vector, level: Level, front?: Shape): boolean {
-		if (front === undefined) front = this.getFront(direction);
+	canMove(dir: Vector, level: Level, front?: Shape, moves?: number): boolean {
+		if (front === undefined) front = this.getFront(dir);
+		if (moves === undefined) moves = 0;
 		return !front.some(pair => {
 			const from = Vector.add(pair[0], this.position);
-			const to = Vector.add(from, direction);
-			return !level.validMove(from, to, pair[1]);
+			const to = Vector.add(from, dir);
+			return !level.validMove(from, to, pair[1], moves);
 		});
 	}
 
@@ -61,16 +66,22 @@ export class Block {
 	 * @returns {number} How many tiles the block moved
 	 */
 	move(direction: Vector, level: Level): number {
-		const front = this.getFront(direction);
 		/*eslint-disable no-constant-condition*/
-		for (let i = 0; true; i++) {
-			if (!this.canMove(direction, level, front)) return i;
+
+		let moves: number;
+		const front = this.getFront(direction);
+		for (moves = 0; true; moves++) {
+			if (!this.canMove(direction, level, front, moves)) break;
 			this.position = this.position.add(direction);
 		}
+
+		const spots = this.shape.map(this.position.addPair);
+		this.occupies = new Set(spots.map(v => v.hash()));
+		return moves;
 	}
 }
 
-export abstract class BlockType {
+export class BlockType {
 	public color: number;
 	public hollow: boolean;
 
