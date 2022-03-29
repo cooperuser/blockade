@@ -40,16 +40,14 @@ describe("Block", () => {
 });
 
 describe("get front-facing blocks", () => {
+	const contains = (f: Shape, v: Vector) => f.some(p => p[0].equals(v));
 	const block = new Block(new Vector(0, 0), type);
-  const outlier = new Vector(2, 2);
+	const outlier = new Vector(2, 2);
 	block.addBlock(Vector.up, type);
 	block.addBlock(Vector.down, type);
 	block.addBlock(Vector.left, type);
 	block.addBlock(Vector.right, type);
 	block.addBlock(outlier, type);
-	function contains(front: Shape, vector: Vector): boolean {
-		return front.some(p => p[0].equals(vector));
-	}
 
 	describe("when moving up", () => {
 		const front = block.getFront(Vector.up);
