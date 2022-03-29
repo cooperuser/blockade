@@ -1,2 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>「Blockade」</h1>
+<a href="/play">play</a>
+<a href="/editor">editor</a>
+<a href="/about">about</a>
+<a href="/">exit</a>
