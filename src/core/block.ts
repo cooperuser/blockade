@@ -2,7 +2,7 @@ import type { Level } from "./level";
 import type { Pair } from "./util";
 import { Vector } from "./vector";
 
-type Shape = Pair<Vector, BlockType>[];
+export type Shape = Pair<Vector, BlockType>[];
 
 export class Block {
 	position: Vector;
@@ -33,8 +33,8 @@ export class Block {
 	getFront(direction: Vector): Shape {
 		return this.shape.filter(pair => {
 			const pos = Vector.add(pair[0], direction);
-			const [p, t] = this.shape.find(p => p[0].equals(pos));
-			return p === undefined || !t.equals(pair[1]);
+			const p = this.shape.find(p => p[0].equals(pos));
+			return p === undefined || !p[1].equals(pair[1]);
 		});
 	}
 
@@ -64,8 +64,7 @@ export class Block {
 		const front = this.getFront(direction);
 		/*eslint-disable no-constant-condition*/
 		for (let i = 0; true; i++) {
-			const canMove = this.canMove(direction, level, front);
-			if (!canMove) return i;
+			if (!this.canMove(direction, level, front)) return i;
 			this.position = this.position.add(direction);
 		}
 	}
