@@ -7,8 +7,8 @@ export type PlateProps = {
 export class Plate {
 	public color: number;
 
-	constructor(props: PlateProps = { color: 0 }) {
-		this.color = props.color;
+	constructor({ color = 0 }: PlateProps = {}) {
+		this.color = color;
 	}
 
 	isPressed(block: Block): boolean {

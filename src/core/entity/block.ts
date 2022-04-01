@@ -7,10 +7,12 @@ export type BlockProps = {
 export class Block {
 	public color: number;
 	public hollow: boolean;
+	public group: number;
 
-	constructor(props: BlockProps = { color: 0, hollow: false, group: 0 }) {
-		this.color = props.color;
-		this.hollow = props.hollow;
+	constructor({ color = 0, hollow = false, group = 0 }: BlockProps = {}) {
+		this.color = color;
+		this.hollow = hollow;
+		this.group = group;
 	}
 
 	equals(other: Block): boolean {

@@ -9,9 +9,9 @@ export class Tile {
 	public color: number;
 	public cushion: boolean;
 
-	constructor(props: TileProps = { color: 0, cushion: false }) {
-		this.color = props.color;
-		this.cushion = props.cushion;
+	constructor({ color = 0, cushion = false }: TileProps = {}) {
+		this.color = color;
+		this.cushion = cushion;
 	}
 
 	canMoveTo(block: Block): boolean {
