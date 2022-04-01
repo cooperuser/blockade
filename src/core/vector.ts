@@ -27,6 +27,15 @@ export class Vector {
 		return new Vector(this.x - other.x, this.y - other.y);
 	}
 
+	mult(n: number): Vector {
+		return new Vector(this.x * n, this.y * n);
+	}
+
+	div(n: number): Vector {
+		if (n === 0) return new Vector(0, 0);
+		return new Vector(this.x / n, this.y / n);
+	}
+
 	equals(other: Vector): boolean {
 		return this.x === other.x && this.y === other.y;
 	}
@@ -35,12 +44,21 @@ export class Vector {
 		return `${this.x}:${this.y}`;
 	}
 
+	makeArray<T>(fn: (v: Vector) => T): T[][] {
+		const a = Array.from({ length: this.y }, () => Array(this.x).fill(null));
+		return a.map((row, y) => row.map((_, x) => fn(new Vector(x, y))));
+	}
+
 	static add(a: Vector, b: Vector): Vector {
 		return new Vector(a.x + b.x, a.y + b.y);
 	}
 
 	static sub(a: Vector, b: Vector): Vector {
 		return new Vector(a.x - b.x, a.y - b.y);
+	}
+
+	static fromRaw(raw: RawVector): Vector {
+		return new Vector(raw[0], raw[1]);
 	}
 
 	static fromHash(hash: VectorHash): Vector {
@@ -54,3 +72,4 @@ export class Vector {
 }
 
 export type VectorHash = string;
+export type RawVector = [number, number];
