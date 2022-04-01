@@ -1,15 +1,16 @@
+import type { Block } from "./entity/block";
 import type { Level } from "./level";
 import type { Pair } from "./util";
 import { Vector, type VectorHash } from "./vector";
 
-export type Shape = Pair<Vector, BlockType>[];
+export type Shape = Pair<Vector, Block>[];
 
-export class Block {
+export class BlockGroup {
 	public position: Vector;
 	public shape: Shape;
 	public occupies: Set<VectorHash>;
 
-	constructor(position: Vector, type: BlockType) {
+	constructor(position: Vector, type: Block) {
 		this.position = position;
 		this.shape = [[new Vector(), type]];
 		this.occupies = new Set([position.hash()]);
@@ -18,10 +19,10 @@ export class Block {
 	/**
 	 * Add a new block to this group
 	 * @param {Vector} position - The level position of the block
-	 * @param {BlockType} type - The type of block being added
+	 * @param {Block} type - The type of block being added
 	 * @returns {number} The number of blocks or `-1`
 	 */
-	addBlock(position: Vector, type: BlockType): number {
+	addBlock(position: Vector, type: Block): number {
 		const pos = Vector.sub(position, this.position);
 		if (this.shape.some(p => p[0].equals(pos))) return -1;
 		this.occupies.add(position.hash());
@@ -78,19 +79,5 @@ export class Block {
 		const spots = this.shape.map(this.position.addPair);
 		this.occupies = new Set(spots.map(v => v.hash()));
 		return moves;
-	}
-}
-
-export class BlockType {
-	public color: number;
-	public hollow: boolean;
-
-	constructor(color: number = 0, hollow: boolean = false) {
-		this.color = color;
-		this.hollow = hollow;
-	}
-
-	equals(other: BlockType): boolean {
-		return this.color === other.color;
 	}
 }

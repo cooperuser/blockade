@@ -1,17 +1,17 @@
-import { Block, BlockType, type Shape } from "../block";
+import { BlockGroup, type Shape } from "../blockgroup";
+import { Block } from "../entity/block";
 import { Vector } from "../vector";
 
-class Standard extends BlockType {}
-const [blue, red] = [new Standard(0), new Standard(1)];
+const [blue, red] = [new Block({ color: 1 }), new Block({ color: 2 })];
 const contains = (f: Shape, v: Vector) => f.some(p => p[0].equals(v));
 
-describe("Block", () => {
+describe("BlockGroup", () => {
 	it("should be defined", () => {
-		expect(Block).toBeDefined();
+		expect(BlockGroup).toBeDefined();
 	});
 
 	it("gets created at (0, 0)", () => {
-		const block = new Block(new Vector(1, 2), blue);
+		const block = new BlockGroup(new Vector(1, 2), blue);
 		expect(block.shape.length).toBe(1);
 
 		const pair = block.shape[0];
@@ -20,7 +20,7 @@ describe("Block", () => {
 	});
 
 	it("can have blocks appended", () => {
-		const block = new Block(new Vector(1, 1), blue);
+		const block = new BlockGroup(new Vector(1, 1), blue);
 		const sizeAfterB = block.addBlock(new Vector(1, 2), blue);
 		expect(sizeAfterB).toBe(2);
 		expect(block.shape[1][0]).toEqual(new Vector(0, 1));
@@ -41,7 +41,7 @@ describe("Block", () => {
 });
 
 describe("get front-facing blocks", () => {
-	const block = new Block(new Vector(0, 0), blue);
+	const block = new BlockGroup(new Vector(0, 0), blue);
 	const outlier = new Vector(2, 2);
 	block.addBlock(Vector.up, blue);
 	block.addBlock(Vector.down, blue);
@@ -127,7 +127,7 @@ describe("get front-facing blocks", () => {
 });
 
 describe("get front-facing blocks with types", () => {
-	const block = new Block(new Vector(0, 0), blue);
+	const block = new BlockGroup(new Vector(0, 0), blue);
 	const topright = Vector.add(Vector.up, Vector.right);
 	block.addBlock(Vector.up, red);
 	block.addBlock(Vector.right, red);
